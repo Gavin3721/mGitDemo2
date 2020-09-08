@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #operateDiv,
+        #cunkuanDiv,
+        #qukuanDiv,
+        #zhuanzhangDiv {
+            display: none;
+        }
+    </style>
+    <script type="text/javascript">
+        var currUserId = ""; //当前登录的用户名
+
+        var users = [
+            {
+                username: "张三",
+                loginname: "zhangsan",
+                password: "123123",
+                failcount: "0",//登陆失败的次数
+                cardid: "zs111333666",//账户卡号
+                money: 1500,//余额
+                historyarr: []//存储交易记录
+            },
+            {
+                username: "李四",
+                loginname: "lisi",
+                password: "123123",
+                failcount: "0",
+                cardid: "ls222333111",
+                money: 500,
+                historyarr: []
+            }, {
+                username: "王五",
+                loginname: "wangwu",
+                password: "123123",
+                failcount: "0",
+                cardid: "ww888555111",
+                money: 0,
+                historyarr: []
+            }
+        ];
+
+        window.onload = function () {
+            //登录操作
+            document.getElementById("loginBtn").onclick = function () {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                var mTips = document.getElementById("tips1");
+                var result = login(username, password);
+                if (!isNaN(result)) {
+                    mTips.innerHTML = "<span style='color:red;'>登录失败，还剩" + result + "次登录机会<span>";
+                } else if (result.substring(0, 4) == "登录成功") {
+                    document.getElementById("loginDiv").style.display = "none";
+                    document.getElementById("operateDiv").style.display = "block";
+                    document.getElementById("yewuDiv").style.display = "block";
+                    document.getElementById("tips2").innerHTML = "<span style='color:green;'>---登录成功，请选择以下办理业务---<span>";
+                    currUserId = username;
+                    document.getElementById("userNm").innerText = "当前登录用户：" + result.substring(4);
+                } else {
+                    mTips.innerHTML = "<span style='color:red;'>" + result + "<span>";
+                }
+            };
+
+            //业务操作
+            document.getElementById("operateBtn").onclick = function () {
+                var ywId = document.getElementById("operateId").value;
+                var mTips2 = document.getElementById("tips2");
+                mTips2.innerHTML = "";
+                switch (ywId) {
+                    case "1":
+                        //1、存款
+                        document.getElementById("cunkuanDiv").style.display = "block";
+                        document.getElementById("qukuanDiv").style.display = "none";
+                        document.getElementById("zhuanzhangDiv").style.display = "none";
+                        break;
+                    case "2":
+                        //2、取款
+                        document.getElementById("cunkuanDiv").style.display = "none";
+                        document.getElementById("qukuanDiv").style.display = "block";
+                        document.getElementById("zhuanzhangDiv").style.display = "none";
+                        break;
+                    case "3":
+                        //3、转账
+                        document.getElementById("cunkuanDiv").style.display = "none";
+                        document.getElementById("qukuanDiv").style.display = "none";
+                        document.getElementById("zhuanzhangDiv").style.display = "block";
+                        break;
+                    case "4":
+                        //4、查询余额
+                        document.getElementById("cunkuanDiv").style.display = "none";
+                        document.getElementById("qukuanDiv").style.display = "none";
+                        document.getElementById("zhuanzhangDiv").style.display = "none";
+                        var yue = getYue(currUserId);
+                        mTips2.innerHTML = "<span style='color:blue;font-weight:bold;'>您账户的当前余额为：" + yue + "元<span>";
+                        break;
+                    case "5":
+                        //5、交易记录
+                        document.getElementById("cunkuanDiv").style.display = "none";
+                        document.getElementById("qukuanDiv").style.display = "none";
+                        document.getElementById("zhuanzhangDiv").style.display = "none";
+                        var arr = getHistory(currUserId);
+                        if (arr.length == 0) {
+                            mTips2.innerHTML = "<span style='color: green;'>您还未有操作记录<span>";
+                        } else {
+                            var str = "";
+                            for (var i = 0; i < arr.length; i++) {
+                                str += "<span style='color: blue;'>" + arr[i] + "<span><br/>";
+                            }
+                            mTips2.innerHTML = str;
+                        }
+                        break;
+                    default:
+                        mTips2.innerHTML = "<span style='color:red;'>您的输入不合法，请重新输入！！<span>";
+                        document.getElementById("operateId").value = "";
+                        break;
+                }
+            };
+
+            //退出系统操作
+            document.getElementById("signOutBtn").onclick = function () {
+                var isOk = confirm("是否确认退出系统？");
+                if (isOk) {
+                    currUserId = "";
+                    document.getElementById("tips1").innerText = "";
+                    document.getElementById("loginDiv").style.display = "block";
+                    document.getElementById("operateDiv").style.display = "none";
+                    document.getElementById("yewuDiv").style.display = "none";
+                    //清空所有输入的文本框
+                    var inputArr = document.getElementsByTagName("input");
+                    for (var i = 0; i < inputArr.length; i++) {
+                        if (inputArr[i].type == "text" || inputArr[i].type == "password") {
+                            inputArr[i].value = "";
+                        }
+                    }
+                }
+            };
+
+            //存款操作
+            document.getElementById("ckBtn").onclick = function () {
+                var money = document.getElementById("ckMoney").value;
+                var mTips2 = document.getElementById("tips2");
+                if (money == '') {
+                    mTips2.innerHTML = "<span style='color:red;'>要存款的金额不能为空！！！<span>";
+                    return false;
+                }
+                if (!isNaN(money)) {
+                    var mStr = cunKuan(currUserId, money);
+                    mTips2.innerHTML = "<span style='color:green;'>存款成功，您当前的账户余额为：" + mStr + "元<span>";
+                } else {
+                    mTips2.innerHTML = "<span style='color:red;'>您输入的存款金额不合法，请重新输入<span>";
+                }
+                document.getElementById("ckMoney").value = "";
+            };
+
+            //取款操作
+            document.getElementById("qkBtn").onclick = function () {
+                var money = document.getElementById("qkMoney").value;
+                var mTips2 = document.getElementById("tips2");
+                if (money == '') {
+                    mTips2.innerHTML = "<span style='color:red;'>要取款的金额不能为空！！！<span>";
+                    return false;
+                }
+                if (!isNaN(money)) {
+                    var mStr = quKuan(currUserId, money);
+                    if (mStr != "余额不足") {
+                        mTips2.innerHTML = "<span style='color:green;'>取款成功，您当前的账户余额为：" + mStr + "元<span>";
+                    } else {
+                        mTips2.innerHTML = "<span style='color:red;'>您的余额不足，取款失败<span>";
+                    }
+                } else {
+                    mTips2.innerHTML = "<span style='color:red;'>您输入的取款金额不合法，请重新输入<span>";
+                }
+                document.getElementById("qkMoney").value = "";
+            };
+
+            //转账操作
+            document.getElementById("zzBtn").onclick = function () {
+                var idNum = document.getElementById("zzIdNum").value;
+                var money = document.getElementById("zzMoney").value;
+                var mTips2 = document.getElementById("tips2");
+                if (idNum == '') {
+                    mTips2.innerHTML = "<span style='color:red;'>要转账的卡号不能为空！！！<span>";
+                    return false;
+                }
+                if (money == '') {
+                    mTips2.innerHTML = "<span style='color:red;'>要转账的金额不能为空！！！<span>";
+                    return false;
+                }
+                if (!isNaN(money)) {
+                    var mStr = zhuanZhang(currUserId, idNum, money);
+                    if (!isNaN(mStr)) {
+                        mTips2.innerHTML = "<span style='color:green;'>转账成功，您当前的账户余额为：" + mStr + "元<span>";
+                    } else {
+                        mTips2.innerHTML = "<span style='color:red;'>转账失败，" + mStr + "<span>";
+                    }
+                } else {
+                    mTips2.innerHTML = "<span style='color:red;'>您输入的转账金额不合法，请重新输入<span>";
+                }
+                document.getElementById("zzMoney").value = "";
+            };
+        };
+
+
+        //登录方法（登录成功返回‘登录成功’，失败则返回剩余可登录的次数，以及被锁定的提示信息）
+        function login(usernm, pwd) {
+            var result = "";
+            for (var i = 0; i < users.length; i++) {
+                var user = users[i];
+                if (user.loginname == usernm) {
+                    var failcount = Number(user.failcount);
+                    if (failcount == 3) {
+                        result = "您已连续三次登陆失败，账户已被锁定。请本人持第三代身份证前往营业厅进行认证";
+                        break;
+                    } else {
+                        if (user.loginname == usernm && user.password == pwd) {
+                            result = "登录成功" + users[i].username;
+                            users[i].failcount = 0;
+                            break;
+                        } else if (user.loginname == usernm && user.password != pwd) {
+                            failcount += 1;
+                            users[i].failcount = failcount;
+                            if (failcount == 3) {
+                                result = "您已连续三次登陆失败，账户已被锁定。请本人持第三代身份证前往营业厅进行认证";
+                            } else {
+                                result = 3 - failcount;
+                            }
+                            break;
+                        }
+                    }
+                } else {
+                    result = "未找到该用户";
+                }
+            }
+            return result;
+        }
+
+        //获取当前时间
+        function getMTime() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;//0-11
+            var day = date.getDate();//1-31
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+        }
+
+        //存款方法（操作成功返回余额）
+        function cunKuan(usernm, money) {
+            for (var i = 0; i < users.length; i++) {
+                var user = users[i];
+                if (user.loginname == usernm) {
+                    var mMoney = Number(user.money);
+                    mMoney += Number(money);
+                    users[i].money = mMoney;
+                    users[i].historyarr.push(getMTime() + "&nbsp;成功存款：" + money + "元");
+                    return mMoney;
+                }
+            }
+        }
+
+        //取款方法（取款成功返回余额，否则返回‘余额不足’）
+        function quKuan(usernm, money) {
+            var result = "";
+            for (var i = 0; i < users.length; i++) {
+                var user = users[i];
+                if (user.loginname == usernm) {
+                    var mMoney = Number(user.money);
+                    if (mMoney >= money) {
+                        mMoney -= Number(money);
+                        users[i].money = mMoney;
+                        users[i].historyarr.push(getMTime() + "&nbsp;成功取款：" + money + "元");
+                        result = mMoney;
+                    } else {
+                        result = "余额不足";
+                    }
+                    break;
+                }
+            }
+            return result;
+        }
+
+        //转账方法（转账成功返回余额，否则返回‘余额不足’，及其他提示）
+        function zhuanZhang(usernm, idNum, money) {
+            var result = "", index = -1;//index指账户的索引
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].cardid == idNum) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index == -1) {
+                result = "被转账的账号不存在";
+            } else {
+                for (var j = 0; j < users.length; j++) {
+                    if (users[j].loginname == usernm) {
+                        var user1 = users[j];//转账的对象
+                        var user2 = users[index];//被转账的对象
+                        var mMoney = Number(user1.money);
+                        var mMoney2 = Number(user2.money);
+                        if (mMoney >= money) {
+                            //转账
+                            mMoney -= Number(money);
+                            users[j].money = mMoney;
+                            users[j].historyarr.push(getMTime() + "&nbsp;成功向" + idNum + "转账：" + money + "元");
+                            //被转账
+                            mMoney2 += Number(money);
+                            users[index].money = mMoney2;
+                            users[index].historyarr.push(getMTime() + "&nbsp;" + usernm + "向您的账户转账：" + money + "元");
+                            result = mMoney;
+                        } else {
+                            result = "余额不足";
+                        }
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        //获取余额
+        function getYue(usernm) {
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].loginname == usernm) {
+                    return users[i].money;
+                }
+            }
+        }
+
+        //获取交易记录
+        function getHistory(usernm) {
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].loginname == usernm) {
+                    return users[i].historyarr;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h3>***********ATM机***********</h3>
+    <div id="loginDiv">
+        用户名：<input id="username" placeholder="用户名" type="text" /><br />
+        密&nbsp;&nbsp;&nbsp;码：<input id="password" placeholder="密码" type="password" /><br />
+        <p id="tips1"></p>
+        <input id="loginBtn" type="button" value="登录" />
+    </div>
+
+    <div id="operateDiv">
+        <span id="userNm"></span><br /><input id="signOutBtn" type="button" value="退出系统" />
+        <p>1、存款&nbsp;&nbsp;&nbsp;2、取款&nbsp;&nbsp;&nbsp;3、转账&nbsp;&nbsp;&nbsp;4、查询余额&nbsp;&nbsp;5、交易记录</p>
+        <p id="tips2"></p>
+        请选择您要办理的业务：<br />
+        <input id="operateId" placeholder="请输入" type="text" />
+        <input id="operateBtn" type="button" value="操作" />
+    </div>
+
+    <div id="yewuDiv">
+        <div id="cunkuanDiv">
+            <br />
+            请输入要存款的金额：<br /><input id="ckMoney" placeholder="存款金额" type="text" />
+            <input id="ckBtn" type="button" value="存款" />
+        </div>
+
+        <div id="qukuanDiv">
+            <br />
+            请输入要取款的金额：<br /><input id="qkMoney" placeholder="取款金额" type="text" />
+            <input id="qkBtn" type="button" value="取款" />
+        </div>
+        <div id="zhuanzhangDiv">
+            <br />
+            请输入转账卡号：<br /><input id="zzIdNum" placeholder="卡号" type="text" /><br />
+            请输入转账金额：<br /><input id="zzMoney" placeholder="金额" type="text" /><br />
+            <input id="zzBtn" type="button" value="转账" />
+        </div>
+    </div>
+</body>
+
+</html>

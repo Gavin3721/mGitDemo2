@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/分页.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        table th,
+        td {
+            text-align: center;
+        }
+
+        .table-responsive {
+            text-align: center;
+        }
+
+        .table-responsive span,
+        #addStudentInfo {
+            cursor: pointer;
+        }
+
+        .modal-body p span {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="addStudentInfo" type="button" class="btn btn-primary btn-mg">添加学生信息</button>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="mTbody"></tbody>
+        </table>
+        <div id="fenyeBtns"></div>
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span>学生信息</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <input id="stuId" type="text" class="form-control" placeholder="编号"
+                                required="required" /><span>*</span>
+                        </p>
+                        <p>
+                            <input id="stuNm" type="text" class="form-control" placeholder="姓名"
+                                required="required" /><span>*</span>
+                        </p>
+                        <p>
+                            <input id="stuAge" type="text" class="form-control" placeholder="年龄"
+                                required="required" /><span>*</span>
+                        </p>
+                        <p>
+                            <input id="stuSex" type="text" class="form-control" placeholder="性别"
+                                required="required" /><span>*</span>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="addUpdStudentBtn" type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

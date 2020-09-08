@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 1.猜数字游戏，有一个0-100随机数 玩家有5次输入的机会猜，
+        每次猜一次，都要将结果告诉玩家是小了，还是大了
+        如果在5次机会内猜中，输出“聪明”，程序结束
+        如果5次机会用完 程序直接结束。*/
+
+        var num = Math.floor(Math.random() * 100) + 1;
+        var failCount = 0;
+        do {
+            var num2 = prompt("请输入您所猜测的数字");
+            if (num == num2) {
+                alert("您真厉害，恭喜猜对了，送你小花花");
+                break;
+            } else if (num2 > num) {
+                failCount += 1;
+                if (failCount != 5) {
+                    alert("大了，再小一点点。还有" + (5 - failCount) + "次机会");
+                }
+            } else {
+                failCount += 1;
+                if (failCount != 5) {
+                    alert("小了，再猜大一点。还有" + (5 - failCount) + "次机会");
+                }
+            }
+            if (failCount == 5) {
+                alert("您的5次机会已用完，游戏失败");
+                break;
+            }
+        } while (true);
+        document.write("正确的答案是：" + num);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

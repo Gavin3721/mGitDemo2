@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 3.题目：有一分数序列：2/1，3/2，5/3，8/5，13/8，21/13...求出这个数列的前20项之和。
+        a/b   a+b/a */
+        var fenziPrev1 = 2, fenziPrev2 = 3;
+        var fenmuPrev1 = 1, fenmuPrev2 = 2;
+        var fenziNum = 0, fenmuNum = 0;
+        var sum = fenziPrev1 / fenmuPrev1 + fenziPrev2 / fenmuPrev2;
+        for (var i = 3; i <= 20; i++) {
+            fenziNum = fenziPrev1 + fenziPrev2;
+            fenmuNum = fenmuPrev1 + fenmuPrev2;
+            fenziPrev1 = fenziPrev2;
+            fenziPrev2 = fenziNum;
+            fenmuPrev1 = fenmuPrev2;
+            fenmuPrev2 = fenmuNum;
+            sum = sum + fenziNum / fenmuNum;
+            if (i == 20) {
+                document.write("第" + i + "个数为：" + fenziNum + "/" + fenmuNum + "<br/>");
+            }
+        }
+        document.write("前20个数的总和为：" + sum);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

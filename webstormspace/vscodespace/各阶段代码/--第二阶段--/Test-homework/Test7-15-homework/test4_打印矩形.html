@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 4.提供一个函数，此函数用来打印由“*”组成的矩形，但是行数和列数，
+            做为形参，由调用者来给具体的行数和列数，最后由函数打印出对应行数列数大小的矩形 */
+        var rowNum = prompt("请输入要打印的行数");
+        var columnNum = prompt("请输入要打印的列数");
+        function printJuXing() {
+            for (var i = 0; i < rowNum; i++) {
+                for (var j = 0; j < columnNum; j++) {
+                    if (j == 0 || j == columnNum - 1 || i == 0 || i == rowNum - 1) {
+                        document.write("*");
+                    } else {
+                        document.write("-");
+                    }
+                }
+                document.write("<br/>");
+            }
+        }
+        printJuXing(rowNum, columnNum);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

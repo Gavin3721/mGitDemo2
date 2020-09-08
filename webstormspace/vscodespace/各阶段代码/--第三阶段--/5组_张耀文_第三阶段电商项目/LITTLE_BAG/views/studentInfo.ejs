@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table th,
+        td {
+            padding: 20px;
+            border: 1px solid rgb(48, 128, 24);
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('./header',{str1:'这是从studentinfo传过来的数据1'}); %>
+
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <th>姓名</th>
+            <th>签名</th>
+            <th>日期</th>
+        </tr>
+        <% stuArr.forEach(function(stu){%>
+        <tr>
+            <td><%=stu.username %></td>
+            <td><%=stu.usersign %></td>
+            <td><%=stu.createtime %></td>
+        </tr>
+        <% }); %>
+    </table>
+
+    <%- include('./footer',{str2:'这是从studentinfo传过来的数据2'}); %>
+</body>
+
+</html>

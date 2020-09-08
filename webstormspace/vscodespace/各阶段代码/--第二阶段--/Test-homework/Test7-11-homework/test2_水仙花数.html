@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+    /* 作业2：水仙花数
+     例：水仙花数 153=1*1*1+5*5*5+3*3*3
+     输入一个数，判断是不是水仙花数*/
+    var num = "";
+    var isYes = false;
+    do {
+        num = prompt("请输入数字");
+        var array = num.split("");
+        var num2 = 0;
+        for (var i = 0; i < array.length; i++) {
+            var num3 = Number(array[i]);
+            num2 = num2 + num3 * num3 * num3;
+        }
+        if (num2 == num) {
+            document.write(num + "是水仙花数，执行结束");
+            isYes = true;
+        } else {
+            alert(num + "不是水仙花数，请继续");
+        }
+    }
+    while (!isYes);
+</script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/studentinfo.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 20px;
+        }
+
+        table th,
+        td {
+            text-align: center;
+        }
+
+        .table-responsive {
+            text-align: center;
+        }
+
+        .table-responsive span,
+        #addStudentInfo {
+            cursor: pointer;
+        }
+
+        .modal-body p span {
+            color: red;
+            font-size: 16px;
+        }
+
+        #searchDiv {
+            display: flex;
+            direction: row;
+        }
+
+        #searchDiv div {
+            margin: 20px;
+        }
+
+        #mTbody:empty:before {
+            content: '~暂无相关数据~';
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>--學生信息列表--</h2>
+    <div id="searchDiv">
+        <div><input id="stu_Nm" placeholder="学生姓名" class="form-control" type="text" /></div>
+        <div>
+            <select id="stu_Sex" class="form-control">
+                <option value="">--请选择性别--</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
+        <div><button id="searchBtn" type="button" class="btn btn-primary btn-mg">搜&nbsp;索</button></div>
+        <div><button id="addStudentInfo" type="button" class="btn btn-primary btn-mg">添加学生信息</button></div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" /></th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="mTbody"></tbody>
+        </table>
+        <div id="fenyeBtns"></div>
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span>学生信息</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="keyId" />
+                        <p>
+                            <input id="stuId" type="text" class="form-control" placeholder="学号"
+                                required="required" /><span>*</span>
+                        </p>
+                        <p>
+                            <input id="stuNm" type="text" class="form-control" placeholder="姓名"
+                                required="required" /><span>*</span>
+                        </p>
+                        <p>
+                            <input id="stuAge" type="text" class="form-control" placeholder="年龄"
+                                required="required" /><span>*</span>
+                        </p>
+                        <p>
+                            <select id="stuSex" class="form-control">
+                                <option value="">--请选择性别--</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="addUpdStudentBtn" type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

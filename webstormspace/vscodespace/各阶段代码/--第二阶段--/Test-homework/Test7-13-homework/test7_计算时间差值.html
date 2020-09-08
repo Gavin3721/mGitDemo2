@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 6.输入2个日期 （年月日），计算两个日期相差多少天？ */
+        var time1 = prompt("请输入时间1");
+        var time2 = prompt("请输入时间2");
+        var date1 = new Date(time1);
+        var date2 = new Date(time2);
+        //getTime()返回距1970年1月1日之间的毫秒数
+        var mDate = (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24);
+        if (mDate < 0) {
+            mDate = -mDate;
+        }
+        document.write(time1 + "和" + time2 + "之间相差" + mDate + "天");
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #two {
+            margin: 0 auto;
+        }
+
+        #box1 {
+            margin: 0 auto;
+            margin-top: 30px;
+            line-height: 50px;
+            overflow: hidden;
+            width: 200px;
+        }
+
+        #box1 li {
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            float: left;
+            text-align: center;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../css/fy-alert.css" />
+<script src="../../js/fy-alert.js"></script>
+
+<body>
+    <input type="number" id="id" placeholder="请输入id" />
+    <input type="text" id="name" placeholder="请输入医生姓名" />
+    <input type="number" id="ksId" placeholder="请输入科室id" />
+    <input type="radio" name="sex" value="0" /> 女
+    <input type="radio" name="sex" value="1" /> 男
+    <input type="number" id="age" placeholder="请输入年龄" />
+    <input type="text" id="type" placeholder="请输入医生职位" />
+    <input type="number" id="charge" placeholder="请输入挂号费" />
+    <button id="btn">添加</button>
+    <table border="1px" cellspacing="0" width="300px" align="center" id="two"
+        class="table table-bordered table-striped">
+        <caption>医生信息</caption>
+        <thead>
+            <tr align="center" style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));">
+                <th>id</th>
+                <th>name</th>
+                <th>ksId</th>
+                <th>sex</th>
+                <th>age</th>
+                <th>type</th>
+                <th>charge</th>
+                <th>option</th>
+                <th>option</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <ul id="box1">
+        <li><a href=""></a>上一页</li>
+        <li><a href=""></a>下一页</li>
+    </ul>
+    <button id="btn3">初始化数据</button>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../data/shuju.js"></script>
+    <script>
+        var tableBody1 = document.querySelector('#two tbody');
+        var box1 = document.querySelector('#box1');
+        var btn3 = document.getElementById('btn3');
+        var pageData = [];
+        var localyishen = [];
+        initTable();
+        btn3.onclick = function () {
+            localStorage.setItem('yishen', JSON.stringify(yiShen));
+            initTable();
+        };
+        function initTable() {
+            localyishen = localStorage.getItem('yishen');
+            localyishen = JSON.parse(localyishen);
+            getPageData(yiShen, 1, 3);
+            render(pageData, 1, 3);
+            getPage(yiShen.length, 3);
+        }
+        function render(pageData, pageindex, numPerPage) {
+            var str = '';
+            for (var i = 0; i <= pageData.length - 1; i++) {
+                str = str + '<tr><td>' + pageData[i].id + '</td>' +
+                    '<td>' + pageData[i].name + '</td>' +
+                    '<td>' + pageData[i].ksId + '</td>' +
+                    '<td>' + pageData[i].sex + '</td>' +
+                    '<td>' + pageData[i].age + '</td>' +
+                    '<td>' + pageData[i].type + '</td>' +
+                    '<td>' + pageData[i].charge + '</td>' +
+                    "<td><button class='delBtn' data-index='" + ((pageindex - 1) * numPerPage + i) + "'>删除</button></td>" +
+                    "<td><button class='del1Btn' data-mid='" + pageData[i].id + "'data-index='" + ((pageindex - 1) * numPerPage + i) + "'>修改</button></td>" +
+                    "</tr>"
+            }
+            tableBody1.innerHTML = str;
+        }
+        function getPage(total, numPerPage) {
+            var pageNum = Math.ceil(total / numPerPage);
+            var str = '';
+            for (var i = 1; i <= pageNum; i++) {
+                str += '<li><a href="javascript:;">' + i + '</a></li>';
+            }
+            box1.innerHTML = str;
+        }
+        function getPageData(arr, index, numPerPage) {
+            pageData = arr.slice((index - 1) * numPerPage, index * numPerPage);
+        }
+        $(box1).on('click', 'li', function () {
+            console.log($(this).index());
+            getPageData(localyishen, $(this).index() + 1, 3);
+            render(pageData, $(this).index() + 1, 3);
+            getPage(localyishen.length, 5);
+            $(this).addClass('active').siblings('li').removeClass('active');
+        });
+        //增加功能
+        $('#btn').click(function () {
+            //        console.log(localyishen);
+            var id = $('#id');
+            var username = $('#name');
+            var ksId = $('#ksId');
+            var sex = $('[name="sex"]:checked');
+            var age = $('#age');
+            var type = $('#type');
+            var charge = $('#charge');
+            localyishen.unshift({
+                id: id.val(),
+                name: username.val(),
+                ksId: ksId.val(),
+                sex: sex.val(),
+                age: age.val(),
+                type: type.val(),
+                charge: charge.val()
+            });
+            //        console.log();
+            $('input').val('');
+            localStorage.setItem('yishen', JSON.stringify(localyishen));
+            getPageData(localyishen, 1, 3);
+            render(pageData, 1, 3);
+            getPage(localyishen.length, 3);
+
+        });
+        //删除
+        $('tbody').on('click', '.delBtn', function () {
+            console.log($(this).data('index'));
+            openDialog();
+        });
+        //删除模态框
+        function openDialog() {
+            fyAlert.alert({
+                title: "退出",
+                drag: true,
+                shadowClose: false,
+                content: '是否确认删除？',
+                btns: {
+                    '确 定': function (obj) {
+                        //                    console.log(typeof localyishen);
+                        localyishen.splice($(this).data('index'), 1);
+                        //           console.log(localkeshi);
+                        localStorage.setItem('yishen', JSON.stringify(localyishen));
+                        //渲染页面。渲染分页
+                        getPageData(localyishen, 1, 3);
+                        render(pageData, 1, 3);
+                        getPage(localyishen.length, 3);
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                }
+            });
+        }
+        //========修改模态框=========
+        $('tbody').on('click', '.del1Btn', function () {
+            xiuGai($(this).data('mid'));
+        });
+        function xiuGai(mid) {
+            var str = "<tr><td><input id='ID' value='id:' '></input></td>" +
+                "<td><input id='NAME' value='name:' '></input></td>" +
+                "<td><input id='KSID' value='ksid:' '></input></td>" +
+                "<td><input id='SEX' value='sex:' '></input></td>" +
+                "<td><input id='AGE' value='age:' '></input></td>" +
+                "<td><input id='TYPE' value='type:' '></input></td>" +
+                "<td><input id='CHARGE' value='charge:' '></input></td>" +
+                "</tr>";
+            for (var i = 0; i < localyishen.length; i++) {
+                if (localyishen[i].id == mid) {
+                    console.log(localyishen[i]);
+                    str = "<tr><td><input id='ID' value='id:" + localyishen[i].id + "'></input></td>" +
+                        "<td><input id='NAME' value='name:" + localyishen[i].km + "'></input></td>" +
+                        "<td><input id='KSID' value='ksid:" + localyishen[i].sx + "'></input></td>" +
+                        "<td><input id='SEX' value='sex:" + localyishen[i].bz + "'></input></td>" +
+                        "<td><input id='AGE' value='age:" + localyishen[i].time + "'></input></td>" +
+                        "<td><input id='TYPR' value='type:" + localyishen[i].name + "'></input></td>" +
+                        "<td><input id='CHARGE' value='charge:" + localyishen[i].name + "'></input></td>" +
+                        "</tr>";
+                    break;
+                }
+            }
+            fyAlert.alert({
+                title: "退出",
+                drag: true,
+                shadowClose: false,
+                content: str,
+                btns: {
+                    '确 定': function (obj) {
+                        var id = $('#ID').val();
+                        var name = $('#NAME').val();
+                        var ksid = $('#KSID').val();
+                        var sex = $('#SEX').val(localyishen.bz);
+                        var age = $('#AGE').val();
+                        var type = $('#TYPE').val();
+                        var charge = $('#CHARGE').val();
+                        for (var i = 0; i < localyishen.length; i++) {
+                            if (localyishen[i].id == mid) {
+                                localyishen[i].name = name;
+                                localyishen[i].ksid = ksid;
+                                localyishen[i].sex = sex;
+                                localyishen[i].age = age;
+                                localyishen[i].type = type;
+                                localyishen[i].charge = charge;
+                                console.log(localyishen);
+                                break;
+                            }
+                            localStorage.setItem('yishen', localkeshi);
+                        }
+                        getPageData(localyishen, 1, 3);
+                        render(pageData, 1, 3);
+                        getPage(localyishen.length, 3);
+                        obj.destory();
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

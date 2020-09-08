@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <style>
+        section div {
+            display: none;
+        }
+
+        section button.active {
+            background-color: yellow;
+        }
+
+        section div.active {
+            display: block;
+            background-color: red;
+            width: 200px;
+            height: 100px;
+        }
+
+        #zzDiv div {
+            display: none;
+        }
+
+        #myAnim {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+
+        .menuGroup>div {
+            height: 100px;
+            display: none;
+            background-color: greenyellow;
+        }
+
+        #qhDiv ul {
+            float: left;
+            width: 200px;
+            height: 90px;
+            background: yellow;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #qhDiv li {
+            background: red;
+            line-height: 30px;
+        }
+
+        #qhDiv #center li {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Tab页面的应用</h3>
+    <section>
+        <button class="active">Tab1</button>
+        <button>Tab2</button>
+        <button>tab3</button>
+        <div class="active">页面1</div>
+        <div>页面2</div>
+        <div>页面3</div>
+    </section><br />
+
+    <h3>逐渐显示文字</h3>
+    <div id="zzDiv">
+        <div>美</div>
+        <div>女</div>
+        <div>来</div>
+        <div>了</div>
+        <button id="printBtn">逐字打印</button>
+    </div><br />
+
+    <h3>checkBox反选全选</h3>
+    <div>
+        <input type="checkbox" id="checkAll" />全选/反选
+        <br />
+        <input type="checkbox" />
+        <input type="checkbox" />
+        <input type="checkbox" />
+        <input type="checkbox" />
+    </div><br />
+
+    <h3>手风琴菜单</h3>
+    <ul class="parentWrap">
+        <li class="menuGroup">
+            <span class="groupTitle">一级菜单1</span>
+            <div>二级菜单1</div>
+            <div>二级菜单2</div>
+            <div>二级菜单3</div>
+            <div>二级菜单4</div>
+        </li>
+        <li class="menuGroup">
+            <span class="groupTitle">一级菜单2</span>
+            <div>二级菜单</div>
+        </li>
+        <li class="menuGroup">
+            <span class="groupTitle">一级菜单3</span>
+            <div>二级菜单1</div>
+            <div>二级菜单2</div>
+        </li>
+        <li class="menuGroup">
+            <span class="groupTitle">一级菜单4</span>
+            <div>二级菜单</div>
+        </li>
+    </ul>
+
+    <h3>图片切换</h3>
+    <div id="qhDiv">
+        <ul id="left">
+            <li>11</li>
+            <li>22</li>
+            <li>33</li>
+        </ul>
+        <ul id="center">
+            <li>11</li>
+            <li>22</li>
+            <li>33</li>
+        </ul>
+        <ul id="right">
+            <li>21</li>
+            <li>32</li>
+            <li>43</li>
+        </ul>
+    </div><br /><br /><br /><br />
+
+    <h3>自定义动画</h3>
+    <div id="myAnim"></div><br />
+
+    <script>
+        $(":header").css("color", "green");
+
+        $("section button").click(function () {
+            $("button").removeClass("active");
+            $("div").removeClass("active");
+            $(this).addClass("active");
+            $("div").eq($(this).index()).addClass("active");
+        });
+
+        $("#printBtn").click(function () {
+            $('#zzDiv div').eq(0).show(200, function myshow() {
+                $(this).next('div').show(200, myshow)
+            });
+        });
+
+        $('#checkAll').click(function () {
+            if ($(this).prop('checked')) {
+                $('input:gt(0)').prop('checked', true);
+            } else {
+                $('input:gt(0)').prop('checked', false);
+            }
+        });
+
+        $('input:gt(0)').click(function () {
+            if ($('input:gt(0)').length == $('input:gt(0):checked').length) {
+                $('#checkAll').prop('checked', true)
+            } else {
+                $('#checkAll').prop('checked', false)
+            }
+        });
+
+        $('.parentWrap span').click(function () {
+            $(this).nextAll().toggle().parent('li').siblings('li').find('div').hide();
+            /*.nextAll() 弟弟
+             .toggle() 切换显示和隐藏
+             parent('li') 父级是li
+             .siblings('li') 所有的li兄弟
+             find('div')  子节点div
+             .hide()   隐藏
+             * */
+        });
+
+        setInterval(function () {
+            $('#myAnim').animate({
+                "margin-left": '100px'
+            }, 500).animate({
+                marginLeft: '100px',
+                marginTop: '100px'
+            }, 500).animate({
+                marginLeft: '0',
+                marginTop: '100px'
+            }, 500).animate({
+                marginLeft: '0',
+                marginTop: '0'
+            }, 500);
+        }, 2000);
+
+
+        $('#left li').click(function () {
+            $('#center li').eq($(this).index()).show().siblings('li').hide();
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 3.输入三个数（0-9之间） 找出最大数和最小数,然后组成最大的三位数 */
+        var num1 = prompt("请输入第1个数字（0-9之间）");
+        var num2 = prompt("请输入第2个数字（0-9之间）");
+        var num3 = prompt("请输入第3个数字（0-9之间）");
+        //根据传入的一堆数字，取出能合成的最大数输出
+        function getMaxNum() {
+            var array = [];
+            for (var i = 0; i < arguments.length; i++) {
+                array[array.length] = arguments[i];
+            }
+            array.sort(function (a, b) {
+                return b - a;
+            });
+            var str = array.join('');
+            document.write("这些数字中最大数为：" + array[0] + "<br/>");
+            document.write("这些数字中最小数为：" + array[array.length - 1] + "<br/>");
+            document.write("组成最大的三位数：" + str);
+        }
+        getMaxNum(num1, num2, num3);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

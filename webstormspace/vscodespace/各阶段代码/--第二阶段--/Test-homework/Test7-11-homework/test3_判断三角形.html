@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="" />
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+</head>
+
+<body>
+    <h3 id="remindInfo">这是构成的三角形图案</h3>
+
+    <div id="side1"></div>
+    <div id="side2"></div>
+    <div id="mDiv"></div>
+    <div id="side3"></div>
+    <script type="text/javascript">
+        /*作业3：判断三角形
+         根据三角形的三条边长(长、中、短三条边)，来判断三角形类型。
+         提示：
+         (1) 一个三角形的边应该都为正数
+         (2) 一个三角形的边都应该满足三角形条件：两边之和大于第三边
+         钝角三角形：任意两边的平方和小于第三边的平方，如：a*a+b*b<c*c*/
+        var side1 = "", side2 = "", side3 = "";
+        var maxSide, midSide, minSide;
+        var isYes = true;
+        var remindStr = "";
+        do {
+            side1 = prompt("请输入第一条边的长度(整数)");
+            side2 = prompt("请输入第二条边的长度(整数)");
+            side3 = prompt("请输入第三条边的长度(整数)");
+            maxSide = 0, midSide = 0, minSide = 0;
+            if (Number(side1) == parseInt(side1) && Number(side2) == parseInt(side2) && Number(side3) == parseInt(side3)) {
+                side1 = Number(side1);
+                side2 = Number(side2);
+                side3 = Number(side3);
+                if (side1 >= side2 && side1 >= side3) {
+                    maxSide = side1;
+                    if (side2 >= side3) {
+                        midSide = side2;
+                        minSide = side3;
+                    } else {
+                        midSide = side3;
+                        minSide = side2;
+                    }
+                } else if (side2 >= side1 && side2 >= side3) {
+                    maxSide = side2;
+                    if (side1 >= side3) {
+                        midSide = side1;
+                        minSide = side3;
+                    } else {
+                        midSide = side3;
+                        minSide = side1;
+                    }
+                } else {
+                    maxSide = side3;
+                    if (side1 >= side2) {
+                        midSide = side1;
+                        minSide = side2;
+                    } else {
+                        midSide = side2;
+                        minSide = side1;
+                    }
+                }
+                if (minSide != 0 && minSide == midSide && minSide == maxSide) {
+                    remindStr = "这是一个等边三角形";
+                    isYes = false;
+                } else if ((minSide + midSide) > maxSide) {
+                    //满足三角形条件：两边之和大于第三边
+                    var num1 = minSide * minSide + midSide * midSide;
+                    var num2 = maxSide * maxSide;
+                    if (num1 == num2) {
+                        remindStr = "这是一个直角三角形";
+                    } else if (num1 < num2) {
+                        remindStr = "这是一个钝角三角形";
+                    } else {
+                        remindStr = "这是一个锐角三角形";
+                    }
+                    isYes = false;
+                } else {
+                    alert("该长度无法构成三角形，请重新操作");
+                }
+            } else {
+                alert("有一条边的数字输入不合法，请重新操作");
+            }
+        } while (isYes);
+
+        //求出三角形的高度
+        //先求出半周长
+        var p = (minSide + midSide + maxSide) / 2;
+        //求三角形的面积，Math.sqrt(x)返回一个数的平方根；Math.pow(x,y)返回 x 的 y 次幂的值
+        var s = Math.sqrt(p * (p - maxSide) * (p - midSide) * (p - minSide));
+        //maxSide边的高度
+        hMax = s * 2 / maxSide;
+        //minSide边构成三角形的另一条边长度
+        var minSideOther = Math.sqrt(minSide * minSide - hMax * hMax);
+        //midSide边构成三角形的另一条边长度
+        var midSideOther = maxSide - minSideOther;
+        $("#side1").text(maxSide);
+        $("#side2").text(minSide);
+        $("#side3").text(midSide);
+        $("#side1,#side2,#side3").css({ "font-size": "35px", "color": "red", "padding": "5px" });
+        $("#side1").css({
+            "width": maxSide * 100 + "px",
+            "text-align": "center"
+        });
+
+        $("#side2").css({
+            "float": "left",
+            "height": hMax * 100 + "px",
+            "line-height": hMax * 100 + "px"
+        });
+
+        $("#mDiv").css({
+            "width": "0px",
+            "height": "0px",
+            "float": "left",
+            "border-top": hMax * 100 + "px solid green",
+            "border-left": minSideOther * 100 + "px solid transparent",
+            "border-right": midSideOther * 100 + "px solid transparent"
+        });
+        $("#side3").css({
+            "height": hMax * 100 + "px",
+            "line-height": hMax * 100 + "px"
+        });
+        $("#remindInfo").text(remindStr + "，执行结束，效果如下图所示：");
+    </script>
+</body>
+
+</html>

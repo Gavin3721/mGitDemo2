@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 输入一个三位数，判定它是否是水仙花数
+        （输出是否是水仙花数的结果必须由调用者来输出，不能由函数内部输出） */
+        var num = prompt("请输入一个三位整数");
+        function isSxhNum(num) {
+            var bai = parseInt(num / 100);
+            var shi = parseInt(num % 100 / 10);
+            var ge = num % 10;
+            if (num == bai * bai * bai + shi * shi * shi + ge * ge * ge) {
+                return num + "是水仙花数";
+            } else {
+                return num + "不是水仙花数";
+            }
+        }
+        document.write(isSxhNum(num));
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

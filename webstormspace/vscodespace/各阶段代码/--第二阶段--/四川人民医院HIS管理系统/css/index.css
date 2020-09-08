@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+a{
+    text-decoration: none;
+  
+}
+@media screen and (min-width:1200px) {
+    html{
+        font-size: 20px;
+        transition:all 1s;
+    }
+}
+@media screen and (min-width:768px) and (max-width: 1200px){
+    html{
+        font-size: 16px;
+        transition:all 1s;
+    }
+}
+@media screen and (max-width:768px){
+    html{
+        font-size: 14px;
+        transition:all 1s;
+    }
+}
+html,body{
+    height: 100%;
+}
+.left {
+    width: 200px;
+    background-color: springgreen;
+    height: 100%;
+    float: left; 
+   
+}
+.right {        
+    height: 100%;
+    margin-left: 200px;
+}

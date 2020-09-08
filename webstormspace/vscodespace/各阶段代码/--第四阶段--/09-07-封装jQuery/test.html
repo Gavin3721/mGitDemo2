@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* .style1 {
+            color: red;
+        } */
+    </style>
+    <script type="text/javascript" src="js/mJquery1.0.1.js"></script>
+</head>
+
+<body>
+    <div id="txt1">
+        <p>123123123</p>
+    </div>
+    <p class="style1">内容1</p>
+    <p class="style1">内容2</p>
+    <p class="style1">内容3</p>
+    <script type="text/javascript">
+        $("#txt1").css("color", "white");
+        $(".style1").css("font-size", "30px");
+        $("#txt1").css({ 'font-size': '25px', 'background-color': 'red' });
+        $("p").attr("data-index", "123123");
+        $("p").attr({ 'attr1': '111', 'attr2': '2222', 'attr3': '3333' });
+
+        console.log("获取的样式--" + $(".style1").css("font-size"));
+        console.log("获取的html内容--" + $(".style1").html());
+        console.log("获取的text内容--" + $(".style1").text());
+        console.log("获取的attr内容--" + $("p").attr('data-index'));
+    </script>
+</body>
+
+</html>

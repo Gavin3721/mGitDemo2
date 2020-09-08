@@ -1,0 +1,111 @@
+﻿<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基于bootstrup的jQuery多级列表树插件</title>
+  <link href="css/bootstrap-3.3.4.css" rel="stylesheet">
+  <style type="text/css">
+    .jq22-header {
+      margin-bottom: 15px;
+      font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
+    }
+
+    .jq22-icon {
+      color: #fff;
+    }
+  </style>
+  <!--[if IE]>
+	<![endif]-->
+</head>
+
+<body>
+  <div class="jq22-container">
+    <div class="container">
+      <div class="row">
+        <hr>
+        <h2>Checkable Tree</h2>
+        <div class="col-sm-4">
+          <h2>Tree</h2>
+          <div id="treeview-checkable" class=""></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script type="text/javascript">
+
+      $(function () {
+        var defaultData = [
+          {
+            text: 'Parent 1',
+            href: '#parent1',
+            tags: ['4'],
+            nodes: [
+              {
+                text: 'Child 1',
+                href: '#child1',
+                tags: ['2'],
+                nodes: [
+                  {
+                    text: 'Grandchild 1',
+                    href: '#grandchild1',
+                    tags: ['0']
+                  },
+                  {
+                    text: 'Grandchild 2',
+                    href: '#grandchild2',
+                    tags: ['0']
+                  }
+                ]
+              },
+              {
+                text: 'Child 2',
+                href: '#child2',
+                tags: ['0']
+              }
+            ]
+          },
+          {
+            text: 'Parent 2',
+            href: '#parent2',
+            tags: ['0']
+          },
+          {
+            text: 'Parent 3',
+            href: '#parent3',
+            tags: ['0']
+          },
+          {
+            text: 'Parent 4',
+            href: '#parent4',
+            tags: ['0']
+          },
+          {
+            text: 'Parent 5',
+            href: '#parent5',
+            tags: ['0']
+          }
+        ];
+
+
+        var $checkableTree = $('#treeview-checkable').treeview({
+          data: defaultData,
+          showIcon: false,
+          showCheckbox: true,
+          onNodeChecked: function (event, node) {
+            $('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
+          },
+          onNodeUnchecked: function (event, node) {
+            $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+          }
+        });
+
+      });
+    </script>
+</body>
+
+</html>

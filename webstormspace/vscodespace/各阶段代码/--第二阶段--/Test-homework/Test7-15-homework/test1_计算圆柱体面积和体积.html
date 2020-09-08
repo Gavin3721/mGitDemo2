@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 1.输入半径，高，求圆柱体的面积，和体积，把体积、面积返回给函数调用者，
+        然后由调用者输出面积和体积大小.
+        圆面积：PI*R*R
+        圆周长：2*PI*R */
+        var r = prompt("请输入圆柱体的半径（米）");
+        var h = prompt("请输入圆柱体的高（米）");
+        //求面积，Math.PI等于圆周率
+        function getMianJi(r, h) {
+            var diMianJi = Math.PI * r * r;
+            var gaoMianJi = Math.PI * 2 * r * h;
+            var mianJi = diMianJi * 2 + gaoMianJi;
+            return mianJi;
+        }
+        //求体积
+        function getTiJi(r, h) {
+            var tiJi = Math.PI * r * r * h;
+            return tiJi;
+        }
+        var mianJ = getMianJi(r, h);
+        var tiJ = getTiJi(r, h);
+        document.write("圆柱体的面积为：" + mianJ + "平方米，体积为：" + tiJ + "立方米<br/>");
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

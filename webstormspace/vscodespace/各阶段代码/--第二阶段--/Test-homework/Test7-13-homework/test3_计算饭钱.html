@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 4：计算饭钱
+        有30个人，其中有男人、女人和小孩，在一家饭馆里吃饭 共花了500元，每个男人各花30元，
+        每个女人各花20元，每个小孩各花10元，问男人、女人和小孩各有几人？
+        a+b+c =30
+        30*a+20*b+10*c = 500 */
+        var nanNum = parseInt(500 / 30);
+        var nvNum = parseInt(500 / 20);
+        var babyNum = parseInt(500 / 10) - 2;
+        document.write("各类型人数为如下情况：<br/>");
+        for (var man = 1; man <= nanNum; man++) {
+            for (var woman = 1; woman <= nvNum; woman++) {
+                for (var child = 1; child <= babyNum; child++) {
+                    if ((man + woman + child) == 30 && (man * 30 + woman * 20 + child * 10) == 500) {
+                        document.write("男人_" + man + "&nbsp;&nbsp;女人_" + woman + "&nbsp;&nbsp;小孩_" + child);
+                    }
+                }
+            }
+            document.write("<br/>");
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href=""/>
+    <script src=""></script>
+</head>
+
+<body>
+<p>请输入</p>
+<input id="inputnum" type="text" placeholder="请输入1~5的数字"/>
+<input id="btn" type="button" value="点击"/>
+
+<p id="remindinfo"></p>
+<script type="text/javascript">
+    /*作业1.模拟自动饮料机
+     要求：
+     1.当输入0时，模拟自动饮料机停止运行
+     2.自动饮料机运行的过程中，当输入1-5时候给出对应的饮料(1.可口可乐 2.雪碧 3.鲜橙多 4.冰红茶 5.矿泉水)
+     输入其他值的时候给出非法操作提示，并提示重新输入*/
+    document.getElementById('btn').onclick = function () {
+        var mInputnum = document.getElementById("inputnum");
+        var mRemindinfo = document.getElementById("remindinfo");
+        var mBtn = document.getElementById("btn");
+        var num = mInputnum.value;
+        if (Number(num) != parseInt(num)) {//输入的不是整数
+            mRemindinfo.innerText = "非法输入，请重新输入";
+            mInputnum.value = "";
+        } else {
+            num = Number(num);
+            switch (num) {
+                case 0:
+                    mRemindinfo.innerText = "自动饮料机停止运行";
+                    mInputnum.value = "";
+                    mBtn.disabled = true;
+                    break;
+                case 1:
+                    mRemindinfo.innerText = "可口可乐";
+                    break;
+                case 2:
+                    mRemindinfo.innerText = "雪碧";
+                    break;
+                case 3:
+                    mRemindinfo.innerText = "鲜橙多";
+                    break;
+                case 4:
+                    mRemindinfo.innerText = "冰红茶";
+                    break;
+                case 5:
+                    mRemindinfo.innerText = "矿泉水";
+                    break;
+                default:
+                    mRemindinfo.innerText = "非法输入，请重新输入";
+                    mInputnum.value = "";
+                    break;
+            }
+        }
+    };
+</script>
+</body>
+</html>

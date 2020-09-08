@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            outline: 0px;
+        }
+
+        div {
+            height: 350px;
+            width: 100%;
+            background-color: #DE5F03;
+            position: relative;
+            text-align: center;
+        }
+
+        #showImg {
+            width: 1005px;
+            height: 350px;
+        }
+
+        #btn {
+            height: 50px;
+            width: auto;
+            background-color: white;
+            color: #DE5F03;
+            position: absolute;
+            border-radius: 35px;
+            font-size: 18px;
+            padding: 5px 40px;
+            border: 0px;
+            top: 180px;
+            left: 75%;
+            cursor: pointer;
+        }
+
+        ul {
+            position: absolute;
+            top: 245px;
+            /* 定位元素要居中：margin: 0 auto;left:0;right:0; */
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            width: 800px;
+        }
+
+        ul li {
+            float: left;
+            padding: 5px 30px;
+            margin: 2px;
+            background-color: #EA9E67;
+            opacity: 0.7;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        ul li:hover {
+            margin-top: -10px;
+            background-color: #9c6f4f;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img id="showImg" src="img/index_slide_con01.png" />
+        <button id="btn">投放申请</button>
+        <ul>
+            <li><img src="img/12.png" /></li>
+            <li><img src="img/14.png" /></li>
+            <li><img src="img/17.png" /></li>
+            <li><img src="img/19.png" /></li>
+            <li><img src="img/23.png" /></li>
+        </ul>
+    </div>
+
+    <script>
+        var showImg = document.getElementById("showImg");
+        var btn = document.getElementById("btn");
+        var liArr = document.getElementsByTagName("li");
+        var imgArr = ['index_slide_con01.png', 'index_slide_con02.png', 'index_slide_con03.png', 'index_slide_con04.png', 'index_slide_con05.png'];
+        for (var i = 0; i < liArr.length; i++) {
+            liArr[i].index = i;
+            liArr[i].onclick = function () {
+                if (this.index == 0) {
+                    btn.style.display = "block";
+                } else {
+                    btn.style.display = "none";
+                }
+                showImg.setAttribute("src", "img/" + imgArr[this.index]);
+            };
+
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+            list-style: none;
+        }
+
+        body {
+            width: 100%;
+            height: 500px;
+        }
+
+        #mMenu {
+            display: none;
+            position: fixed;
+            background: rgba(0, 162, 255, 0.514);
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        li {
+            padding: 20px;
+            cursor: pointer;
+            border-bottom: 1px dotted rgb(82, 73, 73);
+        }
+
+        ul li:last-child {
+            border-bottom: 0;
+        }
+
+        li:hover {
+            background-color: rgb(8, 73, 73);
+        }
+    </style>
+</head>
+
+<body>
+    <h3>这个页面有鼠标单击右键时间发生</h3>
+    <ul id="mMenu">
+        <li>事项1</li>
+        <li>事项2</li>
+        <li>事项3</li>
+        <li>事项4</li>
+    </ul>
+
+    <script>
+        var mMenu = document.getElementById("mMenu");
+
+        document.body.oncontextmenu = function () {
+            var e = arguments[0] || window.event;
+            mMenu.style.display = "block";
+            mMenu.style.left = e.clientX + "px";
+            mMenu.style.top = e.clientY + "px";
+            return false;
+        };
+
+        //关闭右键菜单
+        window.onclick = function (e) {
+            mMenu.style.display = "none";
+        }
+
+        mMenu.onclick = function () {
+            var e = arguments[0] || window.event;
+            var target = e.target || window.target;
+            if (target.nodeName == "LI") {
+                alert("您选择了" + target.innerText);
+            }
+        };
+
+    </script>
+</body>
+
+</html>

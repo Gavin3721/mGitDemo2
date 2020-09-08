@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/default.css" />
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/info.js"></script>
+    <script type="text/javascript" src="js/default.js"></script>
+</head>
+
+<body>
+    <div id="topBar">
+        <img src="img/25.png" />我的论坛
+        <input id="searchInfo" placeholder="&nbsp;&nbsp;请输入要查找的内容" type="text" maxlength="10" />
+        <input id="searchBtn" type="button" value="搜&nbsp;索" />
+    </div>
+    <div id="loginDiv">
+        <div>
+            <form id="loginForm" method="POST" action="javascript:;">
+                <div><img src="img/25.png" /><img id="closeLogin" src="img/cha.png" /><br />~欢迎登录~</div>
+                <input type="text" name="username" id="username" placeholder="手机号/邮箱" /><br />
+                <input type="password" name="password" id="password" minlength="6" maxlength="8"
+                    placeholder="密码" /><br />
+                <p id="loginTips"></p>
+                <input type="submit" value="登&nbsp;&nbsp;录">
+            </form>
+        </div>
+    </div>
+    <div id="leftDiv">
+        <ul id="userInfoUl">
+            <li><img id="touxiang" src="img/25.png" /></li>
+            <li id="nicheng">请先登录~</li>
+            <li id="login_register"><button id="loginBtn">登&nbsp;&nbsp;录</button>&nbsp;&nbsp;&nbsp;<button
+                    id="registerBtn">注&nbsp;&nbsp;册</button></li>
+            <li id="xingbie_nianling" class="userInfoli"></li>
+            <li id="xingzuo" class="userInfoli"></li>
+            <li id="qianming" class="userInfoli"></li>
+            <li id="aihao" class="userInfoli"></li>
+            <li id="dengji" class="userInfoli"></li>
+            <li id="signout_change"><button id="signOutBtn">退出系统</button>&nbsp;&nbsp;<button
+                    id="changeBtn">修改信息</button></li>
+        </ul>
+    </div>
+    <div id="rightDiv">
+        <ul id="forumShow">
+        </ul>
+        <p id="noInfo">~没有相关消息哟~</p>
+        <div id="preNextPage">
+            <button id="firstPage">首&nbsp;&nbsp;页</button>
+            <button id="prevPage">上一页</button>
+            <span>第<span id="currentPageIndex">0</span>页，共<span id="pageCount">0</span>页</span>
+            <button id="nextPage">下一页</button>
+            <button id="lastPage">末&nbsp;&nbsp;页</button>
+        </div>
+        <div>
+            <textarea id="faTieArea" placeholder="新鲜的，好玩的，我们一起来讨论吧"></textarea><br />
+            <!-- <ul id="tianJiaPic">
+                <li><a href='javascript:;' class="blueButton">选择图片</a></li>
+                <li><input class="myFileUpload" type="file" name="addImgs" id="addImgs" value="111"
+                        accept=".jpg,.png,.jpeg,.gif" multiple="multiple"></li>
+            </ul> -->
+            <button id="sendTieZi">发&nbsp;&nbsp;表</button><button id="saveCaoGao">存为草稿</button>
+        </div>
+    </div>
+</body>
+
+</html>

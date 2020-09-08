@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<!-- <script src="../../data/药库.js"></script> -->
+<script src="../../js/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+<style>
+    *{
+        list-style: none;
+    }
+    ul{
+        width: 550px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+    li{
+        float: left;
+        background-color: rgb(187,255,255);
+        margin: 2px;
+        cursor: pointer;
+        border-radius: 2px;
+        padding: 0px 8px;
+    }
+    span{
+        display: inline-block;
+        height: 25px;
+        line-height: 24px;
+    }
+    span:first-child{
+        float: left;
+
+    }
+    #xiao_ji{
+        float: right;
+        margin-right: 10px;
+    }
+    #zong_ji{
+        float: right;
+
+    }
+    div:first-child{
+        height: 30px;
+        line-height: 30px;
+        background-color: rgb(165, 215, 247);
+        text-align: center;
+    }
+    div:nth-child(2){
+        background-color: rgb(173, 239, 239);
+        height: 40px;
+        padding-top: 7.5px;
+        overflow: hidden;
+
+    }
+    input{
+        height: 25px;
+    }
+    button{
+        height: 25px;
+    }
+    button:nth-of-type(2){
+        float: right;
+    }
+
+</style>
+<body>
+<div><b>财务收入查询</b></div>
+<div>
+    <input placeholder="起始日期" type="date"/>
+    <input placeholder="截止日期" type="date"/>
+    <button>查询</button>
+    <button>点击查看数据统计</button>
+</div>
+<table class="table table-striped" id="personInfo">
+    <tr>
+        <td>订单编号</td>
+        <td>药品名称</td>
+        <td>药品编号</td>
+        <td>出库数量</td>
+        <td>单价</td>
+        <td>总价</td>
+        <td>出库时间</td>
+    </tr>
+</table>
+<ul id="pageBox">
+    <span>当前页</span>
+    <li id="li1">首页</li>
+    <li id="li2">上一页</li>
+    <li id="li3">下一页</li>
+    <li id="li4">末页</li>
+    <span id="zong_ji">总计:</span>
+    <span id="xiao_ji">小计:</span>
+</ul>
+<hr/>
+</body>
+<script>
+    var newMedicine=JSON.parse(localStorage.getItem("newMedicines"))
+    console.log(newMedicine)
+
+    var table=document.getElementById("personInfo")
+    var pageBox=document.getElementById("pageBox")
+    var index=1;
+    var count=6;
+
+    localStorage.setItem("123",JSON.stringify(newMedicine))
+    var local=JSON.parse(localStorage.getItem("123"))
+
+
+    /*   var li1=document.getElementById("li1")
+     var li2=document.getElementById("li2")
+     var li3=document.getElementById("li3")
+     var li4=document.getElementById("li4")*/
+    function render(newMedicine){
+        var trData = "<tr>"+
+                "<td>订单编号</td>"+
+                "<td>药品名称</td>"+
+                "<td>药品编号</td>"+
+                "<td>出库数量</td>"+
+                "<td>单价</td>"+
+                "<td>总价</td>"+
+                "<td>出库时间</td>"+
+                "</tr>"
+        for(var i =0;i<arr.length;i++){
+            trData += "<tr>" +
+            "<td>"+newMedicine[i].saleId+"</td>" +
+            "<td>"+newMedicine[i].name+"</td>" +
+            "<td>"+newMedicine[i].id+"</td>" +
+            "<td>"+newMedicine[i].saleSi+"</td>" +
+            "<td>"+newMedicine[i].sale+"</td>" +
+            "<td>"+newMedicine[i].total+"</td>" +
+            "<td>"+newMedicine[i].date+"</td>" +
+            "</tr>" ;
+        }
+        table.innerHTML=trData
+    }
+
+
+    var arr=[];
+    function getnewMedicine(newMedicine,index,numPerPage){
+        arr=newMedicine.slice((index-1)*numPerPage, index * numPerPage)
+    }
+
+    //初始化
+    getnewMedicine(newMedicine,index,6)
+    render(arr)
+    $("span:first").html("当前小计:"+count+"/"+newMedicine.length);
+
+
+
+    //初始化总计费用
+    var num=0
+    for(var i=0;i<newMedicine.length;i++){
+        num=num+Number(newMedicine[i].total)
+    }
+    $("#zong_ji").html("总计:"+num+"元")
+
+
+    //初始化小计
+
+    function add(){
+        var num1=0
+        for(var i=0;i<arr.length;i++){
+            num1=num1+Number(arr[i].total)
+        }
+        $("#xiao_ji").html("小计:"+num1+"元")
+    }
+    add();
+
+
+    $("button:first").click(function(){
+        var arr1=[]
+        newMedicine=local
+        var odate2=new Date($("input:first").val())
+        var odate3=new Date($("input:last").val())
+        for(var i=0;i<newMedicine.length;i++) {
+            var odate1=new Date(newMedicine[i].date)
+            if(odate1.getTime()>=odate2.getTime()&&odate1.getTime()<=odate3.getTime()){
+                $("span").html("")
+                arr1.push(newMedicine[i])
+            }
+        }
+        newMedicine=arr1
+        getnewMedicine(arr1,1,6)
+        render(arr)
+        console.log(newMedicine)
+    })
+    $(pageBox).on('click','li',function(){
+        if( $(this).attr("id")=="li1") {
+            index=1
+            count=6;
+            getnewMedicine(newMedicine,index,6);
+            render(arr);
+            $("span:first").html("当前小计:"+count+"/"+newMedicine.length)
+            add()
+        }
+        else if( $(this).attr("id")=="li2") {
+            if(index>1){
+                index=index-1
+                count=count-arr.length
+                getnewMedicine(newMedicine,index,6);
+                render(arr);
+                $("span:first").html("当前小计:"+count+"/"+newMedicine.length)
+                add()
+            }
+        }
+        else if( $(this).attr("id")=="li3") {
+            if(index<Math.ceil(newMedicine.length/6)){
+                index=index+1
+                getnewMedicine(newMedicine,index,6);
+                render(arr);
+                count=count+arr.length
+                $("span:first").html("当前小计:"+count+"/"+newMedicine.length)
+                add()
+
+            }
+        }
+        else if( $(this).attr("id")=="li4") {
+            index=Math.ceil(newMedicine.length/6)
+            count=newMedicine.length
+            getnewMedicine(newMedicine,index,6);
+            render(arr);
+            $("span:first").html("当前小计:"+count+"/"+newMedicine.length)
+            add()
+
+        }
+    });
+
+</script>
+</html>

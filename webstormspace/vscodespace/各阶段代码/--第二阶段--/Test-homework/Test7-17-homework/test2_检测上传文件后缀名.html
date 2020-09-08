@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 2.点击上传图片按钮检测上传文件后缀是否支持指定的上传后缀名（'jpg','png','gif','jpeg'） */
+        function testHouZhuiNm() {
+            var filePath = document.getElementById("mFile").value;
+            var index = filePath.lastIndexOf("\\");
+            var fileName = filePath.substring(index + 1);
+            var index2 = fileName.lastIndexOf(".");
+            if (index2 != -1) {
+                var houZhuiNm = fileName.substring(index2 + 1);
+                document.write(fileName + "<br/>该文件后缀名为：" + houZhuiNm);
+                var arr = ['jpg', 'png', 'gif', 'jpeg'];
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] == houZhuiNm) {
+                        document.write(fileName + "<br/>该文件符合指定的上传文件标准");
+                        break;
+                    }
+                }
+            } else {
+                document.write(fileName + "<br/>该文件没有后缀名");
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    需要检测后缀名的文件：<br /><input id="mFile" type="file" /><br /><br />
+    <input id="uploadBtn" type="button" value="检测后缀名" onclick="testHouZhuiNm()" /><br /><br />
+    指定了上传文件类型（.txt,.png,.jpeg,.jpg,.exe,.xls）：<br /><input type="file" accept=".txt,.png,.jpeg,.jpg,.exe,.xls" />
+</body>
+
+</html>

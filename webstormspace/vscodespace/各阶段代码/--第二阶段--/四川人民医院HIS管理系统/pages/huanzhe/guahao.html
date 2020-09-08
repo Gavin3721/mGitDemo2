@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/fy-alert.css">
+    <style>
+        caption {
+           
+            color: black; 
+            font-weight: 600;
+            font-size: 18px;
+            background-color: rgb(231,239,239);
+        }
+        .two {
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+        #tishi {
+            color: chocolate;
+        }
+        button {
+            width: 200px;  
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #pageBox {
+            overflow: hidden;
+        }
+        #pageBox li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border: 1px solid skyblue;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        #pageBox li:hover{
+            cursor: pointer;
+            background-color: orangered;
+        }
+        #pageBox .active{
+            background-color: #5bc0de;
+        }
+        #btn1 {
+            margin-left: 300px;
+        }
+        #btn2 {
+            margin-left: 8px;
+        }
+       #tb {
+           text-align: center;
+       }
+    </style>
+</head>
+<body>
+    <div class="container">   
+        <table class="table table-bordered table-striped">
+            <caption style="background-color: rgb(231,239,239);">患者挂号</caption>
+            <tbody>
+                <tr>
+                    <td >姓名:<input class="huoqu form-control"  id="name" type="text"></td>
+                    <td>拼音码:<input class="huoqu form-control" name="pingying" type="text"></td>
+                    <td >年龄:<input class="huoqu form-control"  id="age" type="text"></td>
+                    <td> 性别：
+                        男<input class="huoqu" value="男" name="sex" type="radio">
+                        女<input class="huoqu" value="女" name="sex" type='radio'>
+                   </td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td >身份证号:<input class="huoqu form-control" id="card"  type="text"></td> 
+                    <td>血型:
+                        <select class="huoqu form-control" name="" id="select">
+                            <option value="0型">0型</option>
+                            <option value="A型">A型</option>
+                            <option value="B型">B型</option>
+                            <option value="AB型">AB型</option>
+                        </select>
+                    </td>
+                    <td >电话：<input class="huoqu form-control" name="tel" type="text"></td>
+                    <td>
+                        婚否:
+                        是<input class="huoqu" value="是" name="hun" type="radio">
+                        否<input class="huoqu" value="否" name="hun" type="radio">
+                    </td>
+                </tr>
+                <tr>
+                    <td>患者编号: <input class="huoqu form-control" id="bianhao" type="text"></td>
+                    <td>科室选择：
+                        <select class="huoqu form-control" name="" id="keshi">
+                        <option value="科室">科室</option>
+                        <option value="内科">内科</option>
+                        <option value="外科">外科</option>
+                        <option value="口腔科">口腔科</option>
+                        </select>
+                    </td>
+                    <td>选择级别:
+                        <select class="huoqu form-control" name="" id="type">
+                            <option value="">级别</option>
+                            <option value="专家医生">专家医生</option>
+                            <option value="实习医生">实习医生</option>
+                            <option value="普通医生">普通医生</option>
+                        </select>
+                    </td>
+                    <td>挂号医生: <input class="huoqu form-control" id="doctor" type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">操作时间: <input class="huoqu form-control" id="shijian" type="date"></td>
+                    <td colspan="2">收银金额: <input class="huoqu form-control" id="sell" type="text"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn-group" role="group" aria-label="...">
+            <button id="btn1" type="button" class="btn btn-default  btn-info btn-sm">确定挂号</button>
+            <button id="btn2" type="button" class="btn btn-default btn-info btn-sm">取消挂号</button>
+           </div>
+        <table class="table table-bordered table-striped two">
+            <caption>科室医生选择: 
+                <select name="" id="xuanze">
+                    <option value="">科室选择</option>
+                    <option value="内科">内科</option>
+                    <option value="皮肤科">皮肤科</option>
+                    <option value="外科">外科</option>
+                    <option value="口腔科">口腔科</option>
+                </select>
+            </caption>
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>科室</th>
+                    <th>主治医生</th>
+                    <th>医生级别</th>
+                    <th>挂号费</th>
+                </tr>
+            </thead>
+            <tbody id="tb">
+
+            </tbody>
+        </table>
+        <nav aria-label="...">
+            <ul class=" pagination" id="pageBox">
+                <!-- <li>hahah</li> -->
+            </ul>
+        </nav>
+      
+    </div>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../utils/huanzhe.js"></script>
+    <script src="../../js/fy-alert.js"></script>
+    <script>
+
+        
+        // localStorage.setItem('guahao',JSON.stringify(guaHao));
+        //判断医生类别改变类型的值进行下面的费用会进行自动联动
+        $('#type').change(function() {
+        
+            biaoshi = localStorage.getItem('biaoshi');
+            var time = 0;
+            if(!biaoshi) {
+                biaoshi = 0
+            }else if(biaoshi!=0){
+                biaoshi = biaoshi;
+            }
+           
+            $('#bianhao').val(biaoshi);
+            var leixing = $('#type option:selected').val();
+            switch(leixing) {
+                case '专家医生':
+                    time = 30;
+                    $('#sell').val(time);
+                    break;
+                case '普通医生':
+                    time = 20;
+                    $('#sell').val(time);
+                    break;
+                case '实习医生':
+                    time = 10;
+                    $('#sell').val(time);
+                    break;
+                case '级别':
+                    time = 10;
+                    $('#sell').val('')
+                    break;
+                default:
+                    $('#sell').val('');
+                    break;
+            }
+        })
+        
+           
+    
+
+        //点击确认挂号事件
+        $('#btn1').click(function() {
+            if(localStorage.getItem('guahao') == null) {
+                localStorage.setItem('guahao',JSON.stringify(guaHao));
+                info = JSON.parse(localStorage.getItem('guahao'))
+            }else {
+                info = JSON.parse(localStorage.getItem('guahao'))
+            }
+            info = JSON.parse(localStorage.getItem('guahao'));
+             name = $('#name').val();
+             doctor = $('#doctor').val();
+             keshi = $('#keshi option:selected').val();
+               type = $('#type option:selected').val();
+               date = $('#shijian').val();
+               sex = $('[name="sex"]:checked').val();
+               pingying = $('[name="pingying"]').val();
+                hun = $('[name="hun"]:checked').val();
+                tel = $('[name="tel"]').val();
+               idcard = $('#card').val();
+                age = $('#age').val();
+             bianhao = $('#bianhao').val();
+             sell = $('#sell').val(); 
+             blood = $('#select option:selected').val()
+        
+            //判断输入的内容是否为空
+            if(name&&keshi&&type&&date&&idcard) {
+                //身份证号码18位的正则
+                var reg = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+               
+                if(reg.test(idcard) == true) {
+                    flag = 0;
+                    $.each(info,function(index,ele){
+                        // var right = (idcard == ele.idCard);
+                        if(idcard == ele.idCard){
+                            flag = 1;
+                            if(flag == 1){
+                                openDialog3();
+                                return false;
+                            }
+                        }
+                    })
+                    if(flag == 0){
+                        openDialog();
+                    }
+                }else {
+                    openDialog4();
+            }
+                   
+        }else {
+                openDialog1();
+            }
+        })
+              
+        //获取页面医生相关信息
+        //医生选择函数
+        var pageDatas = [];
+        var tb = document.getElementById('tb');
+        var pageBox = document.getElementById('pageBox');
+       
+        init();
+         //初始化页面数据
+         function init() {
+            if(localStorage.getItem('keshi') == null) {
+                localStorage.setItem('keshi',JSON.stringify(keShi));
+                keshi = JSON.parse(localStorage.getItem('keshi'))
+            }else {
+                keshi = JSON.parse(localStorage.getItem('keshi'))
+            }
+            //默认第一页数据
+            getPageData(keshi,1,5)
+            //渲染页面数据
+            render(pageDatas,1,5);
+            //渲染分页
+            getPage(keshi.length,5);
+        }
+        //渲染数据
+        function render(datas,index,numdatas) {
+            var shuju = '';
+            for(var i =0 ; i<datas.length; i++) {
+                shuju += "<tr>"+
+                            "<td>"+datas[i].id+"</td>"+
+                            "<td>"+datas[i].km+"</td>"+
+                            "<td>"+datas[i].name+"</td>"+
+                            "<td>"+datas[i].type+"</td>"+
+                            "<td>"+datas[i].charge+"</td>"+
+                        "</tr>"
+                // shuju += `<tr>
+                //             <td>${datas[i].id}</td>
+                //             <td>${datas[i].km}</td>
+                //             <td>${datas[i].name}</td>
+                //             <td>${datas[i].jibie}</td>
+                //             <td>${datas[i].charge}</td>
+                //         </tr>`
+            }
+            tb.innerHTML = shuju;
+        }
+        //分页数据
+        function getPageData(arr,index,numdatas) {
+             //1页  0*numdatas ~  numdatas-1
+            //2页 numdatas ~  2numdatas-1
+            //3页  numdatas ~  3numdatas-1
+            pageDatas = arr.slice((index-1)*numdatas,index*numdatas);
+        }
+        //渲染分页
+        function getPage(total,numdatas) {
+            var pageNum = Math.ceil(total/numdatas);
+            var shuju = '';
+            for(var i=1 ;i<=pageNum; i++) {
+                if(i==1) {
+                    // shuju += '<li class="active">'+
+                    //             '<a href="javascript:;">'+i+'</a>'+
+                    //         '</li>'
+                        shuju +=       '<li class="active">'+i+'</li>'
+                }else {
+                    // shuju +=  '<li>'+
+                    //             '<a href="javascript:;">'+i+'</a>'+
+                    //         '</li>'
+                          shuju +=  '<li class="active">'+i+'</li>'
+                }
+            }
+            pageBox.innerHTML = shuju;
+        }
+
+        //分页点击部分
+        /*对于新创建的分页节点，没法点击进行分页*/
+
+        $(pageBox).on('click','li',function(){
+           
+            getPageData(keshi,Number($(this).html()),5);
+            
+           
+            render(pageDatas,$(this).html(),5);
+            $(this).addClass('active').siblings('li').removeClass('active');
+        })
+        //根据科室来搜索医生信息
+        $('#xuanze').change(function() {
+            var temArr = [];
+            var leibi = $(this).val();
+            $.each(keshi,function(i,v) {
+                if(keshi[i].km.indexOf(leibi) != -1) {
+                    // console.log(keshi[i]);
+                    temArr.push(keshi[i]);
+                }
+            })
+           
+            getPageData(temArr,1,5)
+            //渲染页面数据
+            render(pageDatas,1,5);
+            //渲染分页
+            getPage(temArr.length,5);
+        })
+
+
+        //弹出框
+        function openDialog() {
+            fyAlert.alert({
+                title: "退出",
+                drag: true,
+                shadowClose: false,
+                content: '确定添加吗',
+                btns: {
+                    '确 定': function (obj) {
+                         obj.destory();
+                         info.unshift(
+                           {
+                            id: biaoshi,
+                            idCard: $('#card').val(),
+                            name: $('#name').val(),
+                            charge: $('#sell').val(),
+                            doctor:$('#doctor').val(),
+                            keshi: $('#keshi option:selected').val(),
+                            type: $('#type option:selected').val(),
+                            date: $('#shijian').val(),
+                            sex:sex,
+                            age:age,
+                            tel: tel,
+                            pingying:pingying,
+                            blood: blood,
+                            hun: hun
+                           }
+                       )
+                    biaoshi++;
+                    localStorage.setItem('biaoshi',biaoshi);
+
+                    localStorage.setItem('guahao',JSON.stringify(info));
+                          location.href = 'list.html';
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                        flag =2;
+                       
+                    }
+                },
+            });
+        }
+        function openDialog1() {
+            fyAlert.msg("必填信息不能为空！", { icon: 2, animateType: 2 }); return false;
+        }
+                //弹出框
+        function openDialog3() {
+            fyAlert.alert({
+                title: "信息",
+                drag: true,
+                shadowClose: false,
+                content: '该患者信息已经存在，不能在添加',
+                btns: {
+                    '确 定': function (obj) {
+                      
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                },
+            });
+        }
+        function openDialog4() {
+            fyAlert.alert({
+                title: "信息",
+                drag: true,
+                shadowClose: false,
+                content: '输入的身份证号不符合规范，请重新输入',
+                btns: {
+                    '确 定': function (obj) {
+                        obj.destory();
+                        $('#card').val('')
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                },
+            });
+        }
+    </script>
+</body>
+</html>

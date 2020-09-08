@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 4.将一个正整数分解质因数。例如：输入90,打印出90=2*3*3*5。输入60=2*2*3*5。
+        质数 ：只能被1和本身整除
+        因数  2*3=6  2和3 就是因数
+        30=15*2=3*5*2 */
+
+        /* var num = 0, isYes = false, str = "";
+        do {
+            num = prompt("请输入一个整数");
+            if (Number(num) == parseInt(num)) {
+                num = parseInt(num);
+                document.write("分解质因数的结果为：" + num + "=");
+                for (var zhishu = 2; zhishu <= num; zhishu++) {
+                    if (num % zhishu == 0 && num != zhishu) {
+                        str = str + zhishu + "*";
+                        num = num / zhishu;
+                        zhishu--;
+                    } else if (num == zhishu) {
+                        str += zhishu;
+                        break;
+                    }
+                }
+                isYes = true;
+            } else {
+                alert("输入不规范，请重新输入");
+            }
+        } while (!isYes);
+        document.write(str + "<br/>"); */
+
+        var num = prompt("请输入一个整数");
+        var str = "";
+        document.write("分解质因数的结果为：" + num + "=");
+        for (var i = 2; 2 <= num; i++) {
+            if (num % i == 0) {
+                num = num / i;
+                if (num != 1) {
+                    str = str + i + "*";
+                } else {
+                    str = str + i;
+                }
+                i = 1;
+            }
+        }
+        document.write(str);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../../data/买东西.js"></script>
+<script src="../../data/挂号.js"></script>
+<script src="../../data/药库.js"></script>
+<script src="../../js/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .col-md-3{
+        border: 1px solid deepskyblue;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+    }
+    #div_tian{
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        top: 0;
+        left: 36%;
+    }
+
+    #last_xinxi{
+        position: relative;
+        height: 30px;
+        background-color: rgb(148, 211, 239);
+    }
+     #btn2 {
+        position: absolute;
+        top: 5px;
+        border: 0px;
+        padding: 0  5px;
+        right: 25%;
+    }
+    #btn1 {
+        position: absolute;
+        top: 5px;
+        border: 0px;
+        padding: 0  5px;
+        left: 25%;
+    }
+    .btn4{
+        width: 80px;
+        height: 25px;
+        border:0;
+        background-color: deepskyblue;
+        font-size: 12px;
+        text-align: center;
+        line-height: 25px;
+        margin-left: 100px;
+    }
+    .left {
+        width: 100px;
+        height: 50px;
+        border-right: 0.5px solid grey
+    }
+    .right {
+        width: 100px;
+        height: 60px;
+        padding-left: 40px;
+    }
+    .top_top{
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        height: 60px;
+        justify-content: center;
+    }
+    .top1{
+        height: 30px;
+    }
+    .top2{
+        height: 30px;
+    }
+    .aaa{
+        float: left;
+        width: 40%;
+        height: 20px;
+        border-bottom: 0.5px solid grey;
+    }
+    #a2{
+        border-bottom: 0;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        width: 20%;
+    }
+    .row{
+        width: 100%;
+    }
+</style>
+<body>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-3">收入</div>
+    <div class="col-md-3">支出</div>
+    <div class="col-md-3">小计</div>
+</div>
+<div class="row">
+    <div class="col-md-3">药房 <a class="btn4"  href="22.html">查看本月情况</a></div>
+    <div class="col-md-3" id="yao_fang_shou"></div>
+    <div class="col-md-3" id="yao_fang_chu"></div>
+    <div class="col-md-3" id="yao_fang_he"></div>
+</div>
+<div class="row">
+    <div class="col-md-3">库房 <a class="btn4"  href=".html">查看本月情况</a></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-3">挂号<a class="btn4"  href=".html">查看本月情况</a></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row">
+    <div class="col-md-3">总计<a class="btn4"  href="33.html">查看本月情况</a></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3" ></div>
+</div>
+
+<div id="last_xinxi">
+    <div id="div_tian"></div>
+    <button id="btn1">上一天</button>
+    <button id="btn2">下一天</button>
+</div>
+<div class="aaa" id="a1"></div>
+<div class="aaa" id="a2">8月账单</div>
+<div class="aaa" id="a3"></div>
+<div class="top_top">
+    <div class="left">
+        <div class="top1" style="height: 20px">支出</div>
+        <div class="top1" id="top1" style="font-size: 20px">￥100</div>
+    </div>
+    <div class="right">
+        <div class="top2" style="height: 20px;">收入</div>
+        <div class="top2" id="top2" style="font-size: 20px">￥100</div>
+    </div>
+</div>
+<div style="width: 60%;margin: 0 auto">
+    <iframe id="content" name="content" src="11.html" scrolling="no" frameborder="0" onload="">
+
+    </iframe>
+    <iframe id="content1" name="content" src="guahao_tongji.html" scrolling="no" frameborder="0" onload=""></iframe>
+</div>
+</body>
+<script>
+    var day=1
+    var num=0
+    var num1=0
+    var num2=0
+
+function add(){
+    var riqi
+    $.each(yaopin, function (i,v) {
+         riqi="2020-08-0"+day
+        if(v.date==riqi){
+            riqi=0;
+            num=num+ Number(v.total)
+        }
+        $("#yao_fang_chu").html(num);
+
+    })
+    $.each(guaHao, function (i,v) {
+        var riqi
+        riqi="2020-08-0"+day
+        if(v.date==riqi){
+            num1=num1+Number(v.charge)
+        }
+        $(".row:nth-child(4) .col-md-3:nth-child(2)").html(num1)
+
+    })
+    $.each(newMedicine, function (i,v) {
+        var riqi
+        riqi="2020-08-0"+day
+        console.log(v.date)
+        console.log(riqi)
+        if(v.date==riqi){
+            num2=+Number(v.total)
+            console.log(num)
+        }
+        $(".row:nth-child(3) .col-md-3:nth-child(2)").html(num2)
+
+    })
+
+
+    $(".row:nth-child(2) .col-md-3:nth-child(4)").html(Number($(".row:nth-child(2) .col-md-3:nth-child(2)").html())-Number($(".row:nth-child(2) .col-md-3:nth-child(3)").html()));
+    $(".row:nth-child(3) .col-md-3:nth-child(4)").html($(".row:nth-child(3) .col-md-3:nth-child(2)").html()-$(".row:nth-child(3) .col-md-3:nth-child(3)").html());
+    $(".row:nth-child(4) .col-md-3:nth-child(4)").html($(".row:nth-child(4) .col-md-3:nth-child(2)").html()-$(".row:nth-child(4) .col-md-3:nth-child(3)").html());
+    $(".row:nth-child(5) .col-md-3:nth-child(2)").html(Number($(".row:nth-child(4) .col-md-3:nth-child(2)").html())+Number($(".row:nth-child(3) .col-md-3:nth-child(2)").html()));
+    $(".row:nth-child(5) .col-md-3:nth-child(3)").html(-Number($(".row:nth-child(2) .col-md-3:nth-child(3)").html()));
+    $(".row:nth-child(5) .col-md-3:nth-child(4)").html(Number($(".row:nth-child(2) .col-md-3:nth-child(4)").html())+Number($(".row:nth-child(3) .col-md-3:nth-child(4)").html())+Number($(".row:nth-child(4) .col-md-3:nth-child(4)").html()));
+
+    $("#div_tian").html("今日收入统计(有效时间至"+riqi+"至"+riqi+")")
+    num=0;
+    num1=0;
+}
+    add();
+    $("#btn2").click(function () {
+        if(day<=30){
+            day++;
+            add()
+        }
+    });
+    $("#btn1").click(function () {
+        if(day>1){
+            day--;
+            add()
+        }
+    })
+    var zongji=0
+    $.each(yaopin,function(i,v){
+      zongji=zongji+Number(v.total)
+    })
+    $("#top1").html("￥:"+zongji)
+    var zongji1=0
+    $.each(guaHao,function(i,v){
+        zongji1=zongji1+Number(v.charge)
+    })
+    var zongji2=0
+    $.each(newMedicine,function(i,v){
+        zongji2=zongji2+Number(v.total)
+    })
+    var zongji3=Number(zongji1)+Number(zongji2)
+    $("#top2").html("￥:"+zongji3)
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/cart.css" />
+    <script type="text/javascript" src="/plugins/layui/layui.all.js"></script>
+    <link type="text/css" rel="stylesheet" href="/plugins/layui/css/layui.css" />
+</head>
+
+<body>
+    <div id="container">
+        <%- include('./header'); %>
+        <div id="content">
+            <div id="contentTop">
+                <div id="wenzi1">
+                    LITTLE BAG
+                </div>
+                <div id="wenzi2">
+                    购物车
+                </div>
+            </div>
+            <div id="contentTopOne">
+                <div id="contentTopWen">
+                    <input id="checkAll" type="checkbox" />
+                    <span>商品名称</span>
+                    <span id="span1">单价</span>
+                    <span class="span2">数量</span>
+                    <span class="span2">小计</span>
+                    <span class="span2">操作</span>
+                </div>
+            </div>
+            <% cartshoparr.forEach(function(cartshop){ %>
+            <div id="contentMiddom">
+                <div id="contentMiddomOne">
+                    <input data-sid="<%=cartshop.sid %>" type="checkbox" />
+                    <div id="middonOne">
+                        <a href="/productDetail.html?sid=<%=cartshop.sid %>"><img src="<%=cartshop.feng %>"
+                                alt="" /></a>
+                        <%=cartshop.title %>
+                    </div>
+                    <div id="middomTwo">
+                        $<%=cartshop.price %>
+                    </div>
+                    <div id="middomThree">
+                        <%=cartshop.num %>
+                    </div>
+                    <div id="middomFour">
+                        $<span id="pc_<%=cartshop.sid %>"><%=cartshop.price * cartshop.num %></span>
+                    </div>
+                    <div id="middomFive">
+                        <a href="">删除</a>
+                    </div>
+                </div>
+                <div id="contentMiddomTwo">
+                    <div id="middonOne1">
+                        <div class="middonOne1">
+                            赠送
+                        </div>
+                        <div class="middonOne2">
+                            轻松理赔（运费险）
+                        </div>
+                    </div>
+                    <div id="middomTwo1">
+                        赠送
+                    </div>
+                    <div id="middomThree1">
+                        1
+                    </div>
+                    <div id="middomFour1">
+                        0
+                    </div>
+                    <div id="middomFive1">
+                        <a href="">删除</a>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+            <div id="contentBottom">
+                <div id="contentBottomOne">
+                    总计 $ <span id="zongheji">0.00</span>
+                </div>
+                <div id="contentBottomTwo">现在结算</div>
+            </div>
+        </div>
+        <%- include('./footer'); %>
+    </div>
+    <script type="text/javascript" src="js/javascript.js"></script>
+    <script type="text/javascript" src="js/cart.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>药品订单信息</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        #inBox2 li {
+            float: left;
+            height: 25px;
+            width: 25px;
+            line-height: 25px;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-align: center;
+            margin: 5px;
+        }
+
+        #inBox2 li:hover {
+            background-color: lightgreen;
+
+        }
+
+        #inBox2 {
+            width: 200px;
+            overflow: hidden;
+            margin: 0 auto;
+            padding-left: 65px;
+        }
+
+        .li1 {
+            background-color: #5bc0de;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        #dateCha {
+            text-align: right;
+            padding-right: 30px;
+        }
+
+        #thCss>th {
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        #dateCha>input {
+            margin-right: 20px;
+        }
+    </style>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+</head>
+<style>
+</style>
+
+<body>
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr align="center">
+                    <td> 订单编号：</td>
+                    <td><input id="cxmz" type="text" style="width: 400px" /></td>
+                    <!--<td><input type="date"/></td>-->
+                    <td><button id="chaxun" class="btn btn-info btn-sm">查询所有订单</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped ">
+            <caption style="text-align: center; font-size: 28px; font-weight: 600; background-color: rgb(231,239,239)">
+                药品订单表</caption>
+            <thead>
+                <tr>
+                    <td id="dateCha" colspan="7">
+                        <input id='input1' type="date" />
+                        <input id='input2' type="date" />
+                        <button id='chaXuna' class="btn btn-info btn-sm">查询</button>
+                    </td>
+                </tr>
+                <tr style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8)) " id="thCss">
+                    <th>订单编号</th>
+                    <th>出库时间</th>
+                    <th>药品名称</th>
+                    <th>药品编号</th>
+                    <th>出库数量</th>
+                    <th>药品售价</th>
+                    <th>金额总计</th>
+                </tr>
+            </thead>
+            <tbody id="inBox">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <ul id="inBox2">
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="../../js/yk_js/yk_JSmedicine2.js"></script>
+</body>
+
+</html>

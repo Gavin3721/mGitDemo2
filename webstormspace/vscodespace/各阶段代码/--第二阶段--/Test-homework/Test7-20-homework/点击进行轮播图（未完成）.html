@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+
+        #viewPort {
+            border: 2px solid red;
+            height: 350px;
+            width: 620px;
+            margin: 50px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #viewPort>div {
+            width: 1860px;
+            font-size: 0;
+            border: 1px solid green;
+            transition: margin 2s;
+        }
+
+        #viewPort>div img {
+            height: 350px;
+            width: 620px;
+        }
+
+        #leftImg {
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: 150px;
+            left: 0px;
+            cursor: pointer;
+        }
+
+        #rightImg {
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            top: 150px;
+            right: 0px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="viewPort">
+        <img id="leftImg" src="img/left.png" />
+        <img id="rightImg" src="img/right.png" />
+        <div id="imgDiv">
+            <img src="img/lanrenzhijia10.jpg" alt="" />
+            <img src="img/lanrenzhijia11.jpg" alt="" />
+            <img src="img/lanrenzhijia12.jpg" alt="" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var imgDiv = document.querySelector("#viewPort>div");
+        var pxSum = 0;
+        document.getElementById("leftImg").onclick = function () {
+            pxSum += -620;
+            /* if (pxSum == -1860) {
+                pxSum = 0;
+            } */
+            imgDiv.style.marginLeft = pxSum + "px";
+        };
+
+        document.getElementById("rightImg").onclick = function () {
+            pxSum += 620;
+            /* var tempWidth = imgDiv.offsetWidth;
+            tempWidth += 1860; */
+            imgDiv.style.marginLeft = pxSum + "px";
+        };
+
+        document.getElementById("imgDiv").addEventListener("transitionend", function (e) {
+            alert("过渡事件触发--过渡以完成");
+        });
+
+    </script>
+</body>
+
+</html>

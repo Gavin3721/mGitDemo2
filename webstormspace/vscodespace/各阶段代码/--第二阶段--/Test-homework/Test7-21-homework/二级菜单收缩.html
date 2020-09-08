@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            outline: 0px;
+            text-decoration: none;
+        }
+
+        h3 {
+            color: aqua;
+        }
+
+        ul {
+            width: 200px;
+            background-color: green;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        a {
+            color: white;
+            font-weight: bold;
+        }
+
+        .mdiv {
+            height: 0;
+            overflow: hidden;
+            cursor: pointer;
+            background-color: chartreuse;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <h3>主菜单</h3>
+        </li>
+        <li>
+            <a href="javascript:;">选项一</a>
+            <div class="mdiv">
+                <div>操作1</div>
+                <div>操作2</div>
+                <div>操作3</div>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">选项二</a>
+            <div class="mdiv">
+                <div>操作1</div>
+                <div>操作2</div>
+                <div>操作3</div>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">选项三</a>
+            <div class="mdiv">
+                <div>操作1</div>
+                <div>操作2</div>
+                <div>操作3</div>
+            </div>
+        </li>
+    </ul>
+
+    <script>
+        var arr = document.getElementsByTagName("a");
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].nextElementSibling) {
+                arr[i].onclick = function () {
+                    if (this.nextElementSibling.offsetHeight == 0) {
+                        var arr2 = document.querySelectorAll(".mdiv");
+                        for (var j = 0; j < arr2.length; j++) {
+                            if (this.nextElementSibling == arr2[j]) {
+                                this.nextElementSibling.style.height = "auto";
+                                //this.nextElementSibling.style.height = this.nextElementSibling.children.length * 60 + 'px';
+                            } else
+                                arr2[j].style.height = "0";//将其他的菜单隐藏
+                        }
+                    } else {
+                        this.nextElementSibling.style.height = "0";
+                    }
+                };
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*3. 根据双色球摇奖规则，产生6个红球1个蓝球；红球范围1-33， 蓝球范围1-16. 红球不能有重复的产生。
+        思路：每次产生一个随机球，存入数组中，下一次产生的随机球，要和数组中的进行比较，如果有相等的，
+        则重新产生一个号（循环变量要减1），反之继续存入数组；直到产生6个球；蓝球单独产生；
+        最后输出所有球。*/
+
+        var ballArr = new Array(7);
+        //先产生6个红球
+        for (var i = 0; i < 6; i++) {
+            var isSame = false;
+            do {
+                var nmNum = "红球" + (Math.floor(Math.random() * 33) + 1);
+                for (var j = 0; j < 6; j++) {
+                    if (nmNum == ballArr[j]) {
+                        //说明有重复编号的球
+                        isSame = true;
+                        break;
+                    }
+                }
+                if (!isSame) {
+                    ballArr[i] = nmNum;
+                    isSame = false;
+                }
+            } while (isSame);
+        }
+        //先产生1个蓝球
+        ballArr[6] = "蓝球" + (Math.floor(Math.random() * 16) + 1);
+        document.write("最终产生得双色球为：" + ballArr);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

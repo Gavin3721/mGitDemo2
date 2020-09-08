@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        /* 3、判定2000-2500年中是闰年的年，输出闰年的条件是：
+         (1).能被4整除，但同时不能被100整除的年份都是闰年
+         (2).能被400整除的年份是闰年
+         其它情况都不是闰年*/
+
+        var runNianStr = "";
+        for (var i = 2000; i <= 2500; i++) {
+            if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0) {
+                runNianStr = runNianStr + ",<br/>" + i;
+            }
+        }
+        document.write("2000-2500年中是闰年的年份有：" + runNianStr.substr(1));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

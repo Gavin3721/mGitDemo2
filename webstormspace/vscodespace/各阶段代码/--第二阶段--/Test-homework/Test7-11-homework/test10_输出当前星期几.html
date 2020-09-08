@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        /*输出当前星期几。if或者switch*/
+        var mDate = new Date();//返回当日的日期和时间
+        // getDate()	    从 Date 对象返回一个月中的某一天 (1 ~ 31)
+        // getDay()	        从 Date 对象返回一周中的某一天 ( 0（周日）到 6（周六）)
+        // getMonth()	    从 Date 对象返回月份 (0（一月）到 11（十二月）)
+        // getFullYear()	从 Date 对象以四位数字返回年份
+        var day = mDate.getDay();
+        var week = "";
+        /*if (day == 0) {
+         week = "周日";
+         } else if (day == 1) {
+         week = "周一";
+         } else if (day == 2) {
+         week = "周二";
+         } else if (day == 3) {
+         week = "周三";
+         } else if (day == 4) {
+         week = "周四";
+         } else if (day == 5) {
+         week = "周五";
+         } else if (day == 6) {
+         week = "周六";
+         }*/
+        switch (day) {
+            case 0:
+                week = "周日";
+                break;
+            case 1:
+                week = "周一";
+                break;
+            case 2:
+                week = "周二";
+                break;
+            case 3:
+                week = "周三";
+                break;
+            case 4:
+                week = "周四";
+                break;
+            case 5:
+                week = "周五";
+                break;
+            case 6:
+                week = "周六";
+                break;
+        }
+        document.write("当前日为" + week);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

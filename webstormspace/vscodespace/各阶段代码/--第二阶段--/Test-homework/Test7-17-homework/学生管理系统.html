@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #menuDiv,
+        #addUpdDiv {
+            display: none;
+        }
+
+        select {
+            width: 175px;
+        }
+
+        #stuInfo {
+            border: 1px solid green;
+            width: 900px;
+        }
+
+        #stuInfo th,
+        td {
+            padding: 50px;
+            border: 1px solid green;
+        }
+
+        td span {
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        var currentUser = "";
+
+        var studentsArr = [
+            {
+                "id": "11111",
+                "name": "张三",
+                "sex": "男",
+                "age": 23,
+                "remarks": "这是个好孩子"//备注
+            }, {
+                "id": "11112",
+                "name": "李四",
+                "sex": "女",
+                "age": 21,
+                "remarks": "三好学生"
+            }, {
+                "id": "11113",
+                "name": "王五",
+                "sex": "女",
+                "age": 18,
+                "remarks": ""
+            }];
+
+        //登录
+        function loginSystem() {
+            var loginNm = document.getElementById("loginNm").value;
+            var pwd = document.getElementById("password").value;
+            var tips = document.getElementById("tips");
+            if (loginNm == "" || pwd == "") {
+                tips.innerHTML = "<span style='color: red'>用户名及密码不能为空！！</span>";
+                return false;
+            }
+            var result = loginOperate(loginNm, pwd);
+            if (result) {
+                tips.innerHTML = "<span style='color: green'>登录成功</span>";
+                currentUser = loginNm;
+                document.getElementById("loginDiv").style.display = "none";
+                document.getElementById("menuDiv").style.display = "block";
+                queryStudent();
+            } else {
+                tips.innerHTML = "<span style='color: red'>用户名或密码错误，登录失败！！</span>";
+            }
+        }
+
+        //退出系统
+        function signOut() {
+            var result = confirm("本操作将清空您的个人信息，是否确认退出系统？");
+            if (result) {
+                currentUser = "";
+                document.getElementById("loginDiv").style.display = "block";
+                document.getElementById("menuDiv").style.display = "none";
+                document.getElementById("addUpdDiv").style.display = "none";
+                document.getElementById("tips").innerText = "";
+                //清空所有输入的文本框
+                var inputArr = document.getElementsByTagName("input");
+                for (var i = 0; i < inputArr.length; i++) {
+                    if (inputArr[i].type == "text" || inputArr[i].type == "password" || inputArr[i].type == "hidden") {
+                        inputArr[i].value = "";
+                    }
+                }
+            }
+        }
+
+        //查询学生信息
+        function queryStudent() {
+            var stuId = document.getElementById("stu_Id").value.trim();
+            var stuNm = document.getElementById("stu_Nm").value.trim();
+            var stuSex = document.getElementById("stu_Sex").value.trim();
+            var stuAge = document.getElementById("stu_Age").value.trim();
+            var stuArr = queryOperate(stuId, stuNm, stuSex, stuAge);
+            var str = "<tr><th>编号</th><th>姓名</th><th>性别</th><th>年龄</th><th>备注</th><th>操作</th></tr>";
+            if (stuArr.length != 0) {
+                for (var i = 0; i < stuArr.length; i++) {
+                    str = str + "<tr><td>" + stuArr[i].id + "</td><td>" + stuArr[i].name + "</td><td>" + stuArr[i].sex + "</td><td>" + stuArr[i].age + "</td><td>" + stuArr[i].remarks + "</td><td><span onclick='updStuInfo(" + stuArr[i].id + ")'>修改</span>&nbsp;&nbsp;&nbsp;&nbsp;<span onclick='delStuInfo(" + stuArr[i].id + ")'>删除</span></td></tr>";
+                }
+            }
+            document.getElementById("stuInfo").innerHTML = str;
+        }
+
+        //添加学生
+        function addStudent() {
+            document.getElementById("menuDiv").style.display = "none";
+            document.getElementById("addUpdDiv").style.display = "block";
+        }
+
+        //返回主菜单
+        function returnMenu() {
+            document.getElementById("menuDiv").style.display = "block";
+            document.getElementById("addUpdDiv").style.display = "none";
+            document.getElementById("stuId").value = "";
+            queryStudent();
+        }
+
+        //保存学生信息
+        function saveStu() {
+            var stuId = document.getElementById("stuId").value.trim();
+            var stuNm = document.getElementById("stuNm").value.trim();
+            var stuSex = document.getElementById("stuSex").value.trim();
+            var stuAge = document.getElementById("stuAge").value.trim();
+            var stuRemarks = document.getElementById("stuRemarks").value.trim();
+            if (stuNm == '' || stuSex == '' || stuAge == '') {
+                alert("学生姓名，性别，年龄不能为空");
+                return false;
+            }
+            if (Number(stuAge) != parseInt(stuAge) || Number(stuAge) <= 0 || Number(stuAge) > 120) {
+                alert("学生年龄不规范");
+                return false;
+            }
+            var result = saveOperate(stuId, stuNm, stuSex, stuAge, stuRemarks);
+            if (result == true) {
+                alert("保存成功");
+                returnMenu();
+            }
+        }
+
+        //删除学生信息
+        function delStuInfo(stuId) {
+            var result = confirm("是否确认删除该学生信息？");
+            if (result) {
+                var returnEnd = delOperate(stuId);
+                if (returnEnd) {
+                    alert("删除成功！");
+                    queryStudent();
+                }
+            }
+        }
+
+        //修改学生信息
+        function updStuInfo(stuId) {
+            document.getElementById("menuDiv").style.display = "none";
+            document.getElementById("addUpdDiv").style.display = "block";
+            var arr = queryOperate(stuId, '', '', '');
+            document.getElementById("stuId").value = stuId;
+            document.getElementById("stuNm").value = arr[0].name;
+            document.getElementById("stuSex").value = arr[0].sex;
+            document.getElementById("stuAge").value = arr[0].age;
+            document.getElementById("stuRemarks").value = arr[0].remarks;
+        }
+
+        //------------------以下都是访问远程数据操作的方法------------------
+        //远程登录操作
+        function loginOperate(username, password) {
+            //toUpperCase()大写，toLowerCase()小写
+            username = username.toLowerCase();
+            if (username == "admin" && password == "123123") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //查询操作
+        function queryOperate(stuId, stuNm, stuSex, stuAge) {
+            var newArr = [];
+            for (var i = 0; i < studentsArr.length; i++) {
+                var tempArr = [];//用来记录匹配的状态
+                if (stuId != '') {
+                    if (String(studentsArr[i].id).indexOf(stuId) != -1) {
+                        tempArr.push(true);
+                    } else {
+                        tempArr.push(false);
+                    }
+                } else
+                    tempArr.push(true);
+
+                if (stuNm != '') {
+                    if (String(studentsArr[i].name).indexOf(stuNm) != -1) {
+                        tempArr.push(true);
+                    } else {
+                        tempArr.push(false);
+                    }
+                } else
+                    tempArr.push(true);
+
+                if (stuSex != '') {
+                    if (studentsArr[i].sex == stuSex) {
+                        tempArr.push(true);
+                    } else {
+                        tempArr.push(false);
+                    }
+                } else
+                    tempArr.push(true);
+
+                if (stuAge != '') {
+                    if (studentsArr[i].age == stuAge) {
+                        tempArr.push(true);
+                    } else {
+                        tempArr.push(false);
+                    }
+                } else
+                    tempArr.push(true);
+
+                var isAdd = true;
+                for (var j = 0; j < tempArr.length; j++) {
+                    if (tempArr[j] == false) {
+                        isAdd = false;
+                        break;
+                    }
+                }
+                if (isAdd) {
+                    newArr.push(studentsArr[i]);
+                }
+            }
+            return newArr;
+        }
+
+        //保存学生信息操作（如果stuId为空，则是新增操作，否则为修改操作）
+        function saveOperate(stuId, stuNm, stuSex, stuAge, stuRemarks) {
+            if (stuId == '') {
+                //新增
+                var lastId = studentsArr[studentsArr.length - 1].id;
+                var stuId = Number(lastId) + 1;
+                var stu = new Object();
+                stu.id = stuId, stu.name = stuNm, stu.sex = stuSex, stu.age = stuAge, stu.remarks = stuRemarks;
+                studentsArr.push(stu);
+            } else {
+                //修改
+                for (var i = 0; i < studentsArr.length; i++) {
+                    var student = studentsArr[i];
+                    if (student.id == stuId) {
+                        student.name = stuNm;
+                        student.sex = stuSex;
+                        student.age = stuAge;
+                        student.remarks = stuRemarks;
+                        studentsArr[i] = student;
+                        break;
+                    }
+                }
+            }
+            return true;
+        }
+
+        //删除学生信息操作
+        function delOperate(stuId) {
+            for (var i = 0; i < studentsArr.length; i++) {
+                if (studentsArr[i].id == stuId) {
+                    studentsArr.splice(i, 1);
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <h3>********欢迎使用学生信息管理系统********</h3>
+    <div id="loginDiv">
+        管理员账户：<input id="loginNm" type="text" /><br />
+        管理员密码：<input id="password" type="password" /><br />
+        <p id="tips"></p>
+        <input id="loginBtn" type="button" value="登录" onclick="loginSystem()" />
+    </div>
+
+    <div id="menuDiv">
+        <input id="signOutBtn" type="button" value="退出系统" onclick="signOut()" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="addBtn" type="button" value="添加学生" onclick="addStudent()" /><br />
+        <p>请按照以下条件进行查询：</p>
+        编号：<input id="stu_Id" type="text" /><br />
+        姓名：<input id="stu_Nm" type="text" /><br />
+        性别：<select id="stu_Sex">
+            <option value="" selected="selected">--请选择--</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select><br />
+        年龄：<input id="stu_Age" type="text" /><br />
+        <input id="queryBtn" type="button" value="查询" onclick="queryStudent()" />
+
+        <table id="stuInfo">
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>备注</th>
+                <th>操作</th>
+            </tr>
+        </table>
+
+    </div>
+
+    <div id="addUpdDiv">
+        <input id="stuId" type="hidden" />
+        学生姓名：<input id="stuNm" type="text" /><br />
+        学生性别：<select id="stuSex">
+            <option value="" selected="selected">--请选择--</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select><br />
+        学生年龄：<input id="stuAge" type="text" /><br /><br />
+        备注信息：<textarea id="stuRemarks"></textarea><br /><br />
+        <input id="returnBtn" type="button" value="返回" onclick="returnMenu()" />&nbsp;&nbsp;&nbsp;
+        <input id="saveBtn" type="button" value="保存" onclick="saveStu()" />
+    </div>
+</body>
+
+</html>

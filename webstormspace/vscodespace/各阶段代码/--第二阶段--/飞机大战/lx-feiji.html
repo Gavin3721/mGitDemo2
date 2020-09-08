@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞机</title>
+    <style>
+        #box {
+            width: 400px;
+            height: 500px;
+            background-image: url('imgs/1.png');
+            position: relative;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        #scoreBox {
+            font-size: 20px;
+            color: antiquewhite;
+            padding: 10px 20px;
+            z-index: 9999;
+        }
+
+        #startBox {
+            width: 200px;
+            text-align: center;
+            font-style: italic;
+            color: palevioletred;
+            position: absolute;
+            top: 40%;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+        }
+
+        #startBox h1 {
+            animation: myAnimation 4s linear infinite;
+        }
+
+        @keyframes myAnimation {
+            0% {
+                color: red;
+            }
+
+            25% {
+                color: green;
+            }
+
+            50% {
+                color: yellow;
+            }
+
+            100% {
+                color: blue;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <div id="scoreBox">
+            <p>敌机数：<span id="kill">0</span></p>
+            <p>总分数：<span id="score">0</span></p>
+        </div>
+        <div id="startBox">
+            <h1>come!guys!</h1>
+            <img id="btn" src="imgs/2.png" alt="开始游戏">
+        </div>
+    </div>
+
+    <script>
+        var box = document.getElementById('box'),
+            scoreBox = document.getElementById('scoreBox'),
+            startBox = document.getElementById('startBox'),
+            startBtn = document.getElementById('btn'),
+            killNode = document.getElementById('kill'),
+            scoreNode = document.getElementById('score');
+
+        //创建数组存放子弹和敌机
+        var player, bulletArr = [], enemyArr = [];
+
+        //记录飞行方向
+        var pTop = false, pDown = false, pLeft = false, pRight = false;
+
+        //初始scoreBox
+        var kill = 0, score = 0;
+
+        /* 暂停的时候，玩家对象依然存在，再继续时不需要重新创建玩家对象；
+        引入新问题，游戏结束时，玩家对象并没有删除，游戏再次开始时，
+        玩家对象就不用再重新创建，页面上没有玩家表示创建玩家对象的条件有问题，
+        需要增加游戏结束时的判断，需要创建一个结束状态的变量 */
+
+        var isOver = true//记录游戏状态是否是结束
+        var timer1, timer2, timer3, timer4, timer5;
+        var iStart = false;//记录暂停游戏是继续游戏还是开始游戏
+
+        //========游戏开始的点击事件=========
+        startBtn.onclick = start;
+        function start() {
+            if (isOver) {
+                kill = 0;
+                score = 0;
+                killNode.innerHTML = 0;
+                scoreNode.innerHTML = 0;
+            }
+
+            //开始状态
+            iStart = true;
+
+            //隐藏startBox
+            startBox.style.display = 'none';
+
+            // 敌机出现
+            timer1 = setInterval(showEnemy, 500);
+            timer2 = setInterval(enemyMove, 100);
+
+            //玩家飞机出现
+            if (!player || isOver) {
+                // player 暂停时，对象依然存在，所以不需要重新创建，
+                // isOver游戏结束，重新创建
+                player = new Player('imgs/myplane4.gif', 0, (500 - 80), 4);
+            }
+
+            //结束状态
+            isOver = false;
+
+            //玩家飞机飞行
+            timer3 = setInterval(playMove, 30);
+
+            //子弹飞起来
+            timer4 = setInterval(bulletMove, 50);
+
+            //检测子弹和敌机的碰撞
+            timer5 = setInterval(collision, 40);
+        }
+
+        //========游戏开始的点击事件结束=========
+
+
+        //========敌机的构造函数========
+        /* @constructor EnemyPlane  创建敌机对象
+        @param src  string  图片地址
+        @param x  Number  图片的水平坐标
+        @param y  Number  图片的竖直方向坐标
+        @param speed  Number  敌机移动的速度 */
+
+        function EnemyPlane(src, x, y, speed) {
+            this.node = document.createElement('img');
+            this.src = src;
+            this.x = x;
+            this.y = y;
+            this.score = 2;//默认一架敌机值2分
+            this.speed = speed;
+            this.isDead = false;
+            this.deadTime = 2;//死亡过渡的时间
+            this.init();
+        }
+        //敌机的初始化函数，让敌机显示在页面内
+        EnemyPlane.prototype.init = function () {
+            this.node.src = this.src;
+            this.node.style.position = 'absolute';
+            this.node.style.left = this.x + 'px';
+            this.node.style.top = this.y + 'px';
+            box.appendChild(this.node);
+        };
+
+        //敌机的x方向的函数设置
+        function ran(n, m) {
+            return Math.floor(Math.random() * (m - n) + n);
+            /*  Math.random()   0-1随机小数，
+             Math.random() * 10   0-10 随机小数，
+             Math.ceil(Math.random() * 10 +10 ) 1-10的整数
+             Math.floor(Math.random() * （10+1） +10  ) 0-9的整数
+             Math.random() * 10 + 10   10-20 */
+        }
+
+        //敌机的移动
+        EnemyPlane.prototype.move = function () {
+            this.node.style.top = this.node.offsetTop + this.speed + 'px';
+        };
+        function showEnemy() {
+            enemyArr.push(new EnemyPlane('imgs/enemy1_fly_1.png', ran(400 - 34, 0), 0, 2));
+        }
+        function enemyMove() {
+            for (var i = 0; i < enemyArr.length; i++) {
+                if (enemyArr[i].isDead) {//敌机即将死
+                    enemyArr[i].deadTime--;
+                    if (enemyArr[i].deadTime <= 0) {
+                        box.removeChild(enemyArr[i].node);
+                        enemyArr.splice(i, 1);
+                    }
+                } else {
+                    if (enemyArr[i].node.offsetTop >= box.offsetHeight) {
+                        box.removeChild(enemyArr[i].node);
+                        enemyArr.splice(i, 1);
+                    } else {
+                        enemyArr[i].move();
+                    }
+                }
+            }
+        }
+        //========敌机结束========
+
+        // ========玩家飞机的构造函数========
+        /* 玩家飞机的构造函数
+        @constructor Player  创建玩家飞机对象
+        @param src  string  图片地址
+        @param x  Number  图片的水平坐标
+        @param y  Number  图片的竖直方向坐标
+        @param speed  Number  敌机移动的速度 */
+
+        //========玩家飞机设置========
+
+        //构造函数，函数首字母大写
+        function Player(src, x, y, speed) {
+            this.node = document.createElement('img');//创建玩家飞机节点
+            this.src = src;
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+            this.init();
+        };
+
+        //玩家飞机的初始化函数，让其显示在页面内
+        Player.prototype.init = function () {
+            this.node.src = this.src;
+            this.node.style.position = 'absolute';
+            this.node.style.left = this.x + 'px';
+            this.node.style.top = this.y + 'px';
+            box.appendChild(this.node);
+        };
+
+        //玩家飞机的移动
+        //上
+        Player.prototype.toTop = function () {
+            var t = this.node.offsetTop - this.speed;
+            if (t <= 0) {
+                t = 0;
+            }
+            this.node.style.top = t + 'px';
+        }
+        //下
+        Player.prototype.toDown = function () {
+            var d = this.node.offsetTop + this.speed;
+            if (d >= box.offsetHight - player.node.offsetHight) {
+                d = box.offsetHight - player.node.offsetHight;
+            }
+            this.node.style.top = d + 'px';
+        }
+        //左
+        Player.prototype.toLeft = function () {
+            var l = this.node.offsetLeft - this.speed;
+            if (l <= 0) {
+                l = 0;
+            }
+            this.node.style.left = l + 'px';
+        }
+        //右
+        Player.prototype.toRight = function () {
+            var r = this.node.offsetLeft + this.speed;
+            if (r >= box.offsetWidth - player.node.offsetWidth) {
+                r = box.offsetWidth - player.node.offsetWidth;
+            }
+            this.node.style.left = r + 'px';
+        }
+
+        //玩家飞机射击的函数
+        Player.prototype.shoot = function () {
+            bulletArr.push(new Bullet('imgs/bullet2.png', player.node.offsetLeft + (player.node.offsetWidth / 2 - 6 / 2), player.node.offsetTop - 14, 6))
+        };
+
+        //玩家飞机移动的函数
+        function playMove() {
+            if (pTop) {
+                player.toTop();
+            }
+            if (pDown) {
+                player.toDown();
+            }
+            if (pLeft) {
+                player.toLeft();
+            }
+            if (pRight) {
+                player.toRight();
+            }
+        }
+        //========玩家飞机的功能结束========
+
+        //=========玩家子弹功能开始=========
+
+        //玩家子弹的构造函数
+        function Bullet(src, x, y, speed) {
+            this.src = src;
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+            this.node = document.createElement('img');
+            this.init();
+        }
+
+        //玩家子弹的初始化函数，让其显示在页面内
+        Bullet.prototype.init = function () {
+            this.node.src = this.src;
+            this.node.style.position = 'absolute';
+            this.node.style.left = this.x + 'px';
+            this.node.style.top = this.y + 'px';
+            box.appendChild(this.node);
+        };
+        Bullet.prototype.move = function () {
+            this.node.style.top = this.node.offsetTop - this.speed + 'px';
+        };
+
+        //子弹移动的函数
+        function bulletMove() {
+            //        console.log(bulletArr.length);
+            for (var i = 0; i < bulletArr.length; i++) {
+                if (bulletArr[i].node.offsetTop <= -bulletArr[i].node.offsetHeight) {
+                    box.removeChild(bulletArr[i].node);
+                    bulletArr.splice(i, 1);
+                } else {
+                    bulletArr[i].move();
+                }
+            }
+        }
+        //========子弹功能结束===========
+
+        //========碰撞检测的函数设置========
+        function testPZ(node1, node2) {
+            var l1 = node1.offsetLeft;// parseInt(div1.style.left)
+            var r1 = node1.offsetLeft + node1.offsetWidth;
+            var t1 = node1.offsetTop;
+            var b1 = node1.offsetTop + node1.offsetHeight;
+            var l2 = node2.offsetLeft;// parseInt(div1.style.left)
+            var r2 = node2.offsetLeft + node2.offsetWidth;
+            var t2 = node2.offsetTop;
+            var b2 = node2.offsetTop + node2.offsetHeight;
+            if (r1 < l2 || l1 > r2 || b1 < t2 || t1 > b2) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        //碰撞后要做的事情
+        function collision() {
+            for (var j = 0; j < enemyArr.length; j++) {
+                for (var i = 0; i < bulletArr.length; i++) {
+                    if (testPZ(bulletArr[i].node, enemyArr[j].node)) {
+                        //碰上了
+                        enemyArr[j].node.src = 'imgs/smallplaneboom2.gif';
+                        //换爆炸图
+                        enemyArr[j].isDead = true;
+                        //删掉子弹和敌机
+                        box.removeChild(bulletArr[i].node);
+                        bulletArr.splice(i, 1);
+                        //碰撞后积分
+                        score = score + enemyArr[j].score;
+                        kill++;
+                        scoreNode.innerHTML = String(score);
+                        killNode.innerHTML = String(kill);
+                    }
+                }
+            }
+            //玩家飞机和敌机碰撞
+            for (var j = 0; j < enemyArr.length; j++) {
+                if (testPZ(enemyArr[j].node, player.node)) {
+                    player.node.src = 'imgs/本方飞机爆炸.gif';
+                    over();
+                }
+            }
+        }
+
+        //========键盘事件========
+        //键盘按下事件的函数
+        document.onkeydown = function () {
+            var e = window.event || arguments[0];
+            switch (e.keyCode) {
+                case 37:
+                    //向左飞
+                    pLeft = true;
+                    break;
+                case 38:
+                    //向上飞
+                    pTop = true;
+                    break;
+                case 39:
+                    //向右飞
+                    pRight = true;
+                    break;
+                case 40:
+                    //向下飞
+                    pDown = true;
+                    break;
+                case 32:
+                    player.shoot();
+                    break;
+                default:
+                    console.log('键盘码' + e.keyCode);
+            }
+        };
+
+        //键盘弹起事件的函数
+        document.onkeyup = function () {
+            var e = window.event || arguments[0];
+            switch (e.keyCode) {
+                case 37:
+                    //向左飞
+                    pLeft = false;
+                    break;
+                case 38:
+                    //向上飞
+                    pTop = false;
+                    break;
+                case 39:
+                    //向右飞
+                    pRight = false;
+                    break;
+                case 40:
+                    //向下飞
+                    pDown = false;
+                    break;
+                case 13:
+                    startAndStop();
+                    break;
+                default:
+                    console.log('键盘码' + e.keyCode);
+            }
+        }
+
+        //游戏结束的函数设置
+        function over() {
+            isOver = true;
+            iStart = false;
+            clearInterval(timer1);
+            clearInterval(timer2);
+            clearInterval(timer3);
+            clearInterval(timer4);
+            clearInterval(timer5);
+            setTimeout(function () {
+                startBox.style.display = 'block';
+                var imgs = box.getElementsByTagName('img');//imgs包括所有图片，飞机，子弹等
+                console.log(box);
+                while (imgs.length > 1) {
+                    box.removeChild(imgs[1]);
+                }
+                enemyArr = [];
+                bulletArr = [];
+            }, 1000)
+        }
+
+        //游戏暂停的函数设置
+        function startAndStop() {
+            iStart = !iStart;
+            if (!iStart) {
+                //暂停
+                clearInterval(timer1);
+                clearInterval(timer2);
+                clearInterval(timer3);
+                clearInterval(timer4);
+                clearInterval(timer5);
+            } else {
+                //继续游戏
+                start();
+            }
+        }
+
+    </script>
+</body>
+
+</html>

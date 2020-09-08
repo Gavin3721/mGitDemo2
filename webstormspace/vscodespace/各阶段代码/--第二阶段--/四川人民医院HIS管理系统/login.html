@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="SHORTCUT ICON" href="img/favicon.ico" />
+    <title>登录</title>
+    <link rel="stylesheet" href="css/style.default.css" type="text/css" />
+    <link rel="stylesheet" href="css/login.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="data/main_info.js"></script>
+</head>
+
+<body class="loginpage">
+    <div id="container">
+        <div id="logodiv"><img src="img/logo2.png" /><img src="img/logo-text.png" /></div>
+        <div id="logindiv">
+            <form id="login" action="index.html" method="post">
+                <div class="inputwrapper login-alert">
+                    <div id="tips" class="alert alert-error"></div>
+                </div>
+                <div class="inputwrapper animate1 bounceIn">
+                    <input type="text" name="username" id="username" placeholder="用户名" />
+                </div>
+                <div class="inputwrapper animate2 bounceIn">
+                    <input type="password" name="password" id="password" placeholder="密 码" />
+                </div>
+                <div class="inputwrapper animate3 bounceIn">
+                    <button id="loginbtn" name="submit">登&nbsp;&nbsp;录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="loginfooter">
+        <p>&copy; 2020. All Rights Reserved.</p>
+    </div>
+</body>
+
+</html>

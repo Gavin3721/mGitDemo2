@@ -1,0 +1,78 @@
+*{
+    padding:0;
+    margin:0;
+}
+
+#container{
+    width: 800px;
+    height: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.box{
+    margin: 20px auto;
+    text-align: center;
+}
+
+
+#emailTxt{
+    width: 480px;
+    height: 20px;
+    padding:10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 2px solid #C4C7CE;
+    outline:none;
+    position: relative;
+}
+
+#emailTxt:focus{
+    border-color:#4E6EF2;
+    box-shadow: 1px 1px 5px 1px #C4C7CE;/* x y 模糊的距离 阴影大小 颜色 */
+}
+
+#checkBtn{
+    width: 100px;
+    height: 44px;
+    color:white;
+    font-size: 17px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+    left:-7px;
+    top:2px;
+    cursor:pointer;
+    border: none;
+    outline: none;
+    background-color: #4e6ef2;
+}
+
+#checkBtn:hover{
+    opacity: 0.8;
+}
+
+#email{
+    width:580px;
+    height:100px;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    font-size:18px;
+}
+
+#showResult{
+    width:580px;
+    height:200px;
+    padding: 10px;
+    border:1px solid rgb(143, 112, 112);
+    border-radius: 5px;
+    margin: 0 auto;
+    text-align:left;
+    font-size:18px;
+}
+
+.redSpan{
+    color:red;
+    font-weight: bold;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+            list-style: none;
+        }
+
+        #mDiv {
+            width: 400px;
+            height: 500px;
+            background-color: rgb(7, 99, 99);
+            margin: 0 auto;
+            margin-top: 80px;
+            border-radius: 10px;
+        }
+
+        #tips {
+            height: 50px;
+            margin-left: 30px;
+            line-height: 50px;
+            font-size: 20px;
+            color: white;
+        }
+
+        #num {
+            width: 100%;
+            color: white;
+            height: 200px;
+            line-height: 200px;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        button {
+            border-radius: 30px;
+            width: 300px;
+            height: 60px;
+            color: cadetblue;
+            font-size: 20px;
+            font-weight: bold;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mDiv">
+        <div>
+            <p id="tips">当前数值：</p>
+            <p id="num">0</p>
+        </div><br />
+        <button>开&nbsp;&nbsp;始</button><br />
+        <button>结&nbsp;&nbsp;束</button>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var btnArr = document.getElementsByTagName("button");
+            var currentNum = 0;
+            var times = 0;
+            var state = 0;//停止状态
+
+            btnArr[0].onclick = function () {
+                if (state == 0 || state == 2) {
+                    jiShu();
+                    this.innerText = "暂  停";
+                    this.style.color = "red";
+                    state = 1;//计数状态
+                } else if (state == 1) {
+                    clearInterval(times);
+                    this.innerText = "继  续";
+                    state = 2;//暂停状态
+                }
+            };
+
+            btnArr[1].onclick = function () {
+                clearInterval(times);
+                btnArr[0].innerText = "开  始";
+                btnArr[0].style.color = "cadetblue";
+                currentNum = 0;
+                state = 0;
+            };
+
+            function jiShu() {
+                times = window.setInterval(function () {
+                    currentNum += 1;
+                    document.getElementById("num").innerText = currentNum;
+                }, 1000);
+            };
+        };
+
+    </script>
+</body>
+
+</html>

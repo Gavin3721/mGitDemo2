@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*4.写一个函数，参数为一个字符串，返回这个字符串的反向字符串。 */
+        function getReseverStr(str) {
+            var arr = str.split("");
+            arr.reverse();
+            return arr.join("");
+        }
+        var str = prompt("请输入要被反向的字符串");
+        var nStr = getReseverStr(str);
+        document.write("反向后的字符串为：" + nStr);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

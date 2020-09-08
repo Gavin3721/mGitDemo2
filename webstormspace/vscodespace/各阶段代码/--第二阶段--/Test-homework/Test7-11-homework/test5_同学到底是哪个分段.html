@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        /*输入1个同学的成绩，最后输出这个同学到底是哪个分段
+         （60-70为D，70-80为C ，80-90为B，90-100为A 不及格-60为E ）*/
+        var fenshu = prompt("请输入该同学的成绩");
+        fenshu = Number(fenshu);
+        var grade = "";
+        if (fenshu > 90 && fenshu <= 100) {
+            grade = "A";
+        } else if (fenshu > 80 && fenshu <= 90) {
+            grade = "B";
+        } else if (fenshu > 70 && fenshu <= 80) {
+            grade = "C";
+        } else if (fenshu >= 60 && fenshu <= 70) {
+            grade = "D";
+        } else if (fenshu < 60) {
+            grade = "E";
+        } else {
+            grade = "无效成绩，没有这样的分数";
+        }
+        document.write("该同学对应的等级为：" + grade);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 6.输入2个日期 （年月日），计算两个日期相差多少天？ */
+        var time1 = prompt("请输入第一个日期（年-月-日）");
+        var time2 = prompt("请输入第二个日期（年-月-日）");
+        function diffDays(time1, time2) {
+            var date1 = new Date(time1), date2 = new Date(time2);
+            var diff = (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
+            diff < 0 ? diff = -diff : diff;
+            return diff;
+        }
+        var days = diffDays(time1, time2);
+        document.write(time1 + "和" + time2 + "两个日期之间相差：" + days + "天");
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

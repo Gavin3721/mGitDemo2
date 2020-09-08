@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>采购普通人员</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" type="text/css" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/cg-Medicine.css" type="text/css" />
+
+
+
+</head>
+
+<body>
+    <div class="bigBox">
+        <table class="table table-bordered" style="margin: 20px 0px;">
+            <caption class="capt">药品增加表</caption>
+            <tr align="center">
+                <td class="">订单编号</td>
+                <td><span>
+                        <input id="danHao" type="text" placeholder="xxxx" class="form-control" style="width:200px;" />
+                    </span></td>
+                <td class="">申请日期</td>
+                <td><span>
+                        <input id="riQi" type="date" placeholder="xxxx-xx-xx" class="form-control"
+                            style="width:200px;" />
+                    </span></td>
+                <td class="">药品编号</td>
+                <td><span>
+                        <input id="yaoBian" type="text" placeholder="00x/0xx" class="form-control"
+                            style="width:200px;" />
+                    </span></td>
+            </tr>
+            <tr align="center">
+                <td class="">科室</td>
+                <td><span>
+                        <input id="keShi" type="text" placeholder="科室" class="form-control" style="width:200px;" />
+                    </span></td>
+                <td class="">药品名称</td>
+                <td><span>
+                        <!--<select name="" id="yaoMing" class="form-control" style="width:200px;">
+                        <option value=""西瓜霜>西瓜霜</option>
+                        <option value=""扑尔敏>扑尔敏</option>
+                        <option value=""丹参>丹参</option>
+                    </select>-->
+
+                        <input id="yaoMing" type="text" placeholder="药品名称" class="form-control" style="width:200px;" />
+                    </span></td>
+                <td class="">药品单位</td>
+                <td><span>
+                        <input id="danWei" type="text" placeholder="药品单位" class="form-control" style="width:200px;" />
+                    </span></td>
+            </tr>
+            <tr align="center">
+                <td class="">价格</td>
+                <td><span>
+                        <input id="jiaGe" type="text" placeholder="价格" class="form-control  inPut"
+                            style="width:200px;" />
+                    </span></td>
+                <td class="">数量</td>
+                <td><span>
+                        <input id="shuLiang" type="text" placeholder="数量" class="form-control  inPut"
+                            style="width:200px;" />
+                    </span></td>
+                <td class="">总计</td>
+                <td><span>
+                        <input id="zongJi" type="text" placeholder="总计" class="form-control" style="width:200px;" />
+                    </span></td>
+            </tr>
+            <tr align="center"></tr>
+            <td class="" colspan="6">
+                <button id=addBtn type="button" class="btn btn-success">添加</button>
+                <button id="resetBtn" type="button" class="btn btn-primary">重置</button>
+            </td>
+            </tr>
+        </table>
+
+
+        <table class="table table-bordered">
+            <tr align="center">
+                <td class="">药品名称</td>
+                <td><span>
+                        <input id="inquireYaoMing" type="text" class="form-control" style="width:400px;" />
+                    </span></td>
+                <td><button id="inquireBtn" type="button" class="btn btn-info btn-sm">查询信息</button></td>
+            </tr>
+        </table>
+
+
+        <table class="table  table-striped table-bordered table-hover">
+            <caption class="capt">药品信息表</caption>
+            <thead align="center" style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));">
+                <tr>
+                    <th>订单编号</th>
+                    <th>申请日期</th>
+                    <th>药品编号</th>
+                    <th>科室</th>
+                    <th>药品名称</th>
+                    <th>价格</th>
+                    <th>数量</th>
+                    <th>药品单位</th>
+                    <th>总计</th>
+                    <th>审核状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tBody">
+            </tbody>
+        </table>
+        <ul id="pageBox">
+        </ul>
+    </div>
+
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/cg-Medicine.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #one {
+            margin: 0 auto;
+            /*background-color: #269abc;*/
+        }
+
+        #pageBox {
+            margin: 0 auto;
+            margin-top: 30px;
+            line-height: 50px;
+            overflow: hidden;
+            width: 200px;
+            /*background-color: #31b0d5;*/
+        }
+
+        #pageBox>li {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            float: left;
+            text-align: center;
+            border: 1px solid;
+        }
+
+        .delBtn {
+            background-color: skyblue;
+        }
+
+        .del1Btn {
+            background-color: #23527c;
+        }
+    </style>
+</head>
+<script src="../../js/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../css/fy-alert.css" />
+<script src="../../js/fy-alert.js"></script>
+
+<body>
+    <input type="number" id="id" placeholder="请输入ID" />
+    <input type="text" id="km" placeholder="请输入科室名" />
+    <input type="text" id="sx" placeholder="缩写" />
+    <input type="text" id="bz" placeholder="请输入备注" />
+    <input type="date" id="time" placeholder="请输入时间" />
+    <input type="text" id="name" placeholder="请输入姓名" />
+    <button id="btn">添加</button>
+    <table border="1px" cellspacing="0" width="300px" align="center" id="one"
+        class="table table-bordered table-striped">
+        <caption>科室信息</caption>
+        <thead>
+            <tr align="center" style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));">
+                <th>id</th>
+                <th>km</th>
+                <th>sx</th>
+                <th>bz</th>
+                <th>time</th>
+                <th>name</th>
+                <th>option</th>
+                <th>option</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <ul id="pageBox">
+    </ul>
+    <button id="btn2">初始化数据</button>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../data/shuju.js"></script>
+    <script>
+        var btn2 = document.getElementById('btn2');
+        var tableBody = document.querySelector('#one tbody');
+        var pageBox = document.querySelector('#pageBox');
+        var localkeshi = [];//本地数据
+        var pageData = [];//当前的页面数据
+        btn2.onclick = function () {
+            localStorage.setItem('keshi', JSON.stringify(keShi));//把初始的假数据存储
+            initTable();//初始化表格和分页，把本地存储的数据放在页面上
+        };
+        function initTable() {//进入页面的初始状态，初始化表格
+            //默认获取第一页的数据
+
+            localkeshi = localStorage.getItem('keshi');//获取所有本地数据
+            localkeshi = JSON.parse(localkeshi);//字符串转成对象
+            getPageData(localkeshi, 1, 4);//获取当前页面要展示的数据
+            //        渲染页面数据
+            render(pageData, 1, 4);
+            //        渲染分页
+            getPage(localkeshi.length, 4);
+        }
+        function render(pageData, pageindex, numPerPage) {
+            var str = '';
+            for (var i = 0; i <= pageData.length - 1; i++) {
+                str = str + '<tr><td>' + pageData[i].id + '</td>' +
+                    '<td>' + pageData[i].km + '</td>' +
+                    '<td>' + pageData[i].sx + '</td>' +
+                    '<td>' + pageData[i].bz + '</td>' +
+                    '<td>' + pageData[i].time + '</td>' +
+                    '<td>' + pageData[i].name + '</td>' +
+                    "<td><button class='delBtn' data-index='" + ((pageindex - 1) * numPerPage + i) + "'>删除</button></td>" +//
+                    "<td><button class='del1Btn' data-mid='" + pageData[i].id + "' data-index='" + ((pageindex - 1) * numPerPage) + i + "'>修改</button></td>" +
+                    "</tr>";
+            }
+            tableBody.innerHTML = str;
+        }
+
+        function getPage(total, numPerPage) {
+            var pageNum = Math.ceil(total / numPerPage);
+            var str = '';
+            for (var i = 1; i <= pageNum; i++) {
+                str += '<li><a href="javascript:;">' + i + '</a></li>';
+            }
+            pageBox.innerHTML = str;
+        }
+        function getPageData(arr, index, numPerPage) {
+            pageData = arr.slice((index - 1) * numPerPage, index * numPerPage)//看到分页页面的内容
+        }
+        //分页点击部分
+        $(pageBox).on('click', 'li', function () {
+            console.log($(this).index());
+            getPageData(localkeshi, $(this).index() + 1, 4);
+            render(pageData, $(this).index() + 1, 4);
+            getPage(localkeshi.length, 5);
+            $(this).addClass('active').siblings('li').removeClass('active');
+        });
+        var addBtn = $('#btn');
+        addBtn.click(function () {
+            var id = $('#id');
+            var km = $('#km');
+            var sx = $('#sx');
+            var bz = $('#bz');
+            var time = $('#time');
+            var userName = $('#name');
+            localkeshi.unshift({
+                id: id.val(),
+                km1: km.val(),
+                sx: sx.val(),
+                time: Number(time.val()),
+                name: userName.val()
+
+            });
+            $("input").val("");
+            localStorage.setItem('keshi', JSON.stringify(localkeshi));
+            initTable();
+        });
+        //删除数据
+        $('tbody').on('click', '.delBtn', function () {
+            console.log($(this).data('index'));
+            openDialog();
+            //在数组中删除数据
+        });
+        //删除数据的模态框函数
+        function openDialog() {
+            fyAlert.alert({
+                title: "退出",
+                drag: true,
+                shadowClose: false,
+                content: '是否确认删除？',
+                btns: {
+                    '确 定': function (obj) {
+                        //                    console.log(typeof localkeshi);
+                        localkeshi.splice($(this).data('index'), 1);
+                        //           console.log(localkeshi);
+                        //渲染页面。渲染分页
+                        getPageData(localkeshi, 1, 4);//获取当前页面要展示的数据
+                        //        渲染页面数据
+                        render(pageData, 1, 4);
+                        //        渲染分页
+                        getPage(localkeshi.length, 4);
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                }
+            });
+        }
+        //============修改功能=============
+        $('tbody').on('click', '.del1Btn', function () {
+            //        console.log('');
+            dell($(this).data('mid'));
+        });
+        //=========修改模态框==========
+        function dell(mid) {
+            var str = "<tr><td><input id='ID' value='id:' '></input></td>" +
+                "<td><input id='KM' value='km:' '></input></td>" +
+                "<td><input id='SX' value='sx:' '></input></td>" +
+                "<td><input id='BZ' value='bz:' '></input></td>" +
+                "<td><input id='TIME' value='time:' '></input></td>" +
+                "<td><input id='NAME' value='name:' '></input></td>" +
+                "</tr>";
+            for (var i = 0; i < localkeshi.length; i++) {
+                if (localkeshi[i].id == mid) {
+                    console.log(localkeshi[i]);
+                    str = "<tr><td><input id='ID' value='id:" + localkeshi[i].id + "'></input></td>" +
+                        "<td><input id='KM' value='km:" + localkeshi[i].km + "'></input></td>" +
+                        "<td><input id='SX' value='sx:" + localkeshi[i].sx + "'></input></td>" +
+                        "<td><input id='BZ' value='bz:" + localkeshi[i].bz + "'></input></td>" +
+                        "<td><input id='TIME' value='time:" + localkeshi[i].time + "'></input></td>" +
+                        "<td><input id='NAME' value='name:" + localkeshi[i].name + "'></input></td>" +
+                        "</tr>";
+                    break;
+                }
+            }
+            //        console.log(str);
+            console.log(mid);
+
+            fyAlert.alert({
+                title: "退出",
+                drag: true,
+                shadowClose: false,
+                content: str,
+                btns: {
+                    '确 定': function (obj) {
+                        var id = $('#ID').val();
+                        var km = $('#KM').val();
+                        var sx = $('#SX').val();
+                        var bz = $('#BZ').val(localkeshi.bz);
+                        var time = $('#TIME').val();
+                        var name = $('#NAME').val();
+                        for (var i = 0; i < localkeshi.length; i++) {
+                            if (localkeshi[i].id == mid) {
+                                localkeshi[i].km = km;
+                                localkeshi[i].sx = sx;
+                                localkeshi[i].bz = bz;
+                                localkeshi[i].time = time;
+                                localkeshi[i].name = name;
+                                console.log(localkeshi);
+                                break;
+                            }
+                            localStorage.setItem('keshi', localkeshi);
+                        }
+                        getPageData(localkeshi, 1, 4);
+                        render(pageData, 1, 4);
+                        getPage(localkeshi.length, 4);
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

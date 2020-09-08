@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+        }
+
+        body {
+            background-color: #41597D;
+        }
+
+        p {
+            font-size: 35px;
+            color: white;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        #viewport {
+            width: 700px;
+            height: 450px;
+            margin: 0 auto;
+            margin-top:70px;
+            position: relative;
+            left: 0;
+            right: 0;
+            background: url(img/img-original.jpg) no-repeat;
+            background-size: 700px 450px;
+        }
+
+        #imgDiv {
+            width: 350px;
+            height: 450px;
+            overflow: hidden;
+            /* 让图片不能被拖拽可以给img添加draggable="false"或者以下 */
+            -webkit-user-drag: none;
+        }
+
+        #imgDiv img {
+            width: 700px;
+            height: 450px;
+        }
+
+        #dragImg {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 40%;
+            left: 320px;
+            cursor: move;
+            -webkit-user-drag: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Image&nbsp;&nbsp;Comparison&nbsp;&nbsp;Slider</p>
+    <div id="viewport">
+        <div id="imgDiv"><img src="img/img-modified.jpg" /></div>
+        <img id="dragImg" src="img/25.png" />
+    </div>
+
+    <script>
+        var dragImg = document.getElementById("dragImg");
+        var imgDiv = document.getElementById("imgDiv");
+        /* dragImg.onmousedown = function () {
+            dragImg.onmousemove = function (e) {
+                var x = e.clientX;
+                var positionNum1 = x - 320;
+                var positionNum2 = x - 350;
+                //存在问题，鼠标移动不流畅
+                if (positionNum2 >= -30 && positionNum2 <= 675) {
+                    imgDiv.style.width = positionNum1 + "px";
+                    this.style.left = positionNum2 + "px";
+                }
+            };
+        }; */
+
+        //将mousemove事件挂在docment，而不是对应的element，此时鼠标滑动只要不出docment范围
+        dragImg.onmousedown = function () {
+            document.onmousemove = function (e) {
+                var x = e.clientX;
+                console.log(imgDiv.offsetLeft);
+                var positionNum1 = x - 320;
+                var positionNum2 = x - 350;
+                if (positionNum2 >= -20 && positionNum2 <= 665) {
+                    imgDiv.style.width = positionNum1 + "px";
+                    dragImg.style.left = positionNum2 + "px";
+                }
+            };
+
+            //清除事件
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            };
+        };
+
+    </script>
+</body>
+
+</html>

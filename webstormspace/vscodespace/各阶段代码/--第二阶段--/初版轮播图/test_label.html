@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>html中label标签的详细介绍</title></head>
+<body bgcolor="bisque">
+<!--
+<label>标签为input元素定义标注（标记）
+<label>标签的作用是为鼠标用户改进了可用性，当用户点击<label>标签中的文本时，浏览器就会自动将焦点转到和该标签相关联的控件上；
+<label>标签在单选按钮和复选按钮上经常被使用，使用该标签后，你点击单选按钮或复选按钮的文本也是可以选中的。
+<label for="关联控件的id" form="所属表单id列表">文本内容</label>
+当<label>标签不在表单标签<form>中时，就需要使用form属性来指定所属表单
+-->
+<form action="" id="form1">
+    <input type="checkbox" id="basketball"><label for="basketball">篮球</label>
+    <input type="checkbox" id="football"><label for="football">足球</label>
+    <input type="checkbox" id="tableTennis"><label for="tableTennis">乒乓球</label>
+    <br/>
+    <input type="submit" value="提交"/>
+</form>
+<label for="football" form="form1">足球</label>
+</body>
+</html>

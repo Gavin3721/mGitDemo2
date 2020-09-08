@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/fy-alert.css">
+    <style>
+         .container {
+            margin-top: 50px;
+        }
+        caption {
+            text-align: center; 
+            color: black; 
+            font-weight: 600;
+            font-size: 18px;
+            background-color: rgb(231,239,239);
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #pageBox {
+            overflow: hidden;
+        }
+        #pageBox li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            border: 1px solid skyblue;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        #pageBox li:hover{
+            cursor: pointer;
+            background-color: orangered;
+        }
+        #pageBox .active{
+            background-color: #5bc0de;
+        }
+        #tb button {
+            padding: 1px 5px;
+            background-color: skyblue;
+            text-align: center;
+            border-radius: 3px;
+            line-height: 1.5;
+            font-size: 12px;    
+        }
+        #tb button:hover {
+            color: white;
+        }
+     
+        #leibi {
+            display: inline-block;
+            width: 400px;
+            height: 40px;
+        }
+        #huanzhe {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 40px;
+            padding-top: 10px;
+        }
+        #tb {
+            text-align: center;
+        }
+        #tb button {
+            background-color: white;
+            border: none;
+        }
+        .two thead th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-bordered">
+            <tbody>
+                <tr align="center">
+                    <td id="huanzhe">输入患者身份证:</td>
+                    <td><input class="form-control" id="leibi" type="text"></td>
+                    <td id="huanzhe"><button id="search" type="button" class="btn btn-info btn-sm">查询信息</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="chazhao">
+            <span class="shuru">输入患者姓名: <input id="leibi" type="text"></span>
+            <button id="search" class="search">查找</button>
+        </div> -->
+        <table class="table table-bordered table-striped two">
+            <caption>患者列表</caption>
+            <thead>
+                <tr>
+                    <th>患者编号</th>
+                    <th>患者姓名</th>
+                    <th>身份证号</th>
+                    <th>所挂科室</th>
+                    <th>医生姓名</th>
+                    <th>就诊类型</th>
+                    <th>挂号费</th>
+                    <th>添加时间</th>
+                    <th>患者详情</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tb">
+                
+            </tbody>
+        </table>
+        <ul id="pageBox">
+            <!-- <li>hahah</li> -->
+        </ul>
+    </div>
+    <!-- <script src="../utils/jquery-3.5.1.js"></script>
+    <script src="../utils/bootstrap.js"></script> -->
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../utils/huanzhe.js"></script>
+    <script src="../../js/fy-alert.js"></script>
+    <script>
+           
+             //患者函数
+            var pageDatas = [];
+            var tb = document.getElementById('tb');
+            var pageBox = document.getElementById('pageBox');
+            init();
+            function init() {
+
+                // if(localStorage.getItem('guahao') == null) {
+                //     localStorage.setItem('guahao',JSON.stringify(guahao));
+                //     guahao = JSON.parse(localStorage.getItem('guahao'))
+                // }else {
+                //     guahao = JSON.parse(localStorage.getItem('guahao'))
+                // }
+
+                 guahao = JSON.parse(localStorage.getItem('guahao'));
+            
+                //默认第一页
+                getPageData(guahao,1,4);
+                //渲染页面数据
+                render(pageDatas,1,4);
+                //渲染分页
+                getPage(guahao.length,4);
+            }
+            //渲染函数
+            function render(datas,index,numdatas) {
+                var shuju = '';
+                for(var i =0 ; i<datas.length; i++) {
+                    shuju += "<tr>"+
+                                "<td>"+datas[i].id+"</td>"+
+                                "<td>"+datas[i].name+"</td>"+
+                                "<td>"+datas[i].idCard+"</td>"+
+                                "<td>"+datas[i].keshi+"</td>"+
+                                "<td>"+datas[i].doctor+"</td>"+
+                                "<td>"+datas[i].type+"</td>"+
+                                "<td>"+datas[i].charge+"</td>"+
+                                "<td>"+datas[i].date+"</td>"+
+                                // "<td><button class='delBtn' data-index='"+i+"'>退号</button></td>"+
+                                "<td><button class='detBtn' data-index='"+((index-1)*numdatas+i)+"'>"+
+                                    "<a href='javascript:;'>查看</a>"+
+                                    "</button>"+
+                                "</td>"+
+                                "<td><button class='delBtn' data-index='"+((index-1)*numdatas+i)+"'>"+
+                                    "<a href='javascript:;'>删除</a>"+
+                                    "</button>"+
+                                 "</td>"+
+                            "</tr>"
+                    }
+                tb.innerHTML = shuju;
+            }
+            //分页数据
+            function getPageData(arr,index,numdatas) {
+                //1页  0*numdatas ~  numdatas-1
+                //2页 numdatas ~  2numdatas-1
+                //3页  numdatas ~  3numdatas-1
+                pageDatas = arr.slice((index-1)*numdatas,index*numdatas);
+            }
+            //渲染分页
+            function getPage(total,numdatas) {
+                var pageNum = Math.ceil(total/numdatas);
+                var shuju = '';
+                for(var i=1 ;i<=pageNum; i++) {
+                    if(i==1) {
+                        shuju += '<li class="active">'+i+'</li>'
+                    }else {
+                        shuju += '<li>'+i+'</li>'
+                    }
+                }
+                pageBox.innerHTML = shuju;
+            }
+
+               //分页点击部分
+        /*对于新创建的分页节点，没法点击进行分页*/
+
+        $(pageBox).on('click','li',function(){
+           
+           getPageData(guahao,Number($(this).html()),4);
+           render(pageDatas,$(this).html(),4);
+           $(this).addClass('active').siblings('li').removeClass('active');
+       })
+
+       //查找
+        var temArr = [];
+       $('#search').click(function() {
+            // var temArr = [];
+             temArr = [];
+            var leibi = $('#leibi').val();
+            if(leibi != '') {
+                for(var i=0 ;i<guahao.length; i++) {
+                        if(guahao[i].idCard.indexOf(leibi) != -1) {
+                            temArr.push(guahao[i])
+                        }
+                    }
+                     //默认第一页
+                    getPageData(temArr,1,4);
+                    //渲染页面数据
+                    render(pageDatas);
+                    //渲染分页
+                    getPage(temArr.length,4);
+            }else {
+                openDialog4();
+            }
+       })
+    //    console.log(temArr);
+       //删除
+       $(tb).on('click','.delBtn',function() {
+        biaoji = $(this).data('index')
+            openDialog();
+       })
+       function shanchu() {
+            // guahao.splice(biaoji,1);
+            // localStorage.setItem('guahao',JSON.stringify(guahao));
+            // init();
+
+            var allData = JSON.parse(localStorage.getItem('guahao'));
+            if(temArr.length>0) {
+                var thisData = temArr[biaoji];
+                for(var i=allData.length-1;i>=0;i--) {
+                    if(allData[i].idCard==thisData.idCard) {
+                        allData.splice(i,1)
+                    }
+                }
+                temArr.splice(biaoji,1);
+                getPageData(temArr,1,4);
+                //渲染页面数据 
+                render(pageDatas,1,4);
+                //渲染分页
+                getPage(temArr.length,4);
+            }else {
+                allData.splice(biaoji,1);
+
+                getPageData(allData,1,4);
+                //渲染页面数据
+                render(pageDatas,1,4);
+                //渲染分页
+                getPage(allData.length,4);
+            }
+            localStorage.setItem('guahao',JSON.stringify(allData))
+       }
+
+    //    $(tb).on('click','.delBtn',function() {
+    //     biaoji = $(this).data('index')
+    //         openDialog();
+    //    })
+
+       //详情
+       $(tb).on('click','.detBtn',function(){
+            weiyi = $(this).data('index');
+            openDialog1()
+            $('#input1').val(guahao[weiyi].id);
+            $('#input2').val(guahao[weiyi].name);
+            $('#input3').val(guahao[weiyi].idCard);
+            $('#input4').val(guahao[weiyi].sex);
+            $('#input5').val(guahao[weiyi].age);
+            $('#input6').val(guahao[weiyi].blood);
+            $('#input7').val(guahao[weiyi].pingying);
+            $('#input8').val(guahao[weiyi].hun);
+            $('#input9').val(guahao[weiyi].tel);
+       })
+       //弹出框
+       function openDialog() {
+            fyAlert.alert({
+                title: "退出",
+                drag: true,
+                shadowClose: false,
+                content: '是否确认删除该数据？',
+                btns: {
+                    '确 定': function (obj) {
+                        var allData = JSON.parse(localStorage.getItem('guahao'));
+                        console.log(temArr);
+                        if(temArr.length>0) {
+                            var thisData = temArr[0];
+                            for(var i=allData.length-1;i>=0;i--) {
+                                if(allData[i].idCard==thisData.idCard) {
+                                    allData.splice(i,1)
+                                }
+                            }
+                            temArr.splice(biaoji,1);
+                            getPageData(temArr,1,4);
+                            //渲染页面数据 
+                            render(pageDatas,1,4);
+                            //渲染分页
+                            getPage(temArr.length,4);
+                    }else {
+                        allData.splice(biaoji,1);
+
+                        getPageData(allData,1,4);
+                        //渲染页面数据
+                        render(pageDatas,1,4);
+                        //渲染分页
+                        getPage(allData.length,4);
+                    }
+                    localStorage.setItem('guahao',JSON.stringify(allData))
+                        // shanchu();
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                },
+            });
+        }
+      
+
+        //弹出框二
+        function openDialog1() {
+            fyAlert.alert({
+                title: "患者信息",
+                drag: true,
+                shadowClose: false,
+                content: '<form action="">'
+                        + '<p>患者编号: <input id="input1"  type="text"/></p >'
+                        + '<p>患者名字: <input id="input2" type="text"/></p >'
+                        + '<p>患者身份证号: <input id="input3" type="text"/></p >'
+                        + '<p>患者性别: <input id="input4" type="text"/></p >'
+                        + '<p>患者年龄: <input id="input5" type="text"/></p >'
+                        + '<p>患者血型: <input id="input6" type="text"/></p >'
+                        + '<p>患者拼英码: <input id="input7" type="text"/></p >'
+                        + '<p>患者婚否: <input id="input8" type="text"/></p >'
+                         + '<p>患者联系方式: <input id="input9" type="text"/></p >'
+                        + '</form>',
+                btns: {
+                    '确 定': function (obj) {
+                       
+                        obj.destory();
+                    },
+                    '取 消': function (obj) {
+                        obj.destory();
+                    }
+                },
+            });
+        }
+       //添加
+        function openDialog3() {
+            fyAlert.msg("XXX不能为空！", { icon: 2, animateType: 2 }); return false;
+        }
+        function openDialog4() {
+            fyAlert.msg("必填信息不能为空！", { icon: 2, animateType: 2 }); return false;
+        }
+    </script>
+</body>
+</html>

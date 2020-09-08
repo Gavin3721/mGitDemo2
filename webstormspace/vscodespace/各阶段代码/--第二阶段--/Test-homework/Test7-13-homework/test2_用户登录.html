@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    用户名：<input id="username" placeholder="用户名" type="text" /><br />
+    密&nbsp;&nbsp;码：<input id="pasword" placeholder="密码" type="password" /><br />
+    <p id="tipsInfo"></p>
+    <input id="loginBtn" type="button" value="登录" />
+    <script type="text/javascript">
+        /* 用do while实现用户登录的流程，如果账户和密码输入错误3次将被锁定无法登录。
+        注意：实现方式可以通过判断整数来代替账户密码正确型，例如输入的是整数，就表示用户密码正确。
+        例如输入123，就代表正确，输入aa代表错误 */
+        var isLogin = false;
+        var failCount = 0;//登陆失败的次数
+        document.getElementById("loginBtn").onclick = function () {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("pasword").value;
+            if (username == '' || password == '') {
+                alert("用户名密码不能为空");
+                return;
+            }
+            /* if (!isLogin && failCount != 3) {
+                if (username == 'admin' && password == '123') {
+                    document.getElementById("tipsInfo").innerText = "您已登录成功";
+                    isLogin = true;
+                } else {
+                    failCount += 1;
+                    if (failCount == 3) {
+                        document.getElementById("tipsInfo").innerText = "您已三次登陆失败，已被锁定无法操作";
+                        document.getElementById("loginBtn").disabled = true;
+                    } else {
+                        document.getElementById("tipsInfo").innerText = "您已连续" + failCount + "次登录失败，还有" + (3 - failCount) + "次机会";
+                    }
+                }
+            } */
+
+            do {
+                if (username == 'admin' && password == '123') {
+                    document.getElementById("tipsInfo").innerText = "您已登录成功";
+                    isLogin = true;
+                } else {
+                    failCount += 1;
+                    if (failCount == 3) {
+                        document.getElementById("tipsInfo").innerText = "您已三次登陆失败，已被锁定无法操作";
+                        document.getElementById("loginBtn").disabled = true;
+                    } else {
+                        document.getElementById("tipsInfo").innerText = "您已连续" + failCount + "次登录失败，还有" + (3 - failCount) + "次机会";
+                    }
+                }
+            } while (false);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        var arr = ["张三", "李四", "王五", "赵六", "黄七", "陈八"];
+        //点名操作
+        function selectName() {
+            if (arr.length != 0) {
+                var num = parseInt(Math.random() * arr.length);
+                var name = arr[num];
+                arr.splice(num, 1);
+                document.getElementById("nameShow").innerText = name;
+            } else {
+                arr = ["张三", "李四", "王五", "赵六", "黄七", "陈八"];
+                document.getElementById("nameShow").innerText = "人名已点完，现在开始重新点名";
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <h3 id="nameShow"></h3>
+    <input id="btn" type="button" value="开始点名" onclick="selectName()" />
+</body>
+
+</html>

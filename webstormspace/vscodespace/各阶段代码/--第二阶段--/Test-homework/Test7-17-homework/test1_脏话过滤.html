@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*1.脏话过滤。
+        滚蛋,瓜娃子,傻逼,二货,二逼,王八蛋,龟儿子,
+        仙人板板,不要脸,畜生,杂种,吃屎,狗日的,婊子,卵蛋,脑残… */
+        var zhStr = "你妈的巴子，大傻逼王八蛋，滚蛋吧，你个狗日的是不是脑残啊，滚蛋，我靠";
+        //脏话过滤器
+        function zhFilter(str) {
+            var arr = ['滚蛋', '瓜娃子', '傻逼', '二货', '二逼', '王八蛋', '龟儿子', '仙人板板', '不要脸', '畜生', '杂种', '吃屎', '狗日的', '婊子', '卵蛋', '脑残'];
+            for (var i = 0; i < arr.length; i++) {
+                if (str.indexOf(arr[i]) != -1) {
+                    str = str.replace(arr[i], "**");
+                    i--;
+                }
+            }
+            return str;
+        }
+        document.write(zhStr + "<br/>过滤后脏话为：<br/>" + zhFilter(zhStr));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

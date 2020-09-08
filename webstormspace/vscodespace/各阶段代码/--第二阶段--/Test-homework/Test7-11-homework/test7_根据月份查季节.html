@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        /*3、根据用户输入的月份，告知计算机帮我们输出对应的季节（要求使用if和switch实现）*/
+        var month = prompt("请输入你想查询的月份（1-12月）");
+        var season = "";
+        /*if (month == 1 || month == 2 || month == 3) {
+         season = "春季";
+         } else if (month == 4 || month == 5 || month == 6) {
+         season = "夏季";
+         } else if (month == 7 || month == 8 || month == 9) {
+         season = "秋季";
+         } else if (month == 10 || month == 11 || month == 12) {
+         season = "冬季";
+         } else {
+         season = "未找到匹配的季节";
+         }*/
+
+        switch (true) {
+            case month == 1 || month == 2 || month == 3:
+                season = "春季";
+                break;
+            case month == 4 || month == 5 || month == 6:
+                season = "夏季";
+                break;
+            case month == 7 || month == 8 || month == 9:
+                season = "秋季";
+                break;
+            case month == 10 || month == 11 || month == 12:
+                season = "冬季";
+                break;
+            default:
+                season = "未找到匹配的季节";
+                break;
+        }
+        document.write(month + "月对应的季节为：" + season);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

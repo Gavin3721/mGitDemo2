@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 1.写一个函数，参数为一个字符，一个字符串，
+        返回这个字符出现在这个字符串的第几个位置，如果没有该字符，则返回 - 1 */
+        function getStrIndex(char, str) {
+            var index = str.indexOf(char);
+            return index;
+        }
+        var char = prompt("请输入一个字符");
+        var str = prompt("请输入一个字符串");
+        var index = getStrIndex(char, str);
+        if (index != -1) {
+            document.write(char + "字符出现在" + str + "的第" + (index + 1) + "个位置");
+        } else {
+            document.write(str + "中没有" + char + "这个字符");
+        }
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

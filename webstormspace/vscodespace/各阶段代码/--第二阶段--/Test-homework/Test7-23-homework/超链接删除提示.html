@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p>这是文本内容123123123</p>
+    <a href="javascript:;">删除</a>
+    <script>
+        var text = document.getElementsByTagName("p")[0];
+        document.getElementsByTagName("a")[0].onclick = function () {
+            var result = confirm("是否确认删除以上数据？");
+            if (result) {
+                text.innerText = "";
+            }
+        };
+    </script>
+</body>
+
+</html>

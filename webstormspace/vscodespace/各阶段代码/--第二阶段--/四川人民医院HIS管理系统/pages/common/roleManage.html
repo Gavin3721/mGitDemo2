@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色管理</title>
+    <link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-cerulean.min.css" rel="stylesheet" />
+    <link href="../../css/charisma-app.css" rel="stylesheet" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <link href="../../css/rolemanage.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-3.3.4.css" rel="stylesheet" />
+    <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script type="text/javascript" src="../../js/rolemanage.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap-treeview.js"></script>
+    <script type="text/javascript" src="../../data/main_info.js"></script>
+    <script type="text/javascript" src="../../utils/main_util.js"></script>
+</head>
+
+<body>
+    <div class="div_titile_bck">
+        <div class="div_titile">新建角色</div>
+    </div>
+    <div id="addDeptDiv">
+        <table id="table1" class="table table-bordered">
+            <tr align="center">
+                <td>角色名称：</td>
+                <td><input id="roleNm" name="roleNm" type="text" class="form-control"></td>
+                <td rowspan="4" colspan="2" class="treeTd">
+                    <p>--配置可操作模块--</p>
+                    <div id="roleTreeView"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td>创建时间：</td>
+                <td><input id="creTime" name="creTime" type="text" class="form-control" readonly="readonly"></td>
+            </tr>
+            <tr align="center">
+                <td>备&nbsp;&nbsp;注：</td>
+                <td><textarea id="details" name="details"></textarea></td>
+            </tr>
+            <tr align="center">
+                <td colspan="2">
+                    <button id="saveInfo" type="button" class="table_btn">保&nbsp;&nbsp;存</button>
+                    <button id="resetInfo" type="button" class="table_btn">重&nbsp;&nbsp;置</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="div_titile_bck">
+        <div class="div_titile">角色列表</div>
+    </div>
+    <div>
+        <table id="table2" class="table table-bordered" align="center">
+            <tr align="center">
+                <td>角色名称：</td>
+                <td><input id="roleNmStr" name="roleNmStr" type="text" class="form-control"></td>
+                <td>备&nbsp;&nbsp;注：</td>
+                <td><input id="detailsStr" name="detailsStr" type="text" class="form-control"></td>
+                <td colspan="2">
+                    <button id="queryBtn" type="button" class="table_btn">查&nbsp;&nbsp;询</button>
+                </td>
+            </tr>
+        </table>
+        <table class="mtablestyle" cellspacing="0" cellspadding="0">
+            <thead id="showThead">
+                <tr>
+                    <th>序号</th>
+                    <th>角色名称</th>
+                    <th>创建时间</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="showTbody">
+                <tr></tr>
+            </tbody>
+        </table>
+        <p id="tips"></p>
+        <table id="table3" class="table-bordered" align="center">
+            <tr align="center">
+                <td>第<span id="currentPageIndex"></span>页</td>
+                <td>共<span id="pageCount">1</span>页</td>
+                <td id="firstPage" class="tr1">首页</td>
+                <td id="prevPage" class="tr1">上一页</td>
+                <td id="nextPage" class="tr1">下一页</td>
+                <td id="lastPage" class="tr1">末页</td>
+                <td><input name="jumpPage" id="jumpPage" type="text" class="form-control"
+                        style="width:50px; height:25px;"></td>
+                <td id="jumpBtn" class="tr1">跳转</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

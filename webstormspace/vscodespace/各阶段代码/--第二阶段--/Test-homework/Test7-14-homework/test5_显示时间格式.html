@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 练习五：
+        按照下列格式实时显示当前的时间：
+        2016年09月10日 星期六 09:30:55*/
+        var currentTime = new Date();
+        var currYear = currentTime.getFullYear();//以四位数字返回年份
+        var currMonth = currentTime.getMonth() + 1;//对象返回月份0（一月）到 11（十二月）
+        var currDay = currentTime.getDate();//返回一个月中的某一天 (1 ~ 31)
+        var currWeek = currentTime.getDay();//返回一周中的某一天 0（周日） 到 6（周六）
+        var weekArr = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        currWeek = weekArr[currWeek];
+        var hour = String(currentTime.getHours());//返回 Date 对象的小时 (0 ~ 23)
+        var minute = String(currentTime.getMinutes());//返回 Date 对象的分钟 (0 ~ 59)
+        var second = String(currentTime.getSeconds());//返回 Date 对象的秒数 (0 ~ 59)
+        hour.length == 1 ? hour = "0" + hour : hour;
+        minute.length == 1 ? minute = "0" + minute : minute;
+        second.length == 1 ? second = "0" + second : second;
+        document.write("当前时间为：<br/>" + currYear + "年" + currMonth + "月" + currDay + "日&nbsp;&nbsp;" + currWeek + "&nbsp;&nbsp;" + hour + ":" + minute + ":" + second);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

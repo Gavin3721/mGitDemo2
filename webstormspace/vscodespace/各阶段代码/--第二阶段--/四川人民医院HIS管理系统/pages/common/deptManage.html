@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部门信息管理</title>
+    <link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-cerulean.min.css" rel="stylesheet" />
+    <link href="../../css/charisma-app.css" rel="stylesheet" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <link href="../../css/deptmanage.css" rel="stylesheet" />
+    <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script type="text/javascript" src="../../js/deptmanage.js"></script>
+    <script type="text/javascript" src="../../data/main_info.js"></script>
+    <script type="text/javascript" src="../../utils/main_util.js"></script>
+</head>
+
+<body>
+    <div class="div_titile_bck">
+        <div id="addDeptTab" class="div_titile">新增部门</div>
+        <div id="sortDeptTab" class="div_titile">部门排序</div>
+    </div>
+    <div id="addDeptDiv">
+        <table id="table1" class="table table-bordered">
+            <tr align="center">
+                <td>部门名称：</td>
+                <td><input id="deptNm" name="deptNm" type="text" class="form-control"></td>
+                <td>英文简称：</td>
+                <td><input id="abbreviation" name="abbreviation" type="text" class="form-control"></td>
+            </tr>
+            <tr align="center">
+                <td>职&nbsp;&nbsp;能：</td>
+                <td><input id="zhiNeng" name="zhiNeng" type="text" class="form-control"></td>
+                <td>录入时间：</td>
+                <td><input id="createDate" name="createDate" type="text" class="form-control" readonly="readonly"></td>
+            </tr>
+            <tr align="center">
+                <td>备&nbsp;&nbsp;注：</td>
+                <td colspan="3"><textarea id="details" name="details"></textarea></td>
+            </tr>
+            <tr align="center">
+                <td colspan="4">
+                    <button id="saveInfo" type="button" class="table_btn">保&nbsp;&nbsp;存</button>
+                    <button id="resetInfo" type="button" class="table_btn">重&nbsp;&nbsp;置</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="sortDeptDiv">
+        <div id="leftDiv">
+            <ul id="deptUlList"></ul>
+        </div>
+        <div id="middleDiv">
+            <div>
+                <button id="topBtn">向上移</button>
+                <button id="bottomBtn">向下移</button>
+            </div>
+        </div>
+        <div id="rightDiv">
+            <ul id="deptInfoUl">
+                <li>部门编号：<span id="dId"></span></li>
+                <li>部门名称：<span id="dNm"></span></li>
+                <li>英文简称：<span id="dAbbr"></span></li>
+                <li>职能：<span id="dZn"></span></li>
+                <li>创建时间：<span id="dCt"></span></li>
+                <li>备注：<span id="dDet"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="div_titile_bck">
+        <div class="div_titile">部门列表</div>
+    </div>
+    <div>
+        <table id="table2" class="table table-bordered" align="center">
+            <tr align="center">
+                <td>部门编号：</td>
+                <td><input id="deptIdStr" name="deptIdStr" type="text" class="form-control"></td>
+                <td>部门名称：</td>
+                <td><input id="deptNmStr" name="deptNmStr" type="text" class="form-control"></td>
+                <td colspan="2">
+                    <button id="queryBtn" type="button" class="table_btn">查&nbsp;&nbsp;询</button>
+                </td>
+            </tr>
+        </table>
+        <table id="table3" class="table table-bordered" align="center">
+            <thead id="showThead">
+                <tr>
+                    <th>序号</th>
+                    <th>部门编号</th>
+                    <th>部门名称</th>
+                    <th>英文简称</th>
+                    <th>职能</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="showTbody"></tbody>
+        </table>
+        <p id="tips"></p>
+        <table id="table4" class="table-bordered" align="center">
+            <tr align="center">
+                <td>第<span id="currentPageIndex"></span>页</td>
+                <td>共<span id="pageCount">1</span>页</td>
+                <td id="firstPage" class="tr1">首页</td>
+                <td id="prevPage" class="tr1">上一页</td>
+                <td id="nextPage" class="tr1">下一页</td>
+                <td id="lastPage" class="tr1">末页</td>
+                <td><input name="jumpPage" id="jumpPage" type="text" class="form-control"
+                        style="width:50px; height:25px;"></td>
+                <td id="jumpBtn" class="tr1">跳转</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        /*作业4：按年/月/日的顺序输入一个任意日期，在页面输出：这是这一年的第几天
+         如：2016年1月2日 是2016年的第2天，而2016年12月31日则是2016年的第366天（因为闰年会多一天）*/
+        var mDate = prompt("请输入当前的日期（格式：年-月-日）");
+        var array = mDate.split("-");
+        var year = array[0], month = array[1], day = array[2];
+        var monDaysArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];//12个月按顺序依次有多少天，默认2月有28天
+        //先判断是否为闰年（能被4整除，但同时不能被100整除的年份都是闰年；能被400整除的年份是闰年；其它情况都不是闰年）
+        var yearType = "平年";
+        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            monDaysArr[1] = 29;//闰年二月份有29天
+            yearType = "闰年";
+        }
+
+        var days = 0;
+        for (i = 0; i < month - 1; i++) {//根据月份确定循环的次数
+            days += monDaysArr[i];
+        }
+        days = days + Number(day);
+        document.write(year + "是" + yearType + "," + mDate + "是这一年的第：" + days + "天，请珍惜时间");
+    </script>
+</head>
+<body>
+
+</body>
+</html>

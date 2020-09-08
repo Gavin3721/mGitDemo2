@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/oder.css" />
+</head>
+
+<body>
+    <div id="container">
+        <!-- 头部-->
+        <%- include('./header'); %>
+        <!-- 内容区-->
+        <div id="content">
+            <div id="contentTop">
+                <h3>选择收货地址</h3>
+            </div>
+            <div id="contentMiddom">
+                <div id="contentMiddomOne">
+                    <div id="wenzi">
+                        四川成都&nbsp;&nbsp;&nbsp;&nbsp;( XXX 收 )
+                        <hr>
+                        高新区 紫荆西路6号 13890382524
+                    </div>
+                </div>
+                <div id="contentMiddomTwo">
+                    <div class="wenzi">
+                        四川成都&nbsp;&nbsp;&nbsp;&nbsp;( XXX 收 )
+                        <hr>
+                        高新区 紫荆西路6号 13890382524
+                    </div>
+                </div>
+                <div id="contentMiddomThree">
+                    <div class="wenzi">
+                        四川成都&nbsp;&nbsp;&nbsp;&nbsp;( XXX 收 )
+                        <hr>
+                        高新区 紫荆西路6号 13890382524
+                    </div>
+                </div>
+            </div>
+            <div id="contentBottom">
+                <h3>确认订单信息</h3>
+                <div id="contentBottomTop">
+                    <span>商品名称</span>
+                    <span id="span1">单价</span>
+                    <span class="span2">数量</span>
+                    <span class="span2">小计</span>
+                </div>
+                <div id="contentBottomMiddom">
+                    <% ordersArr.forEach(function(item){ %>
+                    <div id="shangpin">
+                        <div id="tu">
+                            <img src="<%=item.feng %>" alt="" />
+                            <%=item.title %>
+                        </div>
+                        <div id="danjia">
+                            $<%=item.price %>
+                        </div>
+                        <div id="jisuan">
+                            <input type="button" value="-" />
+                            <%=item.num %>
+                            <input type="button" value="+" />
+                        </div>
+                        <div id="zongjia">
+                            $<span class="xiaoji"><%=item.price * item.num %></span>
+                        </div>
+                    </div>
+                    <% }); %>
+                    <div id="zongji">
+                        总计 $ <span>0.00</span>
+                    </div>
+                    <div id="jiesuan">
+                        现在结算
+                    </div>
+                </div>
+            </div>
+            <!-- 尾部 -->
+            <%- include('./footer'); %>
+        </div>
+    </div>
+    <script src="js/jquery.3.4.0.js"></script>
+    <script type="text/javascript" src="js/javascript.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var arr = $(".xiaoji");
+            var sum = 0;
+            for (var i = 0; i < arr.length; i++) {
+                sum += parseFloat($(arr[i]).text());
+            }
+            $("#zongji span").text(sum);
+
+            jieSuanEvent();
+        });
+
+        function jieSuanEvent() {
+            $("#jiesuan").click(function () {
+                location.href = "/pay.html";
+            });
+        }
+    </script>
+</body>
+
+</html>

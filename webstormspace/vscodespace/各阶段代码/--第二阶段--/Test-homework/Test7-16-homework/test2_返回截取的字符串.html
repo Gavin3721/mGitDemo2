@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 2.写一个函数，参数为截取字符串的起始位置，截取字符串的结束位置，
+        要截取的字符串，最后根据函数参数返回对应截取的字符串 */
+        function getStr(str, beginIndex, endIndex) {
+            return str.substring(beginIndex, endIndex);
+        }
+        var mStr = prompt("请输入要截取的字符串");
+        var begin = prompt("请输入开始的截取位置");
+        var end = prompt("请输入结束的截取位置");
+        var newStr = getStr(mStr, begin, end);
+        document.write(mStr + "截取后的字符串为：" + newStr);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

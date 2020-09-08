@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>处方药品</title>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /*body{
+            margin-left: 120px;
+        }*/
+        #pageBox li {
+            float: left;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid gray;
+            border-radius: 10px;
+            margin: 0 20px;
+            position: relative;
+            left: 46%;
+        }
+
+        #pageBox li:hover {
+            cursor: pointer;
+            background-color: gray;
+        }
+
+        #pageBox .active {
+            background-color: #0077aa;
+        }
+
+        input {
+            width: 122px;
+            height: 23px;
+        }
+
+        tr {
+            height: 60px;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        #input {
+            position: relative;
+            bottom: -50px;
+        }
+
+        #input>input {
+            height: 50px;
+            outline: none;
+            background: rgb(238, 238, 238);
+            border: none;
+            text-align: center;
+        }
+
+        #input>button {
+            height: 40px;
+            margin-left: 10px;
+            background: rgb(91, 192, 222);
+            outline: none;
+            color: white;
+        }
+
+        #th {
+            width: 150px;
+        }
+
+        .xgBtn {
+            margin-left: 20px;
+        }
+
+        #btn2 {
+            outline: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="div_max_titile">
+        <button type="button" class="btn btn-danger btn-xs">药品查询</button>
+    </div>
+    <div id="div_max">
+        <table class="table table-bordered">
+            <tr align="center">
+                <td style=" line-height:30px;">药品编号：</td>
+                <td><span style=" line-height:30px;">
+                        <input id="input1" type="text" class="form-control" style="width:500px;" />
+                    </span></td>
+                <td style=" line-height:30px;"><button id="btn1" type="button" class="btn btn-info btn-sm">药品查询</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table id="personInfo" border="0" cellspacing="0" width="100%" align="center"
+        class="table table-bordered table-striped">
+        <caption align="center">处方药品</caption>
+
+        <thead>
+            <tr align="center" style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));">
+                <th id="th" style="width: 80px;">选择</th>
+                <th>订单编号</th>
+                <th>药品编号</th>
+                <th>药品名称</th>
+                <th>药品价格</th>
+                <th>规格</th>
+                <th>单位</th>
+                <th>药房数量</th>
+                <th>开方数量</th>
+                <th>小计</th>
+                <th>日期</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <ul id="pageBox">
+        <!--<li class="active">1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>-->
+    </ul>
+    <button class="dyBtn btn btn-info" id="btn2" style="height: 50px;width: 100px;margin-top:50px;">提交药单</button>
+    <div id="input">
+        <input type="text" id="saleId" placeholder="订单编号" />
+        <input type="text" id="ids" placeholder="药品编号" />
+        <input type="text" id="ypName" placeholder="药品名称" />
+        <input type="text" id="sale" placeholder="药品价格" />
+        <input type="text" id="guiGe" placeholder="规格" />
+        <input type="text" id="danWei" placeholder="单位" />
+        <input type="text" id="si" placeholder="药房数量" />
+        <input type="text" id="numKF" placeholder="开方数量" />
+        <input type="text" id="xiaoJi" placeholder="小计" />
+        <input type="date" id="date" placeholder="日期" />
+        <button id="add" class="btn btn-default">添加药品</button>
+    </div>
+
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+    <script type="text/javascript" src="../../data/222222zhu.js"></script>
+</body>
+
+</html>

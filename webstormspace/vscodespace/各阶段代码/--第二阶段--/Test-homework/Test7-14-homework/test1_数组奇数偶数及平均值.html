@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 练习一：
+        数组为：[1, 3, 5, 7, 24, 32, 25, 48]
+        1.求数组奇数的个数和偶数的个数
+        2.求出上面数组的平均值 */
+        var array = [1, 3, 5, 7, 24, 32, 25, 48];
+        var jishuCount = 0, oushuCount = 0, sum = 0;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] % 2 == 0) {
+                oushuCount += 1;
+            } else {
+                jishuCount += 1;
+            }
+            sum += array[i];
+        }
+        document.write("该数组中奇数的个数为：" + jishuCount + "&nbsp;&nbsp;偶数的个数为：" + oushuCount + "&nbsp;&nbsp;其平均值为：" + sum / array.length);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

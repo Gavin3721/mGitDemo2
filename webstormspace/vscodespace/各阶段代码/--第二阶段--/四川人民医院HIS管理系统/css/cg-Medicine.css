@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.bigBox{
+    font-size: 16px;
+    text-align: center;
+    margin-top: 30px;
+}
+caption{
+    font-size: x-large;
+    text-align: center;
+    background: rgb(54,167,232);
+    color: white;
+}
+th{
+    text-align: center;
+    vertical-align: middle;
+}
+td{
+    height: 40px;
+    display: table-cell;
+    vertical-align: middle;
+}
+#pageBox{
+    overflow: hidden;
+    width: 150px;
+    text-align: center;
+    margin: 0 auto;
+}
+#pageBox>li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px;
+    border-radius: 8px;
+    border: 1px solid grey;
+}
+#pageBox>li:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+#pageBox .active{
+    background-color: #0077aa;
+
+}
+.btn{
+    margin: auto 10px;
+}
+#addBtn,
+#resetBtn{
+    padding: 10px 50px;
+    font-size: 16px;
+}

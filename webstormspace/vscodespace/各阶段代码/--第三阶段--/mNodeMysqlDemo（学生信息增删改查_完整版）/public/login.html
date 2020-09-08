@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: blanchedalmond;
+        }
+
+        #mbox {
+            width: 400px;
+            height: 320px;
+            padding: 20px 30px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border: 1px solid rgb(179, 121, 121);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #mbox input {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        #tips {
+            margin-top: 10px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mbox">
+        <h2>学生信息后台管理系统</h2><br />
+        <form action="#" method="POST" enctype="multipart/form-data">
+            <input name="username" type="text" placeholder="用户名" class="form-control" /><br />
+            <input name="password" type="password" placeholder="密码" class="form-control" /><br />
+            <button id="loginBtn" class="btn btn-default" type="button">登录</button>
+            <p id="tips"></p>
+        </form>
+        <a href="javascript:;">还没账号，点击注册</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            loginOperEvent();//设置登录事件
+        });
+
+        function loginOperEvent() {
+            $("#loginBtn").click(function () {
+                var username = $("[name='username']").val().trim();
+                var password = $("[name='password']").val().trim();
+                $("#tips").text('');
+                if (username == '' || password == '') {
+                    $("#tips").text("~用户名及密码不能为空~");
+                    return false;
+                }
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    url: '/loginOpr',
+                    type: 'POST',
+                    data: {
+                        'username': username,
+                        'password': password
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var count = data.result[0].count;
+                        if (count == 1) {
+                            window.location.href = "index.html";
+                        } else {
+                            $("#tips").text("~用户名或密码错误，登录失败~");
+                        }
+                    },
+                    error: function (data) { }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

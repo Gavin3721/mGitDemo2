@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 7. 写一个函数，有唯一参数接口1个，参数类型为number; 返回值为1，表示是质数；返回值为0，表示不是质数。 */
+        var number = prompt("请输入一个整数");
+        //判断一个数是不是质数
+        function isZhiShu(num) {
+            var isZs = true;
+            for (var i = 2; i < num; i++) {
+                if (num % i == 0) {
+                    isZs = false;
+                    break;
+                }
+            }
+            if (isZs) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        var result = isZhiShu(number);
+        if (result == 1) {
+            document.write(number + "是质数");
+        } else {
+            document.write(number + "不是质数");
+        }
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工信息管理</title>
+    <link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/bootstrap-cerulean.min.css" rel="stylesheet" />
+    <link href="../../css/charisma-app.css" rel="stylesheet" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <link href="../../css/staffmanage.css" rel="stylesheet" />
+    <script type="text/javascript" src="../../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+    <script type="text/javascript" src="../../js/index.js"></script>
+    <script type="text/javascript" src="../../js/staffmanage.js"></script>
+    <script type="text/javascript" src="../../data/main_info.js"></script>
+    <script type="text/javascript" src="../../utils/main_util.js"></script>
+</head>
+
+<body>
+    <div class="div_titile_bck">
+        <div id="addStaffTab" class="div_titile">新增员工</div>
+        <div id="sortStaffTab" class="div_titile">员工排序</div>
+    </div>
+    <div id="addUserDiv">
+        <table id="table1" class="table table-bordered">
+            <tr>
+                <td colspan="2" rowspan="3" align="center">
+                    <img id="userPicture" src="../../img/user/default.jpg" /><br /><br />
+                    <input id="imgFile" type="file" accept=".jpg,.png,.jpeg,.gif" multiple="multiple" />
+                    <p>注：点击图片上传头像</p>
+                </td>
+                <td align="center">员工姓名：</td>
+                <td align="center"><input id="userNm" type="text" class="form-control"></td>
+                <td align="center">性&nbsp;&nbsp;别：</td>
+                <td align="center">
+                    <select id="userSex" class="form-control">
+                        <option value="" selected="selected">--请选择--</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">年&nbsp;&nbsp;龄：</td>
+                <td align="center"><input id="userAge" type="text" class="form-control"></td>
+                <td align="center">身份证号：</td>
+                <td align="center"><input id="cardNum" type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center">手机号：</td>
+                <td align="center"><input id="userPhone" type="text" class="form-control"></td>
+                <td align="center">邮箱地址：</td>
+                <td align="center"><input id="email" type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center">登录账户：</td>
+                <td align="center"><input id="account" type="text" class="form-control"></td>
+                <td align="center">密&nbsp;&nbsp;码：</td>
+                <td align="center"><input id="password" type="password" class="form-control"></td>
+                <td align="center">确认密码：</td>
+                <td align="center"><input id="password2" type="password" class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center">血&nbsp;&nbsp;型：</td>
+                <td align="center">
+                    <select id="bloodType" class="form-control">
+                        <option value="" selected="selected">--请选择--</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="O">O</option>
+                        <option value="AB">AB</option>
+                        <option value="其它">其它</option>
+                    </select>
+                </td>
+                <td align="center">婚&nbsp;&nbsp;姻：</td>
+                <td align="center">
+                    <select id="marriage" class="form-control">
+                        <option value="" selected="selected">--请选择--</option>
+                        <option value="未婚">未婚</option>
+                        <option value="已婚">已婚</option>
+                        <option value="离异">离异</option>
+                        <option value="其它">其它</option>
+                    </select>
+                </td>
+                <td align="center">教育背景：</td>
+                <td align="center">
+                    <select id="education" class="form-control">
+                        <option value="" selected="selected">--请选择--</option>
+                        <option value="博士">博士</option>
+                        <option value="硕士">硕士</option>
+                        <option value="本科">本科</option>
+                        <option value="专科">专科</option>
+                        <option value="高中以下">高中以下</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">国&nbsp;&nbsp;籍：</td>
+                <td align="center"><input id="country" type="text" class="form-control"></td>
+                <td align="center">民&nbsp;&nbsp;族：</td>
+                <td align="center"><input id="nation" type="text" class="form-control"></td>
+                <td align="center">籍&nbsp;&nbsp;贯：</td>
+                <td align="center"><input id="nativePlace" type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center">家庭住址：</td>
+                <td align="center"><input id="address" type="text" class="form-control"></td>
+                <td align="center">所属部门：</td>
+                <td align="center">
+                    <select id="deptIds" class="form-control"></select>
+                </td>
+                <td align="center">职&nbsp;&nbsp;位：</td>
+                <td align="center"><input id="zhiWei" type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td align="center">工&nbsp;&nbsp;资：</td>
+                <td align="center"><input id="wages" type="text" class="form-control"></td>
+                <td align="center">入职日期：</td>
+                <td align="center"><input id="entryDate" type="text" readonly="readonly" class="form-control"></td>
+                <td align="center">备&nbsp;&nbsp;注：</td>
+                <td align="center"><input id="details" type="text" class="form-control"></td>
+            </tr>
+            <tr>
+                <td colspan="6" align="center">
+                    <button id="saveUserInfo" type="button" class="table_btn">保&nbsp;&nbsp;存</button>
+                    <button id="resetUserInfo" type="button" class="table_btn">重&nbsp;&nbsp;置</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="sortUserDiv">
+        <div id="leftDiv">
+            <ul id="deptUlList"></ul>
+        </div>
+        <div id="rightDiv">
+            <ul id="userUlList">
+                <li>请选择一个部门</li>
+            </ul>
+        </div>
+        <div id="middleDiv">
+            <div>
+                <button id="topBtn">向上移</button>
+                <button id="bottomBtn">向下移</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_titile_bck">
+        <div class="div_titile">员工列表</div>
+    </div>
+    <div>
+        <table id="table2" class="table table-bordered">
+            <tr>
+                <td align="center">员工编号：</td>
+                <td align="center"><input id="userIdStr" name="userIdStr" type="text" class="form-control"></td>
+                <td align="center">姓&nbsp;&nbsp;名：</td>
+                <td align="center"><input id="userNmStr" name="userNmStr" type="text" class="form-control"></td>
+                <td align="center" rowspan="2">
+                    <button id="queryBtn" type="button" class="table_btn">查&nbsp;&nbsp;询</button>
+                </td align="center">
+            </tr>
+            <tr>
+                <td align="center">所属部门：</td>
+                <td align="center">
+                    <select id="deptNmStr" class="form-control"></select>
+                </td>
+                <td align="center">是否在职：</td>
+                <td align="center">
+                    <select id="workState" class="form-control">
+                        <option value="" selected="selected">--请选择--</option>
+                        <option value="1">在职</option>
+                        <option value="0">离职</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <table id="table3" class="table table-bordered">
+            <thead id="showThead">
+                <tr>
+                    <th>序号</th>
+                    <th>员工编号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
+                    <th>所属部门</th>
+                    <th>职位</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="showTbody"></tbody>
+        </table>
+        <p id="tips"></p>
+        <table id="table4" class="table-bordered" align="center">
+            <tr>
+                <td>第<span id="currentPageIndex"></span>页</td>
+                <td>共<span id="pageCount">1</span>页</td>
+                <td id="firstPage" class="tr1">首页</td>
+                <td id="prevPage" class="tr1">上一页</td>
+                <td id="nextPage" class="tr1">下一页</td>
+                <td id="lastPage" class="tr1">末页</td>
+                <td><input name="jumpPage" id="jumpPage" type="text" class="form-control"
+                        style="width:50px; height:25px;"></td>
+                <td id="jumpBtn" class="tr1">跳转</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

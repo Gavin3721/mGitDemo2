@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+
+        #div1 {
+            background: red;
+            left: 100px;
+            top: 100px;
+        }
+
+        #div2 {
+            background: yellow;
+            left: 300px;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <script>
+        /*
+        * r1<l2  || l1>r2 || b1<t2 || t1 >b2
+        *
+        * l1  >> div1.left
+        * r1 >> div1.left + div1.width
+        * t1 >> div1.top
+        * b1 >> div1.top + div1.height
+        * */
+
+        var div1 = document.getElementById('div1');
+        var div2 = document.getElementById('div2');
+        div1.onmousedown = function (ev) {
+            /*记录鼠标按下的位置,offsetX 鼠标相对元素边界的距离*/
+            var disx = ev.offsetX;
+            var disy = ev.offsetY;
+            document.onmousemove = function (e) {
+                /*鼠标的实时位置  e.clientX e.clientY*/
+                /*
+                * left的值  = 鼠标的实时位置 - 鼠标相对元素左边界的距离
+                * */
+                var l = e.clientX - disx;
+                var t = e.clientY - disy;
+                div1.style.left = l + 'px';
+                div1.style.top = t + 'px';
+                /*
+                * */
+                if (testPZ(div1, div2)) {
+                    div1.style.background = 'pink'
+                } else {
+                    div1.style.background = 'red'
+                }
+            }
+
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+        function testPZ(node1, node2) {
+            var l1 = node1.offsetLeft;// parseInt(div1.style.left)
+            var r1 = node1.offsetLeft + node1.offsetWidth;
+            var t1 = node1.offsetTop;
+            var b1 = node1.offsetTop + node1.offsetHeight;
+            var l2 = node2.offsetLeft;// parseInt(div1.style.left)
+            var r2 = node2.offsetLeft + node2.offsetWidth;
+            var t2 = node2.offsetTop;
+            var b2 = node2.offsetTop + node2.offsetHeight;
+            if (r1 < l2 || l1 > r2 || b1 < t2 || t1 > b2) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

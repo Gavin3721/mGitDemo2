@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>采购审核人员</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" type="text/css" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/cgsh-Medicine.css" type="text/css" />
+
+
+</head>
+
+<body>
+    <div class="bigBox">
+        <table class="table table-bordered">
+            <tr align="center">
+                <td class="">药品名称</td>
+                <td><span>
+                        <input id="inquireYaoMing" type="text" class="form-control" style="width:400px;" />
+                    </span></td>
+                <td><button id="inquireBtn" type="button" class="btn btn-info btn-sm">查询信息</button></td>
+            </tr>
+        </table>
+
+        <table class="table  table-striped table-bordered table-hover">
+            <caption class="capt">药品信息表</caption>
+            <thead align="center" style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));">
+                <tr>
+                    <th>订单编号</th>
+                    <th>申请日期</th>
+                    <th>药品编号</th>
+                    <th>科室</th>
+                    <th>药品名称</th>
+                    <th>价格</th>
+                    <th>数量</th>
+                    <th>药品单位</th>
+                    <th>总计</th>
+                    <th>审核状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tBody">
+            </tbody>
+        </table>
+        <ul id="pageBox">
+        </ul>
+    </div>
+
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/cgsh-Medicine.js"></script>
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+</body>
+
+</html>

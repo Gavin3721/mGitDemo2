@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../../js/jquery-3.5.1.js"></script>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" />
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        height: auto;
+    }
+
+    img {
+        width: 200px;
+    }
+
+    #box {
+        margin: 0 auto;
+        height: auto;
+        position: relative;
+    }
+
+    .img-thumbnail {
+        display: inline-block;
+        box-shadow: 2px 2px 2px #999;
+        position: absolute;
+    }
+</style>
+
+<body>
+    <h1 style="text-align: center ">优秀员工展示</h1>
+    <div id="box">
+        <div class="img-thumbnail"><img src="../../img/1.png" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/2.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/3.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/4.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/5.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/6.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/7.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/8.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/9.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/10.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/11.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/12.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/13.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/1.png" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/2.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/3.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/4.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/5.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/6.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/7.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/8.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/9.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/10.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/11.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/12.jpg" alt="" /></div>
+        <div class="img-thumbnail"><img src="../../img/13.jpg" alt="" /></div>
+    </div>
+
+</body>
+<script>
+    var data = ["../../img/1.png", "../../img/2.jpg", "../../img/3.jpg", "../../img/4.jpg", "../../img/5.jpg", "../../img/6.jpg", "../../img/7.jpg", "../../img/8.jpg", "../../img/9.jpg", "../../img/10.jpg", "../../img/11.jpg", "../../img/12.jpg"]
+    var img_width = 210;
+    window.onload = function () {
+        var content = document.getElementById("box")
+        var items = content.children
+        waterFall()
+    }
+    function waterFall() {
+        var pageWidth = document.body.clientWidth
+        var itemWidth = img_width
+        var columns = parseInt(pageWidth / itemWidth)
+        /*console.log(img_width*columns)*/
+        $("#box").css("width", img_width * columns + "px")
+        /*   console.log(columns)*/
+        var arr = [];
+        for (var i = 0; i < items.length; i++) {
+            if (i < columns) {
+                items[i].style.top = 0;
+                items[i].style.left = itemWidth * i + "px"
+                arr.push(items[i].offsetHeight)
+
+            }
+            else {
+                /*   arr.sort(function (a, b) {
+                    return a-b;
+                });
+                var min = arr[0];
+                console.log(arr1)
+                console.log(min)
+               console.log(arr1.indexOf(min))*/
+                var index = 0;
+                var minHeight = arr[0]
+                for (j = 0; j < arr.length; j++) {
+                    if (arr[j] < minHeight) {
+                        minHeight = arr[j];
+                        index = j;
+                    }
+                }
+                /* console.log(index)
+                 console.log(arr[index])
+                 console.log(items[index].offsetLeft)*/
+                items[i].style.top = arr[index] + "px"
+                items[i].style.left = items[index].offsetLeft + "px"
+                arr[index] = arr[index] + items[i].offsetHeight
+            }
+        }
+    }
+
+    function getScrollTop() {
+        return window.pageYOffset || document.documentElement.scrollTop;
+    }
+    var content = document.getElementById("box")
+    var items = content.children
+    window.onscroll = function () {
+        if (window.screen.height + getScrollTop() >= items[items.length - 1].offsetTop) {
+            var count = 0;
+            while (count < data.length) {
+                var div = document.createElement("div");
+                div.className = "img-thumbnail"
+                var img = document.createElement("img")
+                img.src = data[count]
+                console.log(img_width)
+                /*   img.style.width=200+"px"*/
+                div.appendChild(img)
+                content.appendChild(div)
+                count++
+
+
+                /*div.className = "item";
+                div.innerHTML = '<img src="'+data[count]+'"alt="">';
+                div.firstChild.style.width=img_width+"px";
+                count++*/
+            }
+        }
+        waterFall()
+    }
+</script>
+
+</html>

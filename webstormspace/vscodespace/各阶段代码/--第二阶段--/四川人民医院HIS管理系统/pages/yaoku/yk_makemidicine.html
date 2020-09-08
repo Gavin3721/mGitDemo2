@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>药品信息库</title>
+    <script src="../../js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link href="../../css/fy-alert.css" rel="stylesheet" />
+    <script src="../../bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="../../js/fy-alert.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .container {
+        margin: 50px auto;
+    }
+
+    #box1 button {
+        padding: 2px 30px;
+        margin: 0 20px;
+        border: none;
+        background-color: #5bc0de;
+
+        color: white;
+    }
+
+    input {
+        outline: none;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    #inBox2 li {
+        float: left;
+        height: 25px;
+        width: 25px;
+        line-height: 25px;
+        border: 1px solid black;
+        border-radius: 5px;
+        text-align: center;
+        margin: 5px;
+    }
+
+    #inBox2 li:hover {
+        background-color: lightgreen;
+
+    }
+
+    #inBox2 {
+        width: 200px;
+        overflow: hidden;
+        margin: 0 auto;
+        padding-left: 65px;
+    }
+
+    .li1 {
+        background-color: #5bc0de;
+    }
+
+    #chaxun {
+        color: white;
+        padding: 0 20px;
+        background-color: #5bc0de;
+        border-color: #5bc0de;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <caption style="text-align: center; font-size: 28px; font-weight: 600; background-color: rgb(231,239,239)">
+                添加药品信息</caption>
+            <tbody>
+                <tr>
+                    <td>药品名称</td>
+                    <td><input id="mc" type="text" /></td>
+                    <td>药品进价</td>
+                    <td><input id="jinjia" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>药品卖价</td>
+                    <td><input id="maijia" type="text" /></td>
+                    <td>药品编号</td>
+                    <td><input id="bianhao" type="text" /></td>
+                </tr>
+                <tr>
+                    <td>药品库存</td>
+                    <td><input id="kucun" type="text" /></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="box1" align="center">
+                    <td colspan="4">
+                        <button class="btn btn-info btn-sm" id="add">添&nbsp;加</button>
+                        <button class="btn btn-info btn-sm" id="chongzhi">重&nbsp;置</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <tr align="center">
+                    <td> 药品名称：</td>
+                    <td><input id="cxmz" type="text" style="width: 400px" /></td>
+                    <!--<td>药品编号： <input id="cxbh"type="text"/></td>-->
+                    <td><button class="btn btn-info btn-sm" id="chaxun">查询</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped ">
+            <caption style="text-align: center; font-size: 28px; font-weight: 600; background-color: rgb(231,239,239)">
+                药品信息查询表</caption>
+            <thead>
+                <tr style="background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8))">
+                    <th>药品名称</th>
+                    <th>药品进价</th>
+                    <th>药品售价</th>
+                    <th>药品编号</th>
+                    <th>药品库存</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="inBox">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <ul id="inBox2">
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="../../js/yk_js/yk_JSmedicine.js"></script>
+</body>
+
+</html>

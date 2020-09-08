@@ -1,0 +1,184 @@
+.div_titile_bck{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));
+    border-radius: 8px 8px 0px 0px;
+}
+
+.div_titile{
+    padding: 2px 10px;
+    margin-left: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    display: inline-block;
+    margin-bottom: 0;
+    overflow: visible;
+}
+
+textarea{
+    width:96%;
+    height:60px;
+    border-radius: 5px;
+    padding: 8px 12px;
+    outline: none;
+    font-size: 14px;
+    color: #555555;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+.td_nm{
+    line-height: 40px;
+}
+
+.table_btn{
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #fff;
+    margin: 10px 20px;
+    background-color: #3EAAE8;
+    border-color: #46b8da;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    font-weight: 400;
+    border: 1px solid transparent;
+    outline: none;
+}
+
+#showThead{
+    background:-webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E8E8E8));
+}
+
+#showThead th{
+    text-align: center;
+    height:25px;
+    line-height:25px;
+}
+
+#showTbody td{
+    text-align: center;
+    height:25px;
+    line-height:25px;
+}
+
+#table1 td,#table2 td,#table4 td,#table5 td{
+    vertical-align: middle;
+}
+
+#showTbody a{
+    cursor: pointer;
+}
+
+#table4{
+    width: 400px;
+    height: 30px;
+    font-family:'微软雅黑';
+    font-size:13px;
+    color:#3EAAE8;
+    margin-top:-10px;
+    text-align:center;
+}
+
+#table5 td{
+    text-align: left;
+}
+
+.tr1{
+    cursor: pointer;
+}
+
+.tr1:hover{
+    color:red;
+}
+
+
+#tips{
+    text-align: center;
+    margin: 20px 0px;
+    color: #ec2c26;
+}
+
+#addDeptTab,#sortDeptTab{
+    cursor: pointer;
+}
+
+#addDeptTab{
+    background-color: #3EAAE8;
+}
+
+#sortDeptDiv{
+    height: 300px;
+    width: 100%;
+    display: none;
+    direction: row;
+}
+
+#leftDiv,#rightDiv{
+    height:300px;
+    width:40%;
+    display: table-cell;
+}
+
+#middleDiv{
+    height:300px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#deptUlList,#deptInfoUl{
+    padding: 0px;
+    margin:20px;
+    height:260px;
+    border:1px solid #3EAAE8;
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+
+#deptUlList li{
+    padding:10px 30px;
+    margin:0px;
+    list-style: none;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+}
+
+#deptUlList li:hover{
+    background-color: #3EAAE8;
+    color:white;
+}
+
+#deptInfoUl li{
+    padding:10px 30px;
+    margin:0px;
+    list-style: none;
+}
+
+#middleDiv div{
+    width:100px;
+    margin: 0 auto;
+}
+
+#middleDiv button{
+    display: block;
+    width:80px;
+    height:30px;
+    font-size: 12px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #3EAAE8;
+    margin: 20px;
+    border:0px;
+    outline:none;
+    text-align: center;
+}

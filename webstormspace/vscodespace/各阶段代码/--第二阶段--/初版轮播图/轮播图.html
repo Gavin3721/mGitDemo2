@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        img {
+            height: 350px;
+            width: 620px;
+        }
+
+
+        @keyframes myAnimation {
+
+            0%,
+            25% {
+                margin-left: 0px;
+            }
+
+            25%,
+            66% {
+                margin-left: -620px;
+            }
+
+            75%,
+            100% {
+                margin-left: -1240px;
+            }
+        }
+
+        #viewPort {
+            border: 2px solid red;
+            height: 350px;
+            width: 620px;
+            margin: 50px auto;
+            /* overflow: hidden; */
+        }
+
+        #viewPort>div {
+            width: 1860px;
+            /* animation: myAnimation 5s 1s linear infinite ; */
+            font-size: 0;
+            /* border: 10px solid green; */
+            transition: all 2s;/* 过渡时间：all指所有的属性获得过渡效果 */
+        } 
+
+        label {
+            background-color: red;
+            padding: 20px 10px;
+            border-radius: 30px;
+        }
+
+        input {
+            display: none;
+        }
+
+        #pic1:checked~#viewPort>div {
+            margin-left: 0px;
+        }
+
+        #pic1:checked~#lab1 {
+            background-color: yellow;
+        }
+
+        #pic2:checked~#viewPort>div {
+            margin-left: -620px;
+        }
+
+        #pic2:checked~#lab2 {
+            background-color: yellow;
+        }
+
+        #pic3:checked~#viewPort>div {
+            margin-left: -1240px;
+        }
+
+        #pic3:checked~#lab3 {
+            background-color: yellow;
+        }
+
+        /* section{
+            font-size: 0;
+        }
+        span{
+            font-size: 16px;
+        } */
+    </style>
+</head>
+
+<body>
+    <!--轮播的窗口-->
+    <input id="pic1" type="radio" name="lunbo" />
+    <input id="pic2" type="radio" name="lunbo" />
+    <input id="pic3" type="radio" name="lunbo" />
+    <label id="lab1" for="pic1">图片1</label>
+    <label id="lab2" for="pic2">图片2</label>
+    <label id="lab3" for="pic3">图片3</label>
+    <div id="viewPort">
+        <div>
+            <img src="img/lanrenzhijia10.jpg" alt="" />
+            <img src="img/lanrenzhijia11.jpg" alt="" />
+            <img src="img/lanrenzhijia12.jpg" alt="" />
+        </div>
+    </div>
+
+    <!-- <section>
+        <span>aaaa</span>
+        <span>aaaa</span>
+        <span>aaaa</span>
+    </section> -->
+</body>
+
+</html>

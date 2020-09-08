@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*  1.序列：1，2，3，5，8，13...。找出第20个数是多少?得出前20个数之和是多少？
+         a b   a+b
+         b+ (a+b) */
+        var prev1 = 1, prev2 = 2;
+        var num = 0;
+        var sum = prev1 + prev2;
+        for (var i = 3; i <= 20; i++) {
+            num = prev1 + prev2;
+            sum += num;
+            prev1 = prev2;
+            prev2 = num;
+            if (i == 20) {
+                document.write("第" + i + "个数为：" + num + "<br/>");
+            }
+        }
+        document.write("前20个数的总和为：" + sum);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

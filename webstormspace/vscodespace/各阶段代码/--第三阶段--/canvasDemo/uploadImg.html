@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传头像</title>
+    <style>
+        .uplDiv {
+            border: 1px solid green;
+            cursor: pointer;
+            width: 80px;
+        }
+
+        #showImg {
+            width: 500px;
+            height: 500px;
+        }
+
+        #myCanvas {
+            /* height: 400px;
+            width: 400px; */
+            border: 1px solid rgb(150, 177, 150);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="uplDiv" onclick="chooseFile()">上传头像</div>
+    <img id="showImg" src="img/default.jpg" />
+    <input type="file" name="txtUpload" id="txtUpload" style="display:none" />
+
+    <div id="box">
+        <canvas id="myCanvas" width="400px" height="400px"></canvas>
+        <div id="myCut"></div>
+    </div>
+    <script>
+        var txtUpload = document.getElementById("txtUpload");
+        var showImg = document.getElementById("showImg");
+        var cj = document.getElementById("myCut");
+        var myCanvas = document.getElementById("myCanvas");
+        var context = myCanvas.getContext("2d");
+
+        window.onload = function () {
+            txtUpload.onchange = function () {
+                var file = txtUpload.files[0];
+                var reader = new FileReader(file);
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    showImg.src = this.result;//这里的this指的是reader读取出来的结果
+                    showImg.onload = function () {
+                        context.drawImage(showImg, 0, 0, 100, 100);
+                        //showImg.src = myCanvas.toDataURL("image/png");
+                    }
+                }
+            }
+
+
+            cj.onmousedown = function () {
+                var e = window.event || arguments[0];
+                var downX = e.clientX;
+                var downY = e.clientY;
+                var positionX = parseInt(document.defaultView.getComputedStyle(cj, null).left);
+                var positionY = parseInt(document.defaultView.getComputedStyle(cj, null).top);
+                var chaX = downX - positionX;
+                var chaY = downY - positionY;
+                cj.onmousemove = function () {
+                    var e = window.event || arguments[0];
+                    var X = e.clientX;
+                    var Y = e.clientY;
+                    var left = parseInt(X) - chaX;
+                    var top = parseInt(Y) - chaY;
+
+                    if (left > 0 && left < 100) {
+                        cj.style.left = left + "px";
+                        leftL = left;  //leftL 红框与显示区域左边的距离
+                    }
+                    if (top > 0 && top < 200) {
+                        cj.style.top = top + "px";
+                        topL = top;
+                    }
+                }
+                cj.onmouseup = function () {
+                    cj.onmousemove = null;
+                }
+            }
+        };
+
+        function chooseFile() {
+            var file = document.getElementById("txtUpload");
+            file.click();
+        }
+    </script>
+</body>
+
+</html>

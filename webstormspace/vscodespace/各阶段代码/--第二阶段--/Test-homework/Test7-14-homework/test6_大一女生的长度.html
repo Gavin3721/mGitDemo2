@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 练习六：
+        挑出其中所有是大一的女生的的名字：
+        ('小A','女',21,'大一'),  ('小B','男',23,'大三'),
+        ('小C','男',24,'大四'),  ('小D','女',21,'大一'),
+        ('小E','女',22,'大四'),  ('小F','男',21,'大一'),
+        ('小G','女',22,'大二'),  ('小H','女',20,'大三'),
+        ('小I','女',20,'大一'),  ('小J','男',20,'大三')*/
+
+        var studentArr = [
+            { name: "小A", sex: "女", age: "21", grade: "大一" },
+            { name: "小B", sex: "男", age: "23", grade: "大三" },
+            { name: "小C", sex: "男", age: "24", grade: "大一" },
+            { name: "小D", sex: "女", age: "21", grade: "大四" },
+            { name: "小E", sex: "女", age: "22", grade: "大四" },
+            { name: "小F", sex: "男", age: "21", grade: "大一" },
+            { name: "小G", sex: "女", age: "22", grade: "大二" },
+            { name: "小H", sex: "女", age: "20", grade: "大三" },
+            { name: "小I", sex: "女", age: "20", grade: "大一" },
+            { name: "小J", sex: "男", age: "20", grade: "大三" }
+        ];
+        document.write("大一的女生同学分别是：<br/>");
+        for (var i = 0; i < studentArr.length; i++) {
+            var student = studentArr[i];
+            if (student.grade == "大一" && student.sex == "女") {
+                document.write("姓名：" + student.name + "&nbsp;&nbsp;年龄：" + student.age + "<br/>");
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+            list-style: none;
+        }
+
+        #topDiv {
+            width: 100%;
+            height: auto;
+
+        }
+
+        #logoDiv {
+            width: 25%;
+            text-align: center;
+            background-color: #F7FBFC;
+            opacity: 0.5;
+            position: absolute;
+            margin: 0 auto;
+            top: 0px;
+            left: 0;
+            right: 0;
+        }
+
+        #topDiv>img {
+            width: 100%;
+            height: 500px;
+        }
+
+        nav {
+            width: 100%;
+            height: 100px;
+            line-height: 70px;
+            margin: 10px auto;
+            position: relative;
+            transition: transform 2s;
+            /* overflow: hidden; */
+        }
+
+        nav ul:first-child {
+            width: 100%;
+            color: #8B8B8A;
+            font-size: 16px;
+            display: table;
+        }
+
+        nav ul:first-child li {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        nav ul:first-child li:last-child {
+            color: #237BA5;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav ul:last-child {
+            width: 300px;
+            height: 100px;
+        }
+
+        #mDiv img {
+            width: 100%;
+            height: 800px;
+        }
+
+        #menuUl {
+            width: 300px;
+            height: 100px;
+            position: absolute;
+            top: 0px;
+            right: -300px;
+            background-color: #237BA5;
+        }
+
+        #menuUl li:first-child {
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            float: left;
+            background-color: white;
+        }
+
+        #menuUl img {
+            vertical-align: middle;
+            width: 200px;
+            height: 60px;
+        }
+
+        #menuUl li:last-child {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            float: left;
+            background-color: green;
+            text-align: center;
+        }
+
+          #menuUl span {
+            display: inline-block;
+            width: 50px;
+            border: 2px solid white;
+            /* position: relative; */
+            margin: 0 auto;
+            /* left:10px; */
+        }
+
+        /*#menuUl span:before,
+        #menuUl span:after {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            border: 2px solid white;
+            position: absolute;
+            left: -2px;
+            transition: all 0.5s;
+        } */
+    </style>
+</head>
+
+<body>
+    <div id="topDiv">
+        <div id="logoDiv"><img src="img/logo1.png" /></div>
+        <img src="img/345.jpg" />
+    </div>
+    <nav>
+        <ul>
+            <li>HOME</li>
+            <li>ACCOMMODATION</li>
+            <li>SERVICES</li>
+            <li>PACKAGES</li>
+            <li>REVIEWS</li>
+            <li>LOCATION</li>
+            <li>NEWS</li>
+            <li>WEDDINGS</li>
+            <li>GALLERY</li>
+            <li>07&nbsp;5447&nbsp;3422</li>
+        </ul>
+        <ul id="menuUl">
+            <li><img src="img/logo1.png" /></li>
+            <li><span></span></li>
+        </ul>
+
+    </nav>
+    <div id="mDiv">
+        <img src="img/123.jpg" />
+        <img src="img/234.jpg" />
+    </div>
+    <script>
+        var nav = document.getElementsByTagName("nav")[0];
+        var navTop = nav.offsetTop;//导航距离页面顶部的距离
+
+        window.onscroll = function () {
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            if (scrollTop > navTop) {
+                nav.style.position = "fixed";
+                nav.style.top = "0";
+                nav.style.left = "0";
+                nav.style.transform = "translateX(-100%)";
+            } else {
+                nav.style.position = "relative";
+                nav.style.top = "0";
+                nav.style.left = "0";
+                nav.style.transform = "translateX(0)";
+            }
+
+        };
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="showDiv" style="width:400px;height:400px;">
+    <img id="img" src="img/timg.jpg"/>
+</div>
+<script type="text/javascript">
+    /*JS点击显示与隐藏块。*/
+    document.getElementById("showDiv").onclick = function () {
+        var block = document.getElementById("img");
+        if (block.style.display == "none") {
+            block.style.display = 'block';//显示
+        } else
+            block.style.display = 'none';//隐藏
+    };
+</script>
+</body>
+</html>

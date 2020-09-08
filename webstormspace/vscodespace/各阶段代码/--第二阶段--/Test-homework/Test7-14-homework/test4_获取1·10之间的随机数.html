@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 练习四：
+        取得介于 1 到 10 之间的一个随机数；
+        随机得到不大于10的整数。 */
+        //获取0-1（不包含1）之间的随机数
+        var num = Math.random();
+        document.write(num + "<br/>");
+        //获取1-10之间的随机数
+        //Math.floor();进行下舍入
+        //Math.ceil();进行上舍入
+        var num2 = Math.floor(num * 10) + 1;
+        document.write(num2);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

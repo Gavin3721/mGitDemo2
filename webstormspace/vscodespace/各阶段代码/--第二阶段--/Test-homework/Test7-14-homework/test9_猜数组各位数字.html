@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /* 2.有一个4个长度的数组，每个位置装有0-9之间的随机数字，
+        有10次输入的机会来猜每个位置的上的数是什么，
+        每次猜完4个数字以后都要给出提示，正确几个 错误几个，
+        只有位置和数字完全正确才算正确，其他情况全视为错误。*/
+        var arr = new Array(4);
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = Math.floor(Math.random() * 10);
+        }
+        alert(arr);
+        var chanceNum = 0;
+        do {
+            var correctCount = 0, failCount = 0;
+            var num1 = prompt("请输入您所猜测的数字1");
+            var num2 = prompt("请输入您所猜测的数字2");
+            var num3 = prompt("请输入您所猜测的数字3");
+            var num4 = prompt("请输入您所猜测的数字4");
+
+            if (num1 == arr[0] && num2 == arr[1] && num3 == arr[2] && num4 == arr[3]) {
+                alert("您太厉害了，一次就猜对了，通关成功");
+                break;
+            } else {
+                num1 == arr[0] ? correctCount++ : failCount++;
+                num2 == arr[1] ? correctCount++ : failCount++;
+                num3 == arr[2] ? correctCount++ : failCount++;
+                num4 == arr[3] ? correctCount++ : failCount++;
+                chanceNum += 1;
+            }
+            alert("此次您猜对了" + correctCount + "个数，猜错了" + failCount + "个数，剩余次数为：" + (10 - failCount));
+            if (chanceNum == 10) {
+                alert("很抱歉，您的游戏次数已用完，挑战失败");
+                break;
+            }
+        } while (true);
+        document.write("正确的答案是：" + arr);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

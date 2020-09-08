@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/pay.css"/>
+</head>
+<body>
+<div id="container">
+    <!-- 头部-->
+    <%- include('./header'); %>
+    <!-- 内容-->
+    <div id="content">
+        <div id="contentMax">
+            <div id="contentOne">
+                最后一步，请尽快完成付款！
+            </div>
+            <div id="contentTwo">
+                请在下单后的24小时内完成支付，逾期将清空购物车。
+            </div>
+            <div id="contentThree">
+                <div id="contentThreeLeft">
+                    <div id="one">
+                        应付金额：
+                    </div>
+                    <div id="two">
+                        $3,150
+                    </div>
+                    <div id="three">
+                        <p>收货信息：董小姐  四川省-成都市-高新区  国信安  157****6666</p>
+                        <p> 送货时间：工作日/周末/假日均可</p>
+                    </div>
+                </div>
+            </div>
+            <div id="contentFour">
+                支付宝/财付通/微信支付
+            </div>
+            <div id="contentFive">
+                <div id="contentFiveLeft">
+                    <input type="radio" name="xuan"/>
+                    <img src="images/zhi.jpg" alt=""/>
+                </div>
+                <div id="contentFiveCenter">
+                    <input type="radio" name="xuan"/>
+                    <img src="images/zhi2.jpg" alt=""/>
+                </div>
+                <div id="contentFiveMiddom">
+                    <input type="radio" name="xuan"/>
+                    <img src="images/cai.jpg" alt=""/>
+                </div>
+                <div id="contentFiveRight">
+                    <input type="radio" name="xuan"/>
+                    <img src="images/wei.jpg" alt=""/>
+                </div>
+            </div>
+            <div id="contentSix">
+                立即支付
+            </div>
+        </div>
+    </div>
+    <%- include('./footer'); %>
+</div>
+<script type="text/javascript" src="js/javascript.js"></script>
+</body>
+</html>

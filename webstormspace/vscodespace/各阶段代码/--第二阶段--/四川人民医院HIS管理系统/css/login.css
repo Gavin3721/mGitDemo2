@@ -1,0 +1,67 @@
+#container{
+    position: absolute;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    height:320px;
+}
+
+#logodiv{
+    text-align:center;
+    margin-bottom:20px;
+    height: 120px;
+}
+
+#logodiv img:first-child{
+    width:50px;
+    vertical-align: middle;
+    padding-top: 5px;
+    -webkit-user-drag: none;
+}
+
+#logodiv img:last-child{
+    width:550px;
+    vertical-align: middle;
+    -webkit-user-drag: none;
+}
+
+#logindiv{
+    background-color:#94CBF7;
+    padding:20px;
+    border-radius:15px;
+    width:350px;
+    margin:auto;
+    margin-top:-20px;
+}
+
+#username{
+    width:330px;
+    margin-top:5px;
+    margin-bottom:20px;
+    border-radius: 5px;
+}
+
+#password{
+    width:330px;
+    margin-bottom:20px;
+    border-radius: 5px;
+}
+
+#loginbtn{
+    background-color:#2982C6;
+    border:0px solid #2982C6;
+    border-radius: 5px;
+    font-size:15px;
+    margin-bottom:5px;
+    cursor: pointer;
+}
+
+#loginbtn:hover{
+    opacity: 0.8;
+}
+
+.required {
+    border: solid 1px #f00;
+}
